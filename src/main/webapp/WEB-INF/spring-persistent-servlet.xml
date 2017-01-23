@@ -1,0 +1,50 @@
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:tx="http://www.springframework.org/schema/tx"
+       xmlns:mvc="http://www.springframework.org/schema/mvc"
+        xmlns:context="http://www.springframework.org/schema/context"
+        	xmlns:task="http://www.springframework.org/schema/task"
+        
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+                http://www.springframework.org/schema/beans/spring-beans.xsd
+                http://www.springframework.org/schema/mvc
+         		http://www.springframework.org/schema/mvc/spring-mvc.xsd
+                http://www.springframework.org/schema/tx
+                http://www.springframework.org/schema/tx/spring-tx.xsd 
+                http://www.springframework.org/schema/context
+                http://www.springframework.org/schema/context/spring-context.xsd
+                    http://www.springframework.org/schema/task
+        http://www.springframework.org/schema/task/spring-task.xsd
+                " >
+             
+	      <mvc:annotation-driven />
+	          <!-- Ensures scans all annotations -->
+    <context:component-scan base-package="com.spring.security.social.login.example"/>
+	 <mvc:resources mapping="/resources/**" location="/resources/" />
+	<mvc:resources mapping="/Images/**" location="file:/users/manojramana/Documents/source/images/" />
+    <tx:annotation-driven />
+
+	<task:annotation-driven/>
+
+    <!-- Ensures that configuration properties are read from a property file -->
+
+    <bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+        <property name="prefix">
+            <value>/WEB-INF/pages/</value>
+        </property>
+        <property name="suffix">
+            <value>.jsp</value>
+        </property>
+    </bean>
+ 
+    <bean id="multipartResolver"   class="org.springframework.web.multipart.commons.CommonsMultipartResolver" />
+      
+    <bean id="transactionManager" class="org.springframework.orm.hibernate4.HibernateTransactionManager">
+        <property name="sessionFactory" ref="loginSessionFactory"/>
+    </bean>
+    
+  
+    
+    
+
+</beans>
