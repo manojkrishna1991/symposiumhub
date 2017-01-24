@@ -33,6 +33,9 @@
     margin: 5em 0em 0em;
     padding: 5em 0em;
   }
+  img.lazy.cardimage {
+    min-height: 238px ! important;
+}
   </style>
 
 </head>

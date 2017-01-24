@@ -41,7 +41,7 @@
 }
 img[src="/resources/assets/images/2.gif"] {
     width: 100%;
-    height: 40px ! important;
+    min-height: 40px ! important;
     position: absolute;
     margin: auto;
     top: 50%;
