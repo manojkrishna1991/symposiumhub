@@ -12,7 +12,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
 
   <!-- Site Properties -->
-  <title>Symposium-Hub List Of Symposium</title>
+  <title>SymposiumHub List Of Symposium</title>
  <link rel="stylesheet" type="text/css" href="<c:url value='/resources/dist/semantic.min.css' />">
 
   <style type="text/css">

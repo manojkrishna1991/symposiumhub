@@ -47,4 +47,15 @@ public class LocalUserDetailService implements UserDetailsService {
         }
         return simpleGrantedAuthorities;
     }
+    
+
+    public User getUserById(String userId){
+    	 User user = userDAO.get(userId);
+         if (user == null) {
+             return null;
+         }
+         
+         return user;
+    }
+    
 }

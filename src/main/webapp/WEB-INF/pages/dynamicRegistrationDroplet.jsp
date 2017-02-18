@@ -11,7 +11,7 @@
 	content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
 
 <!-- Site Properties -->
-<title>Symposium-Hub Registration Fields</title>
+<title>SymposiumHub Registration Fields</title>
 <link rel="stylesheet" type="text/css"
 	href="<c:url value='/resources/dist/common.css' />">
 <link rel="stylesheet" type="text/css"

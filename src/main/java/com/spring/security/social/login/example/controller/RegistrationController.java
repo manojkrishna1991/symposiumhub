@@ -41,24 +41,31 @@ public class RegistrationController {
         return model;
     }
 
-    @RequestMapping(value = {"/user/register"}, method = RequestMethod.POST, consumes = "application/json", produces = "application/json")
-    public @ResponseBody ModelAndView registerUser(@RequestBody UserRegistrationForm registrationForm,HttpServletRequest request) throws UserAlreadyExistAuthenticationException {
+    @RequestMapping(value = {"/user/register"}, method = RequestMethod.POST)
+    public @ResponseBody ModelAndView registerUser(UserRegistrationForm registrationForm,HttpServletRequest request,HttpServletResponse response) throws UserAlreadyExistAuthenticationException, IOException {
 
         if (registrationForm.getUserId() == null) {
             registrationForm.setUserId(registrationForm.getUserId());
         }
+        LocalUser localUser=null;
+        ModelAndView model = new ModelAndView();
 
-        LocalUser localUser = (LocalUser) userService.registerNewUser(registrationForm);
-
+        try{
+        	localUser = (LocalUser) userService.registerNewUser(registrationForm);
+        }
+        catch(UserAlreadyExistAuthenticationException e){
+        	e.getMessage();
+            model.setViewName("redirect:/signup?message=username already exists");;
+            return model;
+        }
         SecurityUtil.authenticateUser(localUser);
 
-        ModelAndView model = new ModelAndView();
         model.addObject("title", "Spring security Hello World");
         model.addObject("user", localUser.getUsername());
         String userid=(String) request.getSession().getAttribute("userId");
         model.addObject("symposium", sympService.getSymposiumByUserId(userid));
         model.addObject("symposiumname", sympService.getSymposiumName(userid));
-        model.setViewName("dashboard");	
+        model.setViewName("redirect:/dashboard");	
         return model;
 
     }

@@ -136,7 +136,7 @@ body {
 <div class="six wide column">
 <div class="ui segment">
 <div class="ui list">
-  <a class="item"><h4>Many people like you have contributed to Symposium-hub thanks for your valuable contribution</h4></a>
+  <a class="item"><h4>Many people like you have contributed to SymposiumHub thanks for your valuable contribution</h4></a>
 
   
 </div>

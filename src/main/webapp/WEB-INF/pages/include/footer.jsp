@@ -36,7 +36,7 @@
 
 
 
- <script src="/resources/dist/components/dropdown.min.js"></script>
+<script src="/resources/dist/components/dropdown.min.js"></script>
 <script>
 
 $(document).on('click', '.order-button', function() { 
@@ -108,15 +108,19 @@ $('.ui.dropdown')
 
 </script>
 
-  
-       <script src="/resources/dist/jquery.slicknav.min.js"></script>
-      <script>
+
+<script src="/resources/dist/jquery.slicknav.min.js"></script>
+<script>
       $(document).ready(function() {
 	$(function(){
 		$('#menu2').slicknav();
-		$('.slicknav_menu').prepend('<div class="logos"><a href="/"><img class=logo" style="width: 200px; height: 46px;" src="/resources/assets/images/logo.png"></a></div>');
+		$('.slicknav_menu').prepend('<a href="/" class="header item" style=\"color: #00b5ad;\"><h1><i class="student icon"></i>SymposiumHub</h1></a>');
 	});
       });
+      
+  	$(".close.icon").click(function(){
+		  $(this).parent().hide();
+		});
 </script>
 
 
@@ -137,7 +141,7 @@ $('.ui.dropdown')
 
 
 
-<div class="ui inverted vertical footer segment pink">
+<div class="ui inverted vertical footer segment ">
 	<div class="ui center aligned container">
 		<!-- <div class="ui stackable inverted divided grid">
         <div class="three wide column">
@@ -173,14 +177,21 @@ $('.ui.dropdown')
         </div>
       </div> -->
 		<div class="ui inverted section divider"></div>
-		<a class="item" href="/"> <img style="width: 200px; height: 46px;"
+		<a class="item" href="/" style="color: #00b5ad;"> <!-- <img style="width: 200px; height: 46px;"
 			src="/resources/assets/images/logo.png"
-			class="ui centered mini image"></a>
-		<!-- <div class="ui horizontal inverted small divided link list">
-        <a class="item" href="/">Home</a>
+			class="ui centered mini image"> -->
+			<h1>SymposiumHub</h1>
+		</a>
+		<div class="ui horizontal inverted small divided link list">
+		<div class="pad10 ui action left icon input visible">
+						<input class="email" type="email" required="required"
+							placeholder="Enter Your Email">
+						<div class="subscribe-button ui teal button">Subscribe</div>
+					</div>
+      <!--   <a class="item" href="/">Home</a>
         <a class="item" href="/">Login</a>
         <a class="item" href="/">Register</a>
-        <a class="item" href="/"></a>
-      </div> -->
+        <a class="item" href="/"></a> -->
+      </div> 
 	</div>
 </div>

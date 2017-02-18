@@ -37,10 +37,10 @@
 
 </head>
 
-<body style="background-color: #EAEAEA;">
+<body >
 
 <%@ include file="include/header.jsp" %>
- <div class="pusher">
+ <div class="ui main container">
    
  
 <div class="ui grid" style="margin:121px 13px;">

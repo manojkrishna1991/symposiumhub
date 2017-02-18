@@ -15,16 +15,24 @@ import org.springframework.transaction.annotation.Transactional;
 import com.spring.security.social.login.example.Enum.CacheIdentifier;
 import com.spring.security.social.login.example.Enum.CacheNameEnum;
 import com.spring.security.social.login.example.database.dao.CordinatorDao;
+import com.spring.security.social.login.example.database.dao.PapersDao;
 import com.spring.security.social.login.example.database.dao.RegsiterForSymposiumDao;
 import com.spring.security.social.login.example.database.dao.SubscribeDao;
+import com.spring.security.social.login.example.database.dao.SymposiumCommentDao;
+import com.spring.security.social.login.example.database.dao.SymposiumCommentsReplyDao;
 import com.spring.security.social.login.example.database.dao.SymposiumDao;
 import com.spring.security.social.login.example.database.dao.SymposiumFieldsDao;
 import com.spring.security.social.login.example.database.model.Coordinator;
+import com.spring.security.social.login.example.database.model.Papers;
 /*import com.spring.security.social.login.example.database.model.ImageUrl;
 */import com.spring.security.social.login.example.database.model.RegisterForASymposium;
 import com.spring.security.social.login.example.database.model.Subscribe;
 import com.spring.security.social.login.example.database.model.Symposium;
+import com.spring.security.social.login.example.database.model.SymposiumComment;
+import com.spring.security.social.login.example.database.model.SymposiumCommentsReply;
 import com.spring.security.social.login.example.database.model.SymposiumRegistrationFields;
+import com.spring.security.social.login.example.dto.SymposiumCommentDto;
+import com.spring.security.social.login.example.dto.SymposiumDto;
 
 @Service("sympService")
 public class SymposiumService implements SymposiumServiceInterface {
@@ -42,10 +50,19 @@ public class SymposiumService implements SymposiumServiceInterface {
     private CordinatorDao cordinatorDao;
     
     @Autowired
+    private PapersDao papersDao;
+    
+    @Autowired
     private RegsiterForSymposiumDao regsiterForSymposiumDao;
     
     @Autowired
     private SymposiumFieldsDao sDao;
+    
+    @Autowired
+    private SymposiumCommentDao symposiumCommentDao;
+    
+    @Autowired
+    private SymposiumCommentsReplyDao symposiumCommentsReplyDao;
     
 	@Autowired
 	private SympoCacheManager sympoCache;
@@ -94,11 +111,15 @@ public class SymposiumService implements SymposiumServiceInterface {
 
 	
 	@Override
-	public Symposium getSymposium(String id) {
+	@Transactional(value = "transactionManager",readOnly=true )
+	public SymposiumDto getSymposium(String id) {
 		// TODO Auto-generated method stub
 		
+		Symposium symposium = sympDAO.get(id);
 		
-		return sympDAO.get(id);
+		SymposiumDto symposiumDto = new SymposiumDto(symposium);
+		
+		return  symposiumDto ;
 	}
 	
 	@Override
@@ -135,6 +156,14 @@ public class SymposiumService implements SymposiumServiceInterface {
 
 	}
 	
+	@Transactional(value = "transactionManager",readOnly=true )
+	@Override
+	public List<Symposium> getSymposiumByLimit(){
+		
+		return sympDAO.getAllSymposiumByLimit();
+		
+	}
+	
 	public List<Symposium> getSymposiumsBySymposiumId(String userId,String symposiumId)
 	{
 		return sympDAO.getSymposiumsBySymposiumId(userId,symposiumId);
@@ -159,6 +188,28 @@ public class SymposiumService implements SymposiumServiceInterface {
 		cordinatorDao.saveOrUpdate(coordinator);
 		cordinatorDao.flush();
 	}
+	
+	@Override
+	@Transactional(value = "transactionManager")
+	public void savePapers(Papers papers) {
+		// TODO Auto-generated method stub
+		papersDao.saveOrUpdate(papers);
+		papersDao.flush();
+	}
+	@Override
+	@Transactional(value = "transactionManager")
+	public void saveSymposiumComments(SymposiumComment symposiumComment) {
+		// TODO Auto-generated method stub
+		symposiumCommentDao.saveOrUpdate(symposiumComment);
+		symposiumCommentDao.flush();
+	}
+	@Override
+	@Transactional(value = "transactionManager",readOnly=true )
+	public SymposiumCommentDto getSymposiumComments(String commentId){
+		return     new SymposiumCommentDto(symposiumCommentDao.get(commentId));
+	}
+	
+
 	@Override
 	@Transactional(value = "transactionManager")
 	public void saveREgisterFields(SymposiumRegistrationFields sFields) {
@@ -185,6 +236,15 @@ public class SymposiumService implements SymposiumServiceInterface {
 	public void updateStatusToIsMailSent(List<String> list) {
 		 sympDAO.updateStatusToIsMailSent(list);
 
+	}
+
+	@Override
+	@Transactional(value = "transactionManager")
+	public void saveSymposiumCommentsReply(SymposiumCommentsReply symposiumCommentsReply) {
+		// TODO Auto-generated method stub
+		symposiumCommentsReplyDao.saveOrUpdate(symposiumCommentsReply);
+		symposiumCommentsReplyDao.flush();
+		
 	}
 	
 }

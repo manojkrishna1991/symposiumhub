@@ -23,6 +23,9 @@ import org.hibernate.annotations.FetchMode;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.spring.security.social.login.example.dto.SymposiumCommentDto;
+import com.spring.security.social.login.example.dto.SymposiumDto;
+
 /**
  * 
  * @author manoj
@@ -49,6 +52,100 @@ public class Symposium implements Serializable {
 	public void setSymposiumid(String symposiumid) {
 		this.symposiumid = symposiumid;
 	}
+	
+	public Symposium() {
+		
+		
+		
+	}
+	
+	
+	
+	public Symposium(SymposiumDto symposium) {
+		// TODO Auto-generated constructor stub
+		
+		
+		this. symposiumid = symposium.getSymposiumid() ;
+
+
+		
+		this. name= symposium.getName();
+
+		
+		this. collegeName= symposium.getCollegeName();
+
+		
+		this. department= symposium.getDepartment();
+
+		
+		this. country= symposium.getCountry();
+
+		
+		this.dateOfEvent= symposium.getDateOfEvent();
+
+		
+		this. webAddress= symposium.getWebAddress();
+
+		
+		this. address= symposium.getAddress();
+
+		
+		this. impDescription= symposium.getImpDescription();
+
+		
+		this.fromDate= symposium.getFromDate();
+
+		this.toDate= symposium.getToDate();
+
+		this. regEmail= symposium.getRegEmail();
+
+		this. excludeReg= symposium.getExcludeReg();
+
+		this. events= symposium.getEvents();
+		
+		this. symposiumPapers= symposium.getSymposiumPapers();
+		
+		this. userId= symposium.getUserId();
+		
+		this.createdDate=symposium.getCreatedDate();
+
+		this. imageUrl= symposium.getImageUrl();
+		
+		this. paymentType= symposium.getPaymentType();
+		
+		
+
+		this. paymentDetail= symposium.getPaymentDetail();
+		
+		
+		this. phoneNo= symposium.getPhoneNo();
+		
+		this. emailId= symposium.getEmailId();
+		
+		this. mobileNo= symposium.getMobileNo();
+		
+		this. compressedPath= symposium.getCompressedPath();
+		
+		this. papers= symposium.getPapers();
+		
+		
+		for (SymposiumCommentDto symcom : symposium.getSymposiumComment()) {
+			
+			this.symposiumComment.add(new SymposiumComment(symcom));
+		}
+		
+		this.file= symposium.getFile();
+
+		this. registerForSymposium= symposium.getRegisterForSymposium();
+
+		this.coordinators= symposium.getCoordinators();
+		
+		
+		this.coordinatorsAsList= symposium.getCoordinatorsAsList();
+		
+		
+	}
+	
 
 	@Column
 	private String name;
@@ -122,8 +219,30 @@ public class Symposium implements Serializable {
 	@Column
 	private String compressedPath;
 	
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "symposium")
+	private List<Papers> papers;
 	
 	
+
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "symposium")
+	private List<SymposiumComment> symposiumComment = new ArrayList<>();
+
+	public List<SymposiumComment> getSymposiumComment() {
+		return symposiumComment;
+	}
+
+	public void setSymposiumComment(List<SymposiumComment> symposiumComment) {
+		this.symposiumComment = symposiumComment;
+	}
+
+	public List<Papers> getPapers() {
+		return papers;
+	}
+
+	public void setPapers(List<Papers> papers) {
+		this.papers = papers;
+	}
+
 	public String getCompressedPath() {
 		return compressedPath;
 	}

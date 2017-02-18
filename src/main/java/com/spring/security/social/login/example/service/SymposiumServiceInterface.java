@@ -5,11 +5,16 @@ import java.util.List;
 
 import com.spring.security.social.login.example.database.model.Coordinator;
 import com.spring.security.social.login.example.database.model.Event;
+import com.spring.security.social.login.example.database.model.Papers;
 /*import com.spring.security.social.login.example.database.model.ImageUrl;
 */import com.spring.security.social.login.example.database.model.RegisterForASymposium;
 import com.spring.security.social.login.example.database.model.Subscribe;
 import com.spring.security.social.login.example.database.model.Symposium;
+import com.spring.security.social.login.example.database.model.SymposiumComment;
+import com.spring.security.social.login.example.database.model.SymposiumCommentsReply;
 import com.spring.security.social.login.example.database.model.SymposiumRegistrationFields;
+import com.spring.security.social.login.example.dto.SymposiumCommentDto;
+import com.spring.security.social.login.example.dto.SymposiumDto;
 
 /**
  * 
@@ -24,7 +29,7 @@ public interface SymposiumServiceInterface {
 			RegisterForASymposium symposium);
 	
 
-	public Symposium getSymposium(String id);
+	public SymposiumDto getSymposium(String id);
 
 	public List<Symposium> getSymposiumByUserId(String userID);
 
@@ -49,7 +54,16 @@ public interface SymposiumServiceInterface {
 	
 	public void updateStatusToIsMailSent(List<String> list) ;
 	
+	public List<Symposium> getSymposiumByLimit();
+
 	
+	public void savePapers(Papers paper);
+	
+	public void saveSymposiumComments(SymposiumComment symposiumComment);
+	
+	public SymposiumCommentDto getSymposiumComments(String commentId);
+	
+	public void saveSymposiumCommentsReply(SymposiumCommentsReply symposiumCommentsReply);
 
 	
 }

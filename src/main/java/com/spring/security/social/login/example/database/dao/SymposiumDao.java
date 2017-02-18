@@ -125,6 +125,17 @@ public class SymposiumDao implements GenericDao<Symposium,String> {
 		
 	}
 	
+	public List<Symposium> getAllSymposiumByLimit()
+	{
+		 Query q = template.getSessionFactory().getCurrentSession().createQuery(" FROM Symposium order by createdDate desc");
+		 q.setFirstResult(0); // modify this to adjust paging
+		 q.setMaxResults(4);
+		 List<Symposium> symposium = (List<Symposium>) q.list();
+		 
+		 return symposium;
+		
+	}
+	
 	public List<Object[]> getValidSymposiumRegistrations() {
 		List<Object[]> symposiumRegistrationsList = new ArrayList<Object[]>();
 		Query q = template.getSessionFactory().getCurrentSession().createSQLQuery(

@@ -1,5 +1,7 @@
 package com.spring.security.social.login.example.controller;
 
+import static org.hamcrest.CoreMatchers.instanceOf;
+
 import java.io.BufferedOutputStream;
 import java.io.File;
 import java.io.FileOutputStream;
@@ -20,11 +22,15 @@ import org.apache.commons.lang.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.beans.propertyeditors.CustomDateEditor;
 import org.springframework.beans.propertyeditors.StringTrimmerEditor;
+import org.springframework.security.authentication.AnonymousAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.social.security.SocialAuthenticationException;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.WebDataBinder;
@@ -39,12 +45,23 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.spring.security.social.login.example.database.model.Coordinator;
+import com.spring.security.social.login.example.database.model.Papers;
 import com.spring.security.social.login.example.database.model.RegisterForASymposium;
 import com.spring.security.social.login.example.database.model.Subscribe;
 import com.spring.security.social.login.example.database.model.Symposium;
+import com.spring.security.social.login.example.database.model.SymposiumComment;
+import com.spring.security.social.login.example.database.model.SymposiumCommentsReply;
+import com.spring.security.social.login.example.database.model.User;
+import com.spring.security.social.login.example.dto.CommentsDto;
+import com.spring.security.social.login.example.dto.LocalUser;
 import com.spring.security.social.login.example.dto.SocialUser;
+import com.spring.security.social.login.example.dto.SymposiumCommentDto;
+import com.spring.security.social.login.example.dto.SymposiumCommentsReplyDto;
+import com.spring.security.social.login.example.dto.SymposiumDto;
 import com.spring.security.social.login.example.email.EmailQueue;
+import com.spring.security.social.login.example.service.LocalUserDetailService;
 import com.spring.security.social.login.example.service.SymposiumServiceInterface;
+import com.spring.security.social.login.example.service.UserService;
 import com.spring.security.social.login.example.util.FileUtils;
 /**
  * 
@@ -59,9 +76,14 @@ public class HomeController {
 
 	  @Autowired
 	  private SymposiumServiceInterface  sympService;
+	  
+	  @Autowired
+	  private UserService registrationUserDetailService;
+	  
 	  @Value("${imagepath}")
 	  private String imagePath;
-	  
+	  @Value("${filepath}")
+	  private String filePath;
 	  @Autowired
 	  private EmailQueue queue;
 	  
@@ -197,7 +219,11 @@ public class HomeController {
     public ModelAndView viewSymposium(@PathVariable String symposiumId,@PathVariable String symposiumname, HttpServletRequest request, HttpServletResponse response) throws ServletException,IOException {
         ModelAndView model = new ModelAndView();
         model.addObject("title", "Login Page");
-        model.addObject("symposiumview", sympService.getSymposium(symposiumId));
+        SymposiumDto symposium=sympService.getSymposium(symposiumId);
+        model.addObject("symposiumview", symposium);
+       
+        
+        model.addObject("comment", symposium.getSymposiumComment());
         model.setViewName("symposiumview");
         SocialUser socialUser=(SocialUser)request.getSession().getAttribute("user");
         if(socialUser!=null)
@@ -212,7 +238,10 @@ public class HomeController {
     public ModelAndView registerForSymposium(RegisterForASymposium  regsymposium, HttpServletRequest request, HttpServletResponse response) throws ServletException,IOException {
         ModelAndView model = new ModelAndView();
         model.addObject("title", "Login Page");
-        Symposium symposium = sympService.getSymposium(regsymposium.getSymposiumIddoto());
+        SymposiumDto symposiumDto = sympService.getSymposium(regsymposium.getSymposiumIddoto());
+        
+        Symposium symposium = new Symposium(symposiumDto);
+        
         regsymposium.setSymposium(symposium); 
         regsymposium.setIsMailSent(Boolean.FALSE);
         sympService.regsiterForSymposium(regsymposium);
@@ -236,12 +265,25 @@ public class HomeController {
         Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         if (principal instanceof UserDetails) {
             userName = ((UserDetails) principal).getUsername();
-            SocialUser socialUser=(SocialUser)principal;
-            System.out.println(socialUser.getUserId());
-            if(socialUser !=null && socialUser.getUserId()!=null){
-            request.getSession().setAttribute("userId",socialUser.getUserId());
-            request.getSession().setAttribute("user",socialUser);
+            if(principal instanceof LocalUser){
+            	LocalUser user=(LocalUser)principal;
+                System.out.println(user.getUserId());
+                if(user !=null && user.getUserId()!=null){
+                SocialUser socialUser=new SocialUser(user.getUserId(),user.getUsername(),"dummy", user.isEnabled(), user.isAccountNonExpired(), user.isCredentialsNonExpired(), user.isAccountNonLocked(), user.getAuthorities());
+                request.getSession().setAttribute("userId",user.getUserId());
+                request.getSession().setAttribute("user",socialUser);
             }
+            }
+            
+                if(principal instanceof SocialUser){
+                	SocialUser socialUser=(SocialUser)principal;
+                    System.out.println(socialUser.getUserId());
+                    if(socialUser !=null && socialUser.getUserId()!=null){
+                    request.getSession().setAttribute("userId",socialUser.getUserId());
+                    request.getSession().setAttribute("user",socialUser);
+                }
+                }
+            
         } else {
             userName = principal.toString();
         }
@@ -288,7 +330,11 @@ public class HomeController {
 			 String Linkpath="/"+"Images"+"/"+name;
 			 String thumbLinkPath="/"+"Images"+"/"+thumbName;
 
-			 Symposium symposium = sympService.getSymposium(symposiumId);
+			 SymposiumDto symposiumDto = sympService.getSymposium(symposiumId);
+			 
+		        Symposium symposium = new Symposium(symposiumDto);
+
+			 
 			 //set the image url in sympsoium
 			 symposium.setImageUrl(Linkpath);
 			 symposium.setCompressedPath(thumbLinkPath);
@@ -361,7 +407,154 @@ public class HomeController {
         return model;
     }
 
+    @RequestMapping(value = "/uploadpapers", method = RequestMethod.POST)
+    public ModelAndView uploadpaper(@RequestParam("file")  MultipartFile file,HttpServletRequest request, HttpServletResponse response) throws ServletException,IOException {
+    	String symposiumId=request.getParameter("paperid"); 
+    	String userName=request.getParameter("username");
+    	String contactNo=request.getParameter("contactno");
+    	String collegeName=request.getParameter("collegename");
+    	String emailId=request.getParameter("emailid");
+    	
+    	 ModelAndView model = new ModelAndView();
+         SymposiumDto symposiumDto=sympService.getSymposium(symposiumId);
+         
+         Symposium symposium = new Symposium(symposiumDto);
+         
+         
+         String filename = file.getOriginalFilename();
+			String id=UUID.randomUUID().toString();
+			String Imagedirectorypath=filePath;
+			File Imagedirectory = new File(filePath);
+			if (!Imagedirectory.exists()) {
+				if (Imagedirectory.mkdir()) {
+					logger.debug("Directory created successfully");
+				} else {
+					logger.debug("Failed to create directory!");
+				}
+			}
+			 int filesCount = FileUtils.getCount(Imagedirectorypath,null);
+			 String name=FileUtils.getFilePath(filename, filesCount,null);
+			 String finalpath=(Imagedirectorypath + "/"+ name);
+			 String Linkpath="/"+"Papers"+"/"+name;
+			
+			 
+			 if (!file.isEmpty()) {
+		         try {
+		             byte[] bytes = file.getBytes();
+		             File finalImagepath = new File(finalpath);
+		             BufferedOutputStream stream =new BufferedOutputStream(new FileOutputStream(finalImagepath));
+		             stream.write(bytes);
+		             stream.close();
+		             
+		            
+		         } catch (Exception e) {
+		        	 System.out.println(e.getMessage());  
+		         }
+		     } 
+			 Papers paper=new Papers();
+			 paper.setSymposium(symposium);
+			 paper.setFilePath(Linkpath);
+			 paper.setCollegeName(collegeName);
+			 paper.setContactNo(contactNo);
+			 paper.setEmailId(emailId);
+			 paper.setUserName(userName);
+		     sympService.savePapers(paper);
+         model.addObject("papersubmitted", true);
+         model.setViewName("redirect:/symposiumview/" + symposiumId+"/"+symposium.getName());
+         return model;
+    }
     
- 
+    @RequestMapping(value = "/symposiumpapers/{symposiumId}", method = RequestMethod.GET)
+    public ModelAndView viewPapers(@PathVariable String symposiumId,HttpServletRequest request, HttpServletResponse response) throws ServletException,IOException {
+       
+    	ModelAndView model = new ModelAndView();
+        model.addObject("title", "Login Page");
+        String userid=(String) request.getSession().getAttribute("userId");
+        model.addObject("symposiumname", sympService.getSymposiumName(userid));
+        model.addObject("symposium", sympService.getSymposiumsBySymposiumId(userid, symposiumId));
+        model.setViewName("symposiumpapers");	
+        SocialUser socialUser=(SocialUser)request.getSession().getAttribute("user");
+        if(socialUser!=null)
+        {
+        	model.addObject("authenticated", Boolean.TRUE);
+        }
+        return model;
+        
+    }
+    @RequestMapping(value = "/postcomment", method = RequestMethod.POST)
+    public ModelAndView postComments(CommentsDto commentsDto,HttpServletRequest request, HttpServletResponse response) throws ServletException,IOException {
+       
+    	UserDetails socialUser=null;
+    	if(checkSession()){
+    	 socialUser = (UserDetails)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+    	}
+		
+    	SymposiumDto symposiumDto=sympService.getSymposium(commentsDto.getSymposiumId());
+        Symposium symposium = new Symposium(symposiumDto);
+
+        if(socialUser!=null){
+    	User user=(User) registrationUserDetailService.getUserById(socialUser.getUserId());
+
+    	SymposiumComment symposiumComment=new SymposiumComment();
+    	symposiumComment.setComment(commentsDto.getComment());
+    	symposiumComment.setSymposium(symposium);
+    	symposiumComment.setUser(user);
+    	sympService.saveSymposiumComments(symposiumComment);
+        }
+    	ModelAndView model = new ModelAndView();
+        model.addObject("title", symposium.getName());
+        model.setViewName("redirect:/symposiumview/" + commentsDto.getSymposiumId()+"/"+symposium.getName());        
+        return model;
+        
+    }
+    
+    
+    @RequestMapping(value = "/postreply", method = RequestMethod.POST)
+    public ModelAndView postReply(SymposiumCommentsReplyDto symposiumCommentsReplyDto,HttpServletRequest request, HttpServletResponse response) throws ServletException,IOException {
+       
+    	UserDetails socialUser=null;
+    	ModelAndView model = new ModelAndView();
+    	if(checkSession()){
+    	 socialUser = (UserDetails)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+    	}
+    	if(StringUtils.isEmpty(symposiumCommentsReplyDto.getCommentId())){
+    		  model.setViewName("home");    
+    		  return model;
+    	}
+		
+        SymposiumCommentDto symposiumComment=sympService.getSymposiumComments(symposiumCommentsReplyDto.getCommentId());
+        
+        String symposiumName=symposiumComment.getSymposium();
+        
+        
+        if(socialUser!=null){
+    	User user=(User) registrationUserDetailService.getUserById(socialUser.getUserId());
+
+        SymposiumCommentsReply symposiumCommentsReply=new SymposiumCommentsReply();
+        symposiumCommentsReply.setPostedDate(new Date());
+        symposiumCommentsReply.setReply(symposiumCommentsReplyDto.getReply());
+        SymposiumComment comment=new SymposiumComment();
+        
+        comment.setId(symposiumComment.getId());
+        
+        symposiumCommentsReply.setSymposiumComment(comment);
+        symposiumCommentsReply.setUser(user);
+    	sympService.saveSymposiumCommentsReply(symposiumCommentsReply);
+        }
+    	
+        model.addObject("title",symposiumName );
+        model.setViewName("redirect:/symposiumview/" + symposiumComment.getSymposiumId()+"/"+symposiumName);        
+        return model;
+        
+    }
+    
+	public boolean checkSession() {
+		if (SecurityContextHolder.getContext().getAuthentication() != null
+				&& SecurityContextHolder.getContext().getAuthentication().isAuthenticated()
+				&& !(SecurityContextHolder.getContext().getAuthentication() instanceof AnonymousAuthenticationToken)) {
+			return true;
+		}
+		return false;
+	}
 	
 }

@@ -2,7 +2,7 @@
 	pageEncoding="ISO-8859-1"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
-
+ <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <html>
 <head>
 <!-- Standard Meta -->
@@ -101,6 +101,9 @@ label {
 						href="/editsymposium/${symposiumview.symposiumid}"
 						style="margin-left: 10px;"> EDIT </a>
 				</c:if>
+					<a class="ui primary button paperupload" data-id="${symposiumview.symposiumid}"
+						href="#" 
+						style="margin-left: 10px;"> Upload Papers </a>
 			</h4>
 			<div class="ui three item menu">
 				<a data-tab="one" class="item ">Photo</a> <a data-tab="two"
@@ -401,7 +404,85 @@ label {
 					</c:choose>
 				</form>
 			</div>
+			
+			<div class="ui comments">
+  <h3 class="ui dividing header">Comments</h3>
+  
+  <c:forEach var="comm" items="${comment}">
+
+<div class="comment">
+    <a class="avatar">
+      <img src="/resources/images/matt.jpg" style="height:auto;">
+    </a>
+    <div class="content">
+      <a class="author">  ${comm.user.name}</a>
+      <div class="metadata">
+        <span class="date"> 
+        Posted On
+        <fmt:formatDate type="both" value="${comm.postedDate}" />
+        </span>
+      </div>
+      <div class="text">
+       ${comm.comment}
+      </div>
+      
+      
+      <div class="actions">
+        <a class="reply"  onclick="openreply(${comm.id});">Reply</a>
+      </div>
+    </div>
+    
+    <form class="ui reply form" action="/postreply" id="${comm.id}" modelAttribute="symposiumCommentsReplyDto" method="post" style="display:none;">
+    <input type="hidden" name="commentId" value="${comm.id}">
+    <div class="field">
+      <textarea name="reply"></textarea>
+    </div>
+    <div class="ui blue labeled submit icon button">
+      <i class="icon edit"></i> Add Reply
+    </div>
+  </form>
+      <c:forEach var="replies" items="${comm.reply}">
+     <div class="comments">
+      <div class="comment">
+        <a class="avatar">
+          <img src="/resources/images/matt.jpg" style="height:auto;">
+        </a>
+        <div class="content">
+          <a class="author">${replies.user.name }</a>
+          <div class="metadata">
+            <span class="date">${replies.postedDate}</span>
+          </div>
+          <div class="text">
+           ${replies.reply }
+          </div>
+          
+        </div>
+      </div>
+    </div>
+    </c:forEach>
+  </div>
+  
+  
+					</c:forEach>
+					
+					
+  
+<form action="/postcomment" class="ui reply form" modelAttribute="commentsDto" method="post">
+<input type="hidden" name="symposiumId"
+						value="${symposiumview.symposiumid}">
+    <div class="field">
+      <textarea name="comment"></textarea>
+    </div>
+    <div class="ui blue labeled submit icon button">
+      <i class="icon edit"></i> Add Comments
+    </div>
+  </form>
+  
+</div>
+			
+			
 		</div>
+		
 	</div>
 
 
@@ -493,10 +574,22 @@ label {
 		});
 
 	}
+	
+	
+function openreply(object){
+alert(object);
+	document.getElementById(object).style.display="block";
+}
 </script>
 
 <!-- edit popup functionality  -->
 
 <jsp:include page="editpopup.jsp" />
+<jsp:include page="paperUploadModal.jsp" />
 
+<c:if test="${param.papersubmitted}">
+<script>
+$('.paperuploadsuccess').modal('show');
+</script>
+</c:if>
 </html>

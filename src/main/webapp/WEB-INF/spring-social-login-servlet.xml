@@ -1,15 +1,16 @@
 <beans xmlns="http://www.springframework.org/schema/beans"
 	xmlns:security="http://www.springframework.org/schema/security"
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:mongo="http://www.springframework.org/schema/data/mongo"
-	 xmlns:context="http://www.springframework.org/schema/context"
+	 
 	xsi:schemaLocation="http://www.springframework.org/schema/beans
                     http://www.springframework.org/schema/beans/spring-beans.xsd
                      http://www.springframework.org/schema/data/mongo
                      http://www.springframework.org/schema/data/mongo/spring-mongo-1.0.xsd
                     http://www.springframework.org/schema/security
                     http://www.springframework.org/schema/security/spring-security.xsd
-                   
-           
+                      http://www.springframework.org/schema/websocket
+                    http://www.springframework.org/schema/websocket/spring-websocket.xsd
+                  
                  ">
 
 
@@ -21,6 +22,8 @@
 			<value>classpath:application.properties</value>
 		</property>
 	</bean>
+	
+	
 
   
 	<!-- data source, sessionfactory, hiberate template & transaction manager -->
@@ -31,6 +34,10 @@
 		<property name="username" value="${database.username}"></property>
 		<property name="password" value="${database.password}"></property>
 	</bean>
+	
+	<bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+    <property name="dataSource" ref="dataSource" />
+    </bean>
 	<bean id="loginSessionFactory"
 		class="org.springframework.orm.hibernate4.LocalSessionFactoryBean">
 		<property name="dataSource" ref="dataSource" />
@@ -75,7 +82,7 @@
 	<!-- form login beans -->
 	<bean id="appAuthenticationEntryPoint"
 		class="com.spring.security.social.login.example.entrypoint.AppAuthenticationEntryPoint">
-		<constructor-arg name="loginFormUrl" value="/" />
+		<constructor-arg name="loginFormUrl" value="/login" />
 	</bean>
 	<bean id="rememberMeServices"
 		class="org.springframework.security.web.authentication.NullRememberMeServices" />
@@ -102,7 +109,7 @@
 		class="org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter"
 		id="SecurityAuthFilter">
 		<property name="authenticationManager" ref="authenticationManager" />
-		<property name="authenticationSuccessHandler" ref="successHandler" />
+		<property name="authenticationSuccessHandler" ref="successHandler" />		
 		<property name="authenticationFailureHandler" ref="failureHandler" />
 		<property name="filterProcessesUrl" value="/j_spring_security_check" />
 		<property name="rememberMeServices" ref="rememberMeServices" />
@@ -115,11 +122,16 @@
 		security="none" />
 	<security:http pattern="/Images/**" security="none" />
 	<security:http pattern="/accessdenied" security="none" />
-	<security:http pattern="/signup" security="none" />
-	<security:http pattern="/user/register" security="none" />
+	<security:http pattern="/http/**" security="none"/>
 	<security:http disable-url-rewriting="true"
 		use-expressions="true" entry-point-ref="appAuthenticationEntryPoint">
 
+<security:intercept-url pattern="/login**"
+			access="permitAll" />
+<security:intercept-url pattern="/signup**"
+			access="permitAll" />
+		<security:intercept-url pattern="/user/register**"
+			access="permitAll" />
 		<security:intercept-url pattern="/viewsymposium/**"
 			access="permitAll" />
 		<security:intercept-url pattern="/viewconference/**"
@@ -137,8 +149,21 @@
 			access="permitAll" />
 		<security:intercept-url pattern="/multilogin"
 			access="permitAll" />
+			<security:intercept-url pattern="/uploadpapers"
+			access="permitAll" />
+			<security:intercept-url pattern="/postcomment"
+			access="permitAll" />
+			
+			<security:intercept-url pattern="/aboutus"
+			access="permitAll" />
+				
 		<security:intercept-url pattern="/**"
 			access="isAuthenticated()" />
+			
+      <security:session-management>
+        <security:concurrency-control
+            session-registry-ref="sessionRegistry" max-sessions="1" expired-url="/login?message=&quot;multiple sessions not allowed&quot; " />
+    </security:session-management>
 
 		<!-- Adds social authentication filter to the Spring Security filter chain. -->
 		<security:custom-filter before="PRE_AUTH_FILTER"
@@ -229,8 +254,10 @@
 
 
 
-	<bean
-		class="org.springframework.web.servlet.mvc.annotation.AnnotationMethodHandlerAdapter">
+  
+
+
+	<bean class="org.springframework.web.servlet.mvc.annotation.AnnotationMethodHandlerAdapter">
 		<property name="messageConverters">
 			<list>
 				<bean
@@ -242,5 +269,9 @@
 	</bean>
 
 	<bean id="jacksonObjectMapper" class="com.fasterxml.jackson.databind.ObjectMapper" />
+	
+
+
+
 
 </beans>

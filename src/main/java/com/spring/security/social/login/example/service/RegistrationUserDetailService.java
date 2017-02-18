@@ -38,11 +38,17 @@ public class RegistrationUserDetailService implements UserService {
     public LocalUser registerNewUser(final UserRegistrationForm userRegistrationForm) throws UserAlreadyExistAuthenticationException {
 
         com.spring.security.social.login.example.database.model.User userExist = userDAO.get(userRegistrationForm.getUserId());
-        if (userExist != null) {
+        if (userExist != null && !userExist.getProvider().equalsIgnoreCase("NONE")) {
         	  com.spring.security.social.login.example.database.model.User user = buildUser(userRegistrationForm);
         	  return (LocalUser) userDetailService.loadUserByUsername(userRegistrationForm.getUserId());
            
         }
+        if (userExist != null && userExist.getProvider().equalsIgnoreCase("NONE")) {
+      	  
+        	throw new UserAlreadyExistAuthenticationException("username already exists");
+         
+      }
+        
           
         com.spring.security.social.login.example.database.model.User user = buildUser(userRegistrationForm);
         userDAO.save(user);
@@ -70,4 +76,11 @@ public class RegistrationUserDetailService implements UserService {
         user.setProvider(formDTO.getSocialProvider().name());
         return user;
     }
+
+	@Override
+	public User getUserById(String userId) {
+		// TODO Auto-generated method stub
+		return userDAO.get(userId);
+		
+	}
 }

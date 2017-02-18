@@ -32,6 +32,8 @@ public class User implements Serializable{
 
     @Column(name = "PROVIDER", nullable = false, length = 32)
     private String provider;
+    
+  
 
     @ManyToMany(fetch = FetchType.EAGER,cascade = CascadeType.ALL)
     @JoinTable(
