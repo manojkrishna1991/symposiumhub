@@ -1,4 +1,4 @@
-package com.spring.security.social.login.example.controller;
+package com.symposiumhub.controller;
 
 import java.awt.print.Book;
 import java.io.BufferedOutputStream;
@@ -37,17 +37,17 @@ import org.supercsv.io.CsvBeanWriter;
 import org.supercsv.io.ICsvBeanWriter;
 import org.supercsv.prefs.CsvPreference;
 
-import com.spring.security.social.login.example.database.model.HelloMessage;
-import com.spring.security.social.login.example.database.model.Profile;
-import com.spring.security.social.login.example.database.model.RegisterForASymposium;
-import com.spring.security.social.login.example.database.model.Symposium;
-import com.spring.security.social.login.example.database.model.SymposiumRegistrationFields;
-import com.spring.security.social.login.example.datasource.ProfileComponent;
-import com.spring.security.social.login.example.dto.SymposiumDto;
-import com.spring.security.social.login.example.service.ActiveUserStore;
-import com.spring.security.social.login.example.service.LoggedUser;
-import com.spring.security.social.login.example.service.SymposiumServiceInterface;
-import com.spring.security.social.login.example.util.FileUtils;
+import com.symposiumhub.datasource.ProfileComponent;
+import com.symposiumhub.dto.SymposiumDto;
+import com.symposiumhub.model.HelloMessage;
+import com.symposiumhub.model.Profile;
+import com.symposiumhub.model.RegisterForASymposium;
+import com.symposiumhub.model.Symposium;
+import com.symposiumhub.model.SymposiumRegistrationFields;
+import com.symposiumhub.service.ActiveUserStore;
+import com.symposiumhub.service.LoggedUser;
+import com.symposiumhub.service.SymposiumServiceInterface;
+import com.symposiumhub.util.FileUtils;
 
 /**
  * This Spring controller class implements a CSV file download functionality.

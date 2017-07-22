@@ -1,15 +1,15 @@
-package com.spring.security.social.login.example.registry;
+package com.symposiumhub.registry;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.social.connect.Connection;
 import org.springframework.social.connect.ConnectionSignUp;
 import org.springframework.social.connect.UserProfile;
 
-import com.spring.security.social.login.example.util.SecurityUtil;
-import com.spring.security.social.login.example.dto.LocalUser;
-import com.spring.security.social.login.example.dto.SocialProvider;
-import com.spring.security.social.login.example.dto.UserRegistrationForm;
-import com.spring.security.social.login.example.service.UserService;
+import com.symposiumhub.dto.LocalUser;
+import com.symposiumhub.dto.SocialProvider;
+import com.symposiumhub.dto.UserRegistrationForm;
+import com.symposiumhub.service.UserService;
+import com.symposiumhub.util.SecurityUtil;
 
 /**
  * If no local user associated with the given connection then

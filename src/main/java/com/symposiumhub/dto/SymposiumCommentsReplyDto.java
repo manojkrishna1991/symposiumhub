@@ -1,11 +1,11 @@
-package com.spring.security.social.login.example.dto;
+package com.symposiumhub.dto;
 
 import java.io.Serializable;
 import java.util.Date;
 
-import com.spring.security.social.login.example.database.model.SymposiumComment;
-import com.spring.security.social.login.example.database.model.SymposiumCommentsReply;
-import com.spring.security.social.login.example.database.model.User;
+import com.symposiumhub.model.SymposiumComment;
+import com.symposiumhub.model.SymposiumCommentsReply;
+import com.symposiumhub.model.User;
 
 public class SymposiumCommentsReplyDto implements Serializable {
 	

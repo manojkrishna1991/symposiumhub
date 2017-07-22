@@ -1,4 +1,4 @@
-package com.spring.security.social.login.example.service;
+package com.symposiumhub.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -10,8 +10,8 @@ import org.springframework.social.security.SocialUserDetails;
 import org.springframework.social.security.SocialUserDetailsService;
 import org.springframework.stereotype.Service;
 
-import com.spring.security.social.login.example.dto.LocalUser;
-import com.spring.security.social.login.example.dto.SocialUser;
+import com.symposiumhub.dto.LocalUser;
+import com.symposiumhub.dto.SocialUser;
 
 /**
  * @author <a href="mailto:sunil.pulugula@wavemaker.com">Sunil Kumar</a>

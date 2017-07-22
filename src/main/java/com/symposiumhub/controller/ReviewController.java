@@ -1,4 +1,4 @@
-package com.spring.security.social.login.example.controller;
+package com.symposiumhub.controller;
 
 import java.io.BufferedOutputStream;
 import java.io.File;
@@ -34,13 +34,15 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.spring.security.social.login.example.database.dao.ReviewDao;
-import com.spring.security.social.login.example.database.model.College;
-import com.spring.security.social.login.example.database.model.Notification;
-import com.spring.security.social.login.example.database.model.Review;
-import com.spring.security.social.login.example.datasource.CollegeComponent;
-import com.spring.security.social.login.example.datasource.NotificationComponent;
-import com.spring.security.social.login.example.util.FileUtils;
+import com.symposiumhub.database.dao.ReviewDao;
+import com.symposiumhub.datasource.CollegeComponent;
+import com.symposiumhub.datasource.NotificationComponent;
+import com.symposiumhub.datasource.ProfileComponent;
+import com.symposiumhub.model.College;
+import com.symposiumhub.model.Notification;
+import com.symposiumhub.model.Profile;
+import com.symposiumhub.model.Review;
+import com.symposiumhub.util.FileUtils;
 
 @Controller
 public class ReviewController {
@@ -53,9 +55,12 @@ public class ReviewController {
 
 	@Value("${imagepath}")
 	private String imagePath;
-	
+
 	@Autowired
 	private NotificationComponent notificationComponent;
+
+	@Autowired
+	private ProfileComponent profile;
 
 	private static final Log logger = LogFactory.getLog(ReviewController.class);
 
@@ -70,24 +75,28 @@ public class ReviewController {
 
 		if (!collegeById.isEmpty()) {
 			model.addAttribute("college", collegeById.get(0));
-			
+
 			String compressedPath = collegeById.get(0).getCompressedPath();
 			String compressedPathOne = collegeById.get(0).getCompressedPathOne();
+			List<String> compressedPathList = null;
 			
-			List<String> compressedPathList=new ArrayList<String>();
-			
-			compressedPathList.add(compressedPath);
-			if(StringUtils.isNotEmpty(compressedPathOne)){
-				compressedPathList.add(compressedPathOne);
-
+			if(!StringUtils.isEmpty(compressedPath)){
+				compressedPathList = new ArrayList<String>();
+				compressedPathList.add(compressedPath);
 			}
 			
+			if (!StringUtils.isEmpty(compressedPathOne)) {
+				if(compressedPathList==null){
+					compressedPathList = new ArrayList<String>();
+				}
+					compressedPathList.add(compressedPathOne);
+			}
 			model.addAttribute("images", compressedPathList);
-			
+
 			List<Review> reviewsByCollgeId = reviewDao.getReviewsByCollgeId(collegename);
-			
+
 			model.addAttribute("reviews", reviewsByCollgeId);
-			
+
 		}
 
 		ModelAndView modelAndView = new ModelAndView();
@@ -96,24 +105,28 @@ public class ReviewController {
 		return modelAndView;
 	}
 
-	@RequestMapping(value = "/review/{start}", method = RequestMethod.GET)
-	public ModelAndView review(@PathVariable Integer start,Integer end,Model model, HttpServletRequest request) {
-
-		UserDetails user = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+	@RequestMapping(value = { "/review/{start}" }, method = RequestMethod.GET)
+	public ModelAndView review(@PathVariable Integer start, Integer end, Model model, HttpServletRequest request) {
 
 		ModelAndView modelAndView = new ModelAndView();
-		
-		model.addAttribute("page",start);
-		
-		start=start-1;
 
-		List<College> college2 = college.getCollegeLimit(start*100);
+		model.addAttribute("page", start);
+
+		start = start - 1;
+
+		List<College> college2 = college.getCollegeLimit(start * 100);
 
 		model.addAttribute("college", college2);
 
 		modelAndView.setViewName("review");
 
 		return modelAndView;
+	}
+
+	@RequestMapping(value = { "/review" }, method = RequestMethod.GET)
+	public ModelAndView review(Model model, HttpServletRequest request) {
+
+		return review(1, 0, model, request);
 	}
 
 	@RequestMapping(value = "/writereview", method = RequestMethod.GET)
@@ -138,24 +151,31 @@ public class ReviewController {
 
 		UserDetails user = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 
-
 		ModelAndView modelAndView = new ModelAndView();
 
 		reviewDao.saveReview(review);
-		
-		
-		college.updateRating(reviewDao.getAverageReviews(review.getCollegeId()),review.getCollegeId());
+
+		college.updateRating(reviewDao.getAverageReviews(review.getCollegeId()), review.getCollegeId());
 
 		model.addAttribute("user", user);
-		
-		String messagetext="you review is posted";
-		
-		Notification notification=new Notification();
-		notification.setNotification(user.getUsername() +"posted a review <a href=\"/page/"+review.getCollegeId()+"\"</a>");
+
+		String messagetext = "you review is posted";
+
+		Notification notification = new Notification();
+		notification.setNotification(
+				user.getUsername() + "posted a review <a href=\"/page/" + review.getCollegeId() + "\"</a>");
 		notification.setType("REVIEW");
+
+		List<Profile> profile2 = this.profile.getProfile(user.getUserId());
+
+		if (!profile2.isEmpty()) {
+			notification.setFromprofileid(profile2.get(0).getId());
+		}
+
 		notificationComponent.add(notification);
 
-		modelAndView.setViewName("redirect:/page/"+review.getCollegeId()+"?message=success&messagetext="+messagetext+"");
+		modelAndView.setViewName(
+				"redirect:/page/" + review.getCollegeId() + "?message=success&messagetext=" + messagetext + "");
 		return modelAndView;
 	}
 
@@ -248,8 +268,6 @@ public class ReviewController {
 			if (index == 1) {
 				collegeById.get(0).setCompressedPathOne(thumbLinkPath);
 			}
-			
-			
 
 			index++;
 
@@ -258,23 +276,30 @@ public class ReviewController {
 		ModelAndView models = new ModelAndView("redirect:/page/" + collegeId);
 		return models;
 	}
-	
+
 	@RequestMapping(value = "/contact", method = RequestMethod.GET)
-	public void review(String code,Model model, HttpServletRequest request,HttpServletResponse response) throws IOException {
-		
+	public void review(String code, Model model, HttpServletRequest request, HttpServletResponse response)
+			throws IOException {
+
 		HttpClient client = new DefaultHttpClient();
-        HttpPost post = new HttpPost("https://accounts.google.com/o/oauth2/token");
-        List<NameValuePair> pairs = new ArrayList<NameValuePair>();
-        pairs.add(new BasicNameValuePair("code", code));
-        pairs.add(new BasicNameValuePair("client_id", "569882321678-21d4jae0fg82b04hfkf4jebgt4nb8p2l.apps.googleusercontent.com"));
-        pairs.add(new BasicNameValuePair("client_secret", "eqz5_WDV8idjy1s7HA4FG92V"));
-        pairs.add(new BasicNameValuePair("redirect_uri", "http://localhost:8080/contact"));
-        pairs.add(new BasicNameValuePair("grant_type", "authorization_code")); //Leave this line how it is   
-        post.setEntity(new UrlEncodedFormEntity(pairs));
-        org.apache.http.HttpResponse responses = client.execute(post);
-        String responseBody = EntityUtils.toString(responses.getEntity());
-        
-        response.getWriter().println(responseBody);
+		HttpPost post = new HttpPost("https://accounts.google.com/o/oauth2/token");
+		List<NameValuePair> pairs = new ArrayList<NameValuePair>();
+		pairs.add(new BasicNameValuePair("code", code));
+		pairs.add(new BasicNameValuePair("client_id",
+				"569882321678-21d4jae0fg82b04hfkf4jebgt4nb8p2l.apps.googleusercontent.com"));
+		pairs.add(new BasicNameValuePair("client_secret", "eqz5_WDV8idjy1s7HA4FG92V"));
+		pairs.add(new BasicNameValuePair("redirect_uri", "http://localhost:8080/contact"));
+		pairs.add(new BasicNameValuePair("grant_type", "authorization_code")); // Leave
+																				// this
+																				// line
+																				// how
+																				// it
+																				// is
+		post.setEntity(new UrlEncodedFormEntity(pairs));
+		org.apache.http.HttpResponse responses = client.execute(post);
+		String responseBody = EntityUtils.toString(responses.getEntity());
+
+		response.getWriter().println(responseBody);
 	}
 
 }

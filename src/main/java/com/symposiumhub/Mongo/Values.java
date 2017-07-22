@@ -1,4 +1,4 @@
-package com.spring.security.social.login.example.Mongo;
+package com.symposiumhub.Mongo;
 
 public class Values {
 

@@ -1,7 +1,7 @@
 <beans xmlns="http://www.springframework.org/schema/beans"
 	xmlns:security="http://www.springframework.org/schema/security"
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:mongo="http://www.springframework.org/schema/data/mongo"
-	 
+
 	xsi:schemaLocation="http://www.springframework.org/schema/beans
                     http://www.springframework.org/schema/beans/spring-beans.xsd
                      http://www.springframework.org/schema/data/mongo
@@ -14,18 +14,18 @@
                  ">
 
 
-    
-    
-		<bean id="projectPropertyConfigurer"
+
+
+	<bean id="projectPropertyConfigurer"
 		class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
 		<property name="location">
 			<value>classpath:application.properties</value>
 		</property>
 	</bean>
-	
-	
 
-  
+
+
+
 	<!-- data source, sessionfactory, hiberate template & transaction manager -->
 	<bean id="dataSource"
 		class="org.springframework.jdbc.datasource.DriverManagerDataSource">
@@ -34,14 +34,18 @@
 		<property name="username" value="${database.username}"></property>
 		<property name="password" value="${database.password}"></property>
 	</bean>
-	
+
+
+
+
 	<bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
-    <property name="dataSource" ref="dataSource" />
-    </bean>
+		<property name="dataSource" ref="dataSource" />
+	</bean>
+
 	<bean id="loginSessionFactory"
 		class="org.springframework.orm.hibernate4.LocalSessionFactoryBean">
 		<property name="dataSource" ref="dataSource" />
-		<property name="packagesToScan" value="com.spring.security.social.login.example" />
+		<property name="packagesToScan" value="com.symposiumhub" />
 		<property name="hibernateProperties">
 			<props>
 				<prop key="hibernate.hbm2ddl.auto">
@@ -56,12 +60,12 @@
 			</props>
 		</property>
 	</bean>
-    
-    <bean id="hibernateTemplate" class="org.springframework.orm.hibernate4.HibernateTemplate">
-        <property name="sessionFactory" ref="loginSessionFactory"/>
-    </bean> 
 
-	
+	<bean id="hibernateTemplate" class="org.springframework.orm.hibernate4.HibernateTemplate">
+		<property name="sessionFactory" ref="loginSessionFactory" />
+	</bean>
+
+
 
 
 	<!-- authentication manager and its provider( social provider deals with 
@@ -80,14 +84,16 @@
 	</bean>
 
 	<!-- form login beans -->
-	<bean id="appAuthenticationEntryPoint"
-		class="com.spring.security.social.login.example.entrypoint.AppAuthenticationEntryPoint">
+	<bean id="appAuthenticationEntryPoint" class="com.symposiumhub.entrypoint.AppAuthenticationEntryPoint">
 		<constructor-arg name="loginFormUrl" value="/login" />
 	</bean>
 	<bean id="rememberMeServices"
 		class="org.springframework.security.web.authentication.NullRememberMeServices" />
 	<bean id="successHandler"
-		class="com.spring.security.social.login.example.handler.AppSuccessHandler" />
+	class="com.symposiumhub.handler.AppSuccessHandler">
+	<!-- After login, return to the last visited page -->
+	<property name="useReferer" value="true" />
+	</bean>
 	<bean id="failureHandler"
 		class="org.springframework.security.web.authentication.SimpleUrlAuthenticationFailureHandler">
 		<constructor-arg name="defaultFailureUrl" value="/accessdenied" />
@@ -109,7 +115,7 @@
 		class="org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter"
 		id="SecurityAuthFilter">
 		<property name="authenticationManager" ref="authenticationManager" />
-		<property name="authenticationSuccessHandler" ref="successHandler" />		
+		<property name="authenticationSuccessHandler" ref="successHandler" />
 		<property name="authenticationFailureHandler" ref="failureHandler" />
 		<property name="filterProcessesUrl" value="/j_spring_security_check" />
 		<property name="rememberMeServices" ref="rememberMeServices" />
@@ -121,26 +127,19 @@
 	<security:http pattern="/addcokieforredirection/**"
 		security="none" />
 	<security:http pattern="/Images/**" security="none" />
-	<security:http pattern="/accessdenied" security="none" />
-	<security:http pattern="/http/**" security="none"/>
+
+	<security:http pattern="/http/**" security="none" />
 	<security:http disable-url-rewriting="true"
 		use-expressions="true" entry-point-ref="appAuthenticationEntryPoint">
-
-<security:intercept-url pattern="/login**"
+		<security:intercept-url pattern="/accessdenied"
 			access="permitAll" />
-<security:intercept-url pattern="/signup**"
+		<security:intercept-url pattern="/login**"
+			access="permitAll" />
+		<security:intercept-url pattern="/signup**"
 			access="permitAll" />
 		<security:intercept-url pattern="/user/register**"
 			access="permitAll" />
-		<security:intercept-url pattern="/viewsymposium/**"
-			access="permitAll" />
-		<security:intercept-url pattern="/viewconference/**"
-			access="permitAll" />
-		<security:intercept-url pattern="/symposiumview/**"
-			access="permitAll" />
 		<security:intercept-url pattern="/auth/**"
-			access="permitAll" />
-		<security:intercept-url pattern="/registerforsymposium"
 			access="permitAll" />
 		<security:intercept-url pattern="/j_spring_security_check"
 			access="permitAll" />
@@ -149,21 +148,36 @@
 			access="permitAll" />
 		<security:intercept-url pattern="/multilogin"
 			access="permitAll" />
-			<security:intercept-url pattern="/uploadpapers"
+		<security:intercept-url pattern="/uploadpapers"
 			access="permitAll" />
-			<security:intercept-url pattern="/postcomment"
+		<security:intercept-url pattern="/postcomment"
+			access="permitAll" />
+		<security:intercept-url pattern="/aboutus"
+			access="permitAll" />
+		<security:intercept-url pattern="/forgotpassword"
+			access="permitAll" />
+		<security:intercept-url pattern="/resetpassword"
+			access="permitAll" />
+		<security:intercept-url pattern="/eventregistration"
 			access="permitAll" />
 			
-			<security:intercept-url pattern="/aboutus"
+			<security:intercept-url pattern="/view-event/**"
 			access="permitAll" />
+		
+				<security:intercept-url pattern="/event/**"
+			access="permitAll" />		
 				
+			<security:intercept-url pattern="/review/**"
+			access="permitAll" />
+
 		<security:intercept-url pattern="/**"
 			access="isAuthenticated()" />
-			
-      <security:session-management>
-        <security:concurrency-control
-            session-registry-ref="sessionRegistry" max-sessions="1" expired-url="/login?message=&quot;multiple sessions not allowed&quot; " />
-    </security:session-management>
+
+		<security:session-management>
+			<security:concurrency-control
+				session-registry-ref="sessionRegistry" max-sessions="1"
+				expired-url="/login?message=&quot;multiple sessions not allowed&quot; " />
+		</security:session-management>
 
 		<!-- Adds social authentication filter to the Spring Security filter chain. -->
 		<security:custom-filter before="PRE_AUTH_FILTER"
@@ -172,6 +186,7 @@
 			ref="SecurityAuthFilter" />
 		<security:custom-filter position="LOGOUT_FILTER"
 			ref="logoutFilter" />
+		<security:remember-me key="uniqueAndSecret" />
 	</security:http>
 
 	<!-- social login filter which is a/services pre authentication filter and 
@@ -199,7 +214,7 @@
 
 	<!-- service registry will holds connection factory of each social provider -->
 	<bean id="appSocialAuthenticationServiceRegistry"
-		class="com.spring.security.social.login.example.registry.AppSocialAuthenticationServiceRegistry">
+		class="com.symposiumhub.registry.AppSocialAuthenticationServiceRegistry">
 		<constructor-arg>
 			<list>
 				<ref bean="facebookAuthenticationService" />
@@ -241,8 +256,7 @@
 
 	<!-- If no local user is associated to a social connection then connection 
 		sign up will create a new local user and map it to social user -->
-	<bean id="connectionSignUp"
-		class="com.spring.security.social.login.example.registry.AppConnectionSignUp" />
+	<bean id="connectionSignUp" class="com.symposiumhub.registry.AppConnectionSignUp" />
 
 	<mongo:mongo host="127.0.0.1" port="27017" />
 	<mongo:db-factory dbname="yourdb" />
@@ -254,10 +268,11 @@
 
 
 
-  
 
 
-	<bean class="org.springframework.web.servlet.mvc.annotation.AnnotationMethodHandlerAdapter">
+
+	<bean
+		class="org.springframework.web.servlet.mvc.annotation.AnnotationMethodHandlerAdapter">
 		<property name="messageConverters">
 			<list>
 				<bean
@@ -269,7 +284,7 @@
 	</bean>
 
 	<bean id="jacksonObjectMapper" class="com.fasterxml.jackson.databind.ObjectMapper" />
-	
+
 
 
 

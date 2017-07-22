@@ -135,17 +135,16 @@ body {
 
 
 	<div class="ui main  container">
-	
-			<%@ include file="include/message.jsp" %>
-	
+
+		<%@ include file="include/message.jsp"%>
+
 
 		<div class="ui segment">
-
 			<div class="ui top attached tabular menu">
-				<a class="active item" data-tab="first">Profile Information</a> <a
-					class="item" data-tab="second">Edit Profile & Settings</a>
+				<a class=" item ${message ne 'error' ? 'active':''}" data-tab="first">Profile Information</a> <a
+					class=" item ${message eq 'error' ? 'active':''}" data-tab="second">Edit Profile & Settings</a>
 			</div>
-			<div class="ui bottom attached active tab segment" data-tab="first">
+			<div class="ui bottom attached ${message ne 'error' ? 'active':''} tab segment" data-tab="first">
 				<div class="ui grid">
 
 					<div
@@ -153,7 +152,7 @@ body {
 						<div class="ui medium image">
 							<c:if test="${empty profile.photo}">
 
-								<img src="/resources/assets/images/avatar/nan.jpg">
+								<img src="/resources/assets/images/wireframe/image.png">
 							</c:if>
 							<c:if test="${not empty profile.photo}">
 
@@ -168,24 +167,24 @@ body {
 					<div
 						class="sixteen wide mobile eight wide tablet six wide computer column">
 						<h2 class="ui header user-card-name">About me</h2>
-
 						<p style="text-align: justify; word-break: break-word;">${profile.aboutMe}.</p>
-
-
-
 					</div>
 
 					<div
 						class="sixteen wide mobile eight wide tablet four wide computer column">
 						<h2 class="ui header user-card-name">${user.getUsername()}</h2>
-						<p>Lives in <b>${profile.place}</b></p>
-						<p>Gender <b>${profile.gender}</b></p>
+						<p>
+							Lives in <b>${profile.place}</b>
+						</p>
+						<p>
+							Gender <b>${profile.gender}</b>
+						</p>
 					</div>
 
 				</div>
 
 			</div>
-			<div class="ui bottom attached tab segment" data-tab="second">
+			<div class="ui bottom attached ${message eq 'error' ? 'active':''} tab segment" data-tab="second">
 
 				<div class="ui grid">
 
@@ -194,7 +193,7 @@ body {
 						<div class="ui medium image">
 							<c:if test="${empty profile.photo}">
 
-								<img src="/resources/assets/images/avatar/nan.jpg">
+								<img src="/resources/assets/images/wireframe/image.png">
 							</c:if>
 							<c:if test="${not empty profile.photo}">
 

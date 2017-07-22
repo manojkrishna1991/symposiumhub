@@ -1,20 +1,19 @@
-package com.spring.security.social.login.example.service;
+package com.symposiumhub.service;
 
 
 import java.util.List;
 
-import com.spring.security.social.login.example.database.model.Coordinator;
-import com.spring.security.social.login.example.database.model.Event;
-import com.spring.security.social.login.example.database.model.Papers;
-/*import com.spring.security.social.login.example.database.model.ImageUrl;
-*/import com.spring.security.social.login.example.database.model.RegisterForASymposium;
-import com.spring.security.social.login.example.database.model.Subscribe;
-import com.spring.security.social.login.example.database.model.Symposium;
-import com.spring.security.social.login.example.database.model.SymposiumComment;
-import com.spring.security.social.login.example.database.model.SymposiumCommentsReply;
-import com.spring.security.social.login.example.database.model.SymposiumRegistrationFields;
-import com.spring.security.social.login.example.dto.SymposiumCommentDto;
-import com.spring.security.social.login.example.dto.SymposiumDto;
+import com.symposiumhub.dto.SymposiumCommentDto;
+import com.symposiumhub.dto.SymposiumDto;
+import com.symposiumhub.model.Coordinator;
+import com.symposiumhub.model.Event;
+import com.symposiumhub.model.Papers;
+import com.symposiumhub.model.RegisterForASymposium;
+import com.symposiumhub.model.Subscribe;
+import com.symposiumhub.model.Symposium;
+import com.symposiumhub.model.SymposiumComment;
+import com.symposiumhub.model.SymposiumCommentsReply;
+import com.symposiumhub.model.SymposiumRegistrationFields;
 
 /**
  * 

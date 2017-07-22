@@ -101,7 +101,7 @@ body {
 				
 								<div class="ui horizontal divider">Or</div>
 				
-		<form class="login_form" name='loginForm' action="<c:url value='/user/register' />" method='POST'>
+		<form class="ui form login_form"  name='loginForm' action="<c:url value='/user/register' />" method='POST'>
 				<div class="column">
 					<div class="ui form" >
 					  <div class="two fields">
@@ -172,7 +172,7 @@ body {
 						</div> -->
 						<input type="hidden" id="socialProvider" name="socialProvider" value="NONE" />
 						
-						<button  class="ui blue submit button">Register</button>
+						<button type="submit" class="ui blue submit button">Register</button>
 						
 						<span style="color:red"><c:out value="${param.message}" /></span>
 
@@ -184,50 +184,6 @@ body {
 			</div>
 			</div>
 			
-
-<!--        <div id="registrationForm">
-       
-       <TABLE border="0" cellspacing="5" cellpadding="3">
-       <TR>
-                   <th> UserId </th>
-                   <td><input type="text" id="userId" name="userId" placeholder="UserId"  /></td>
-              </TR>
-       <TR>
-            <th> EmailId </th>
-            <td><input type="text" id="email" name="email" placeholder="EmailId"  /></td>
-       </TR>
-       <TR>
-            <th> FirstName </th>
-            <td><input type="text" id="firstName" name="firstName" placeholder="FirstName"  /></td>
-       </TR>
-       <TR>
-            <th> LastName   </th>
-            <td><input type="text" id="lastName" name="lastName" placeholder="LastName"  /></td>
-       </TR>
-       <TR>
-            <th> Phone Number </th>
-            <td><input type="text" id="phoneno" name="phoneno" placeholder="Phone Number"  /></td>
-       </TR>
-       <TR>
-            <th> Password  </th>
-            <td><input type="password" id="password" name="password" placeholder="Password" /></td>
-       </TR>
-       <TR>
-            <th> Confirm Password </th>
-            <td><input type="password" id="confirmpassword" name="confirmpassword" placeholder="Confirm Password" /></td>
-       </TR>
-       <TR>
-            <th>
-                <input type="hidden" id="socialProvider" name="socialProvider" value="NONE" />
-                <button type="button" id="doRegister" onclick=" proceed()">Submit</button>
-            </th>
-       </TR>
-       </TABLE>
-       
-       </div>
-</div>
-
-</div> -->
 
  <script src="/resources/assets/library/jquery.min.js"></script>
     <script src="/resources/dist/components/dimmer.min.js"></script>
@@ -265,6 +221,23 @@ body {
             });
 
         }
+     
+     
+ 	$(function() {
+
+		$('.ui.form').form({
+			fields : {
+				userId : 'empty',
+				email : ['empty','email'],
+				password : 'empty',
+				confirmpassword :['empty','match[password]'],
+				firstName : 'empty',
+				lastName : 'empty'
+			},
+			inline : true,
+			on : 'blur'
+		});
+	});
 
 </script>
 

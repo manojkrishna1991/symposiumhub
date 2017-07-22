@@ -1,4 +1,4 @@
-package com.spring.security.social.login.example.database.dao;
+package com.symposiumhub.database.dao;
 
 import java.io.Serializable;
 import java.util.List;
@@ -7,8 +7,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.orm.hibernate4.HibernateTemplate;
 import org.springframework.stereotype.Service;
 
-import com.spring.security.social.login.example.database.model.Symposium;
-import com.spring.security.social.login.example.database.model.SymposiumRegistrationFields;
+import com.symposiumhub.model.Symposium;
+import com.symposiumhub.model.SymposiumRegistrationFields;
 @Service
 public class SymposiumFieldsDao  implements GenericDao<SymposiumRegistrationFields, Integer>  { 
 	 @Autowired

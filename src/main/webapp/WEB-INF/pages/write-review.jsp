@@ -25,8 +25,8 @@
 <link rel="stylesheet" type="text/css" href="/resources/slick/slick.css" />
 <link rel="stylesheet" type="text/css"
 	href="/resources/slick/slick-theme.css" />
-  <script src="/resources/dist/tinymce/tinymce.min.js"></script>
-  <script>tinymce.init({
+<script src="/resources/dist/tinymce/tinymce.min.js"></script>
+<script>tinymce.init({
 	  selector: 'textarea',
 	  height: 200,
 	  theme: 'modern',
@@ -113,8 +113,8 @@ body {
 	height: 60% !important;
 }
 
-.ui.form .field>label{
-font-size:1.928571em !important;
+.ui.form .field>label {
+	font-size: 1.928571em !important;
 }
 </style>
 
@@ -126,63 +126,60 @@ font-size:1.928571em !important;
 	<div class="ui main text container">
 		<div class="row">
 			<div class="ui segment">
-			
-			
+
+
 				<form class="ui form" action="<c:url value='/writereview' />"
-							method="post">
-							
-							<div class="field">
-								<label>College Name</label> 
-								
-								<div class="ui fluid search selection dropdown">
-								<input type="hidden" name="collegeId"> <i
-									class="dropdown icon"></i>
-								<div class="default text">Select Country</div>
-								<div class="menu">
+					method="post">
+
+					<div class="field">
+						<label>College Name</label>
+						<div class="ui fluid search selection dropdown">
+							<input type="hidden" name="collegeId"> <i
+								class="dropdown icon"></i>
+							<div class="default text">Select College</div>
+							<div class="menu">
 								<c:forEach var="college" items="${college}">
 									<div class="item" data-value="${college.id}">
-										${college.name}
-									</div>
-									</c:forEach>
-									</div>
-									
-									</div>
+										${college.name}</div>
+								</c:forEach>
 							</div>
+						</div>
+					</div>
 
 
-							<%-- <div class="field">
+					<%-- <div class="field">
 								<label>Where You Live</label> <input
 									value="${profile.getPlace()}" type="text" name="place"
 									placeholder="Where You Live">
 							</div> --%>
-							
-							<div class="field">
-								<label>Review</label>
-								<textarea type="text" name="review" placeholder="Review">${profile.getAboutMe()}</textarea>
-							</div>
-							
-							<div class="field">
-								<label>Rating</label>
-							<div class="ui star rating" data-rating="3" data-max-rating="5"></div>
-							</div>
 
-							<input type="hidden" name="userId" value="${user.getUserId()}">
-							<input type="hidden" id="rating" name="rating" value="">
-							
-							<div style="padding: 20px;text-align: center">
+					<div class="field">
+						<label>Review</label>
+						<textarea type="text" name="review" placeholder="Review">${profile.getAboutMe()}</textarea>
+					</div>
 
-							<button class="massive ui teal  button" type="submit">Save</button>
-							
-							</div>
-						</form>
-			
-			
-			
+					<div class="field">
+						<label>Rating</label>
+						<div class="ui star rating" data-rating="3" data-max-rating="5"></div>
+					</div>
+
+					<input type="hidden" name="userId" value="${user.getUserId()}">
+					<input type="hidden" id="rating" name="rating" value="3">
+
+					<div style="padding: 20px; text-align: center">
+
+						<button class="massive ui teal  button" type="submit">Save</button>
+
+					</div>
+				</form>
+
+
+
 			</div>
 		</div>
-		
-		
-		
+
+
+
 	</div>
 
 
@@ -219,9 +216,9 @@ font-size:1.928571em !important;
 
 	<script src="/resources/dist/components/rating.min.js">	
 </script>
-	
-	
-	
+
+
+
 
 	<div class="ui modal modal1">
 		<i class="close icon"></i>

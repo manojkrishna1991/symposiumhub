@@ -1,4 +1,4 @@
-package com.spring.security.social.login.example.exception;
+package com.symposiumhub.exception;
 
 import org.springframework.security.core.AuthenticationException;
 

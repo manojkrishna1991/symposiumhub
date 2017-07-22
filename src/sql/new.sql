@@ -12,10 +12,11 @@ userName varchar(255) DEFAULT NULL,
 collegeName varchar(255) DEFAULT NULL,
 contactNo varchar(255) DEFAULT NULL,
 emailId varchar(255) DEFAULT NULL,
-PRIMARY KEY (`id`),
+PRIMARY KEY (id),
 KEY symposiumid (symposiumid)
 );
 
+--new script
 
 
 CREATE TABLE symposiumcomment
@@ -90,6 +91,10 @@ createDate TIMESTAMP  DEFAULT CURRENT_TIMESTAMP,
 PRIMARY KEY (id)
 )ENGINE=InnoDB AUTO_INCREMENT=52 DEFAULT CHARSET=utf8;
 
+
+
+
+
 alter table college add column rating int(11);
 
 alter table college add column compressedPath varchar(255);
@@ -115,27 +120,27 @@ primary key(id)
 
 )ENGINE=InnoDB AUTO_INCREMENT=52 DEFAULT CHARSET=utf8;
 
-CREATE TABLE `updates` (
-`update_id` INT(11) AUTO_INCREMENT ,
-`message` VARCHAR(234),
-`profile_id_fk` int(11),
-`created` INT(11) ,
-`ip` VARCHAR(45),
-PRIMARY KEY (`update_id`),
+CREATE TABLE updates (
+update_id INT(11) AUTO_INCREMENT ,
+message VARCHAR(234),
+profile_id_fk int(11),
+created INT(11) ,
+ip VARCHAR(45),
+PRIMARY KEY (update_id),
 KEY profile_id_fk (profile_id_fk)  ,
 FOREIGN KEY (profile_id_fk) REFERENCES profile(id))ENGINE=InnoDB AUTO_INCREMENT=52 DEFAULT CHARSET=utf8;
 
-CREATE  TABLE `logindb`.`notification` (
-  `Id` INT(11) NOT NULL AUTO_INCREMENT ,
-  `notification` VARCHAR(234) NULL ,
-  `Type` VARCHAR(45) NULL ,
-  PRIMARY KEY (`Id`) )ENGINE=InnoDB AUTO_INCREMENT=52 DEFAULT CHARSET=utf8;
+CREATE  TABLE logindb.notification (
+  Id INT(11) NOT NULL AUTO_INCREMENT ,
+  notification VARCHAR(234) NULL ,
+  Type VARCHAR(45) NULL ,
+  PRIMARY KEY (Id) )ENGINE=InnoDB AUTO_INCREMENT=52 DEFAULT CHARSET=utf8;
 
 
 alter table notification add column updatedDate timestamp  DEFAULT CURRENT_TIMESTAMP;
 alter table notification add column isread int(11) DEFAULT 0;
 alter table notification add column toprofileid int(11) ;
-
+alter table notification add column fromprofileid int(11);
 
 create table notificationLastViewed(
 
@@ -148,6 +153,28 @@ profileid  int(11),
 primary key(id)
 
 )ENGINE=InnoDB AUTO_INCREMENT=52 DEFAULT CHARSET=utf8;
+
+
+alter table notification add column activationKey  varchar(255);
+
+
  	
+db.event.update(
+    { "_id" : "335c5794-f4f4-4e87-a170-aad64e55fe6a" },
+    {
+      $set: { "compressedPath": [ 	"/Images/27PSRR 6th National Conference NCRTECT2K17.jpg",
+		"/Images/28PSRR 6th National Conference NCRTECT2K17.jpg" ],
+ }
+          }
+)
+
+
+alter table USER add column activationKey bigint(11);
+
+
+
+
+
+
 
 

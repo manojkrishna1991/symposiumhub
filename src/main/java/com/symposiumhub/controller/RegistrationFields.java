@@ -1,4 +1,4 @@
-package com.spring.security.social.login.example.controller;
+package com.symposiumhub.controller;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -27,11 +27,12 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.spring.security.social.login.example.Mongo.DynamicFormDataDroplet;
-import com.spring.security.social.login.example.Mongo.SymposiumDynamicFormHandler;
-import com.spring.security.social.login.example.Mongo.SymposiumFieldInfo;
-import com.spring.security.social.login.example.Mongo.Values;
-import com.spring.security.social.login.example.Mongo.AddField;
+import com.symposiumhub.Mongo.AddField;
+import com.symposiumhub.Mongo.DynamicFormDataDroplet;
+import com.symposiumhub.Mongo.SymposiumDynamicFormHandler;
+import com.symposiumhub.Mongo.SymposiumFieldInfo;
+import com.symposiumhub.Mongo.Values;
+import com.symposiumhub.datasource.EventRepositoryComponent;
 
 /**
  * 
@@ -43,6 +44,8 @@ public class RegistrationFields {
 
 	@Autowired
 	private MongoTemplate mongoTemplate;
+	@Autowired
+	private EventRepositoryComponent eventRepository;
 
 	/**
 	 * 
@@ -58,6 +61,7 @@ public class RegistrationFields {
 		ModelAndView model = new ModelAndView();
 		model.setViewName("registrationfieldsdashboard");
 		model.addObject("eventId", eventId);
+		model.addObject("event", eventRepository.findEventById(Integer.valueOf(eventId)));
 		Query searchUserQuery = new Query(Criteria.where("symposimuId").is(eventId));
 		List<SymposiumDynamicFormHandler> find = mongoTemplate.find(
 				searchUserQuery, SymposiumDynamicFormHandler.class);
@@ -65,6 +69,11 @@ public class RegistrationFields {
 		return model;
 
 	}
+	
+	
+	
+
+	
 
 	/**
 	 * 
@@ -79,7 +88,7 @@ public class RegistrationFields {
 			String fieldType, String eventId,HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
 		ModelAndView model = new ModelAndView();
-		model.setViewName("registrationfieldsdashboard");
+		model.setViewName("redirect:/registrationfields/"+eventId);
 
 		SymposiumFieldInfo info = new SymposiumFieldInfo();
 		
@@ -199,9 +208,11 @@ public class RegistrationFields {
 	 * @throws IOException
 	 */
 	@RequestMapping(value = "/editoption", method = RequestMethod.POST)
-	public ModelAndView editField(SymposiumFieldInfo symposiumFieldInfo, HttpServletRequest request,
+	public ModelAndView editField(SymposiumFieldInfo symposiumFieldInfo,String eventId, HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
-
+		
+		ModelAndView model = new ModelAndView();
+		model.setViewName("redirect:/registrationfields/"+eventId);
 		
 		mongoTemplate.updateMulti(
 			    new Query(Criteria.where("symposiumFieldInfo.id").is(symposiumFieldInfo.getId())),
@@ -214,17 +225,18 @@ public class RegistrationFields {
 		
 
 		
-		return new ModelAndView("redirect:/registrationfields");
+		return model;
 
 	}
 	
-	@RequestMapping(value = "/deleteoption", method = RequestMethod.POST)
-	public ModelAndView deleteoption(String id, HttpServletRequest request,
+	@RequestMapping(value = "/deleteoption", method = {RequestMethod.POST,RequestMethod.GET})
+	@ResponseBody
+	public String deleteoption(String id, HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
 		
 		mongoTemplate.remove( new Query(Criteria.where("symposiumFieldInfo.id").is(id)), SymposiumDynamicFormHandler.class);
 	
-		return new ModelAndView("redirect:/registrationfields");
+		return "success";
 
 	}
 }

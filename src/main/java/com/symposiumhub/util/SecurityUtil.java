@@ -1,4 +1,4 @@
-package com.spring.security.social.login.example.util;
+package com.symposiumhub.util;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -7,7 +7,7 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 
-import com.spring.security.social.login.example.dto.SocialProvider;
+import com.symposiumhub.dto.SocialProvider;
 
 /**
  * @author <a href="mailto:sunil.pulugula@wavemaker.com">Sunil Kumar</a>

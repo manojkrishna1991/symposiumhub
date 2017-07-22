@@ -1,4 +1,4 @@
-package com.spring.security.social.login.example.dto;
+package com.symposiumhub.dto;
 
 import java.io.Serializable;
 import java.util.HashSet;
@@ -6,8 +6,8 @@ import java.util.Set;
 
 import javax.persistence.*;
 
-import com.spring.security.social.login.example.database.model.Role;
-import com.spring.security.social.login.example.database.model.User;
+import com.symposiumhub.model.Role;
+import com.symposiumhub.model.User;
 
 /**
  * @author <a href="mailto:psunil1278@gmail.com">Sunil Kumar</a>

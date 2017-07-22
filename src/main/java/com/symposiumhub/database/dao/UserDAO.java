@@ -1,4 +1,4 @@
-package com.spring.security.social.login.example.database.dao;
+package com.symposiumhub.database.dao;
 
 import java.io.Serializable;
 import java.util.List;
@@ -7,7 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.orm.hibernate4.HibernateTemplate;
 import org.springframework.stereotype.Service;
 
-import com.spring.security.social.login.example.database.model.User;
+import com.symposiumhub.model.User;
 
 
 /**
@@ -59,5 +59,7 @@ public class UserDAO implements GenericDao<User,String> {
     public void flush() {
         template.flush();
     }
+    
+   
 
 }

@@ -1,10 +1,19 @@
-package com.spring.security.social.login.example.database.model;
+package com.symposiumhub.model;
 
 import java.io.Serializable;
 import java.util.HashSet;
 import java.util.Set;
 
-import javax.persistence.*;
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
+import javax.persistence.Table;
+import javax.persistence.Transient;
 
 /**
  * @author <a href="mailto:psunil1278@gmail.com">Sunil Kumar</a>
@@ -33,9 +42,32 @@ public class User implements Serializable{
     @Column(name = "PROVIDER", nullable = false, length = 32)
     private String provider;
     
-  
+    @Column
+    private Long activationKey;
+    
+    @Transient
+    private String imageUrl;
+    
+    
+	
 
-    @ManyToMany(fetch = FetchType.EAGER,cascade = CascadeType.ALL)
+	public String getImageUrl() {
+		return imageUrl;
+	}
+
+	public void setImageUrl(String imageUrl) {
+		this.imageUrl = imageUrl;
+	}
+
+	public Long getActivationKey() {
+		return activationKey;
+	}
+
+	public void setActivationKey(Long activationKey) {
+		this.activationKey = activationKey;
+	}
+
+	@ManyToMany(fetch = FetchType.EAGER,cascade = CascadeType.ALL)
     @JoinTable(
             name = "user_role",
             joinColumns = @JoinColumn(name = "USER_ID"),

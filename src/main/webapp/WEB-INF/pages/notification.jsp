@@ -109,7 +109,7 @@ body {
 		<div class="row">
 			<div class="ui segment">
 
-
+              <c:if test="${not empty notifications }">
 				<div class="ui inverted segment">
 					<div class="ui inverted relaxed divided list">
 					<c:forEach var="notifications" items="${notifications}">
@@ -123,7 +123,14 @@ body {
 					</div>
 
 				</div>
+				</c:if>
+               <c:if test="${ empty notifications }">
 
+					<div class="ui message">
+						<div class="header">Hi <sec:authentication property="principal.username" /></div>
+						<p>You have no new notifications currently</p>
+					</div>
+				</c:if>
 			</div>
 		</div>
 

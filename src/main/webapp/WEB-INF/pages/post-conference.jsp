@@ -98,15 +98,37 @@ body {
 	<div class="ui grid stackable main container ">
 		<div class="row">
 	  <div class="ten wide column">
-	
+		<div class="ui three steps ">
+				<div class="${step1==true ? 'active':'completed'}  step">
+					<i class="warning circle icon"></i>
+					<div class="content">
+						<div class="title">Basic Details</div>
+					</div>
+				</div>
+				<div
+					class="${step2==true ? 'active':''} ${step3==true ? 'completed':''} step">
+					<i class="payment icon"></i>
+					<div class="content">
+						<div class="title">Choose a registration form</div>
+					</div>
+				</div>
+				<div class="${step3==true ? 'active':''}  step">
+					<i class="gift icon"></i>
+					<div class="content">
+						<div class="title">Registration Details</div>
+					</div>
+				</div>
+			</div>
 	<div class="ui segment">
 	<div class="ui attached message" style="margin-bottom:10px;">
-  <div class="header">
-    Welcome to our site!
+     <div class="header alert success">
+    <h3>Post Your Event</h3>
   </div>
-  <p>Fill out the form below to post your Event</p>
+  <p>Get the registrations to your e-mail every day.Just 30
+						seconds to complete the form</p>
 </div>
-		<form class="ui form" action="<c:url value='post-a-conference' />"
+<c:if test="${step1 }" >
+		<form class="ui form" action="<c:url value='conferenceStep2' />"
 					modelAttribute="event" method="post">
 					<input type="hidden" name="type"
 						value="${type}">
@@ -147,6 +169,57 @@ body {
 				<br>
 			<button class="ui button green" type="submit">Submit</button>
 		</form>
+</c:if>
+      <c:if test="${step2}">
+      <form method="post" class="ui form"
+					action="<c:url value='conferenceStep3' />"
+					modelAttribute="symposium" action="">
+					<h4 class="ui dividing header">
+						<div class="ui message green">
+							<div class="header">Choose a Registration Form.check fields
+								that you want to collect</div>
+						</div>
+					</h4>
+
+					<div class="inline field">
+						<div class="ui toggle checkbox">
+							<input type="checkbox" name="fields.fullName" tabindex="0"
+								class="hidden"> <label>fullName</label>
+						</div>
+					</div>
+					<div class="inline field">
+						<div class="ui toggle checkbox">
+							<input type="checkbox" name="fields.phoneNumber" tabindex="0"
+								class="hidden"> <label>phoneNumber</label>
+						</div>
+					</div>
+					<div class="inline field">
+						<div class="ui toggle checkbox">
+							<input type="checkbox" name="fields.email" tabindex="0"
+								class="hidden"> <label>email</label>
+						</div>
+					</div>
+					<div class="inline field">
+						<div class="ui toggle checkbox">
+							<input type="checkbox" name="fields.collegeName" tabindex="0"
+								class="hidden"> <label>collegeName</label>
+						</div>
+					</div>
+					<div class="inline field">
+						<div class="ui toggle checkbox">
+							<input type="checkbox" name="fields.collegeId" tabindex="0"
+								class="hidden"> <label>collegeId</label>
+						</div>
+					</div>
+
+					<button type="submit" class="ui blue submit button">Submit</button>
+					<div class="ui error message"></div>
+
+
+
+				</form>
+
+      </c:if>
 </div>
 </div>
 

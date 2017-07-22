@@ -1,4 +1,4 @@
-package com.spring.security.social.login.example.dto;
+package com.symposiumhub.dto;
 
 /**
  * @author <a href="mailto:sunil.pulugula@wavemaker.com">Sunil Kumar</a>

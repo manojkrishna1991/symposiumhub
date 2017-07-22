@@ -1,4 +1,4 @@
-package com.spring.security.social.login.example.dto;
+package com.symposiumhub.dto;
 
 public class CommentsDto {
 

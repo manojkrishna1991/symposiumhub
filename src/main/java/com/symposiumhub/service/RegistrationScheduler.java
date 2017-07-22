@@ -1,4 +1,4 @@
-package com.spring.security.social.login.example.service;
+package com.symposiumhub.service;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -11,48 +11,43 @@ import org.springframework.scheduling.annotation.EnableScheduling;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 
-import com.spring.security.social.login.example.email.EmailQueue;
+import com.symposiumhub.datasource.EventRepositoryComponent;
+import com.symposiumhub.datasource.RegisterForEventComponent;
+import com.symposiumhub.email.EmailQueue;
+import com.symposiumhub.model.Registration;
 
 @Service
 @EnableScheduling
-public class RegistrationScheduler  {
+public class RegistrationScheduler {
 
 	static Logger log = Logger.getLogger(RegistrationScheduler.class.getName());
 
+	@Autowired
+	private EventRepositoryComponent eventRepository;
 
-    @Autowired
-    private HibernateTemplate template;
-    
-    @Autowired
-  	private SymposiumServiceInterface  sympService;
+	@Autowired
+	private RegisterForEventComponent registerForEventComponet;
 
 	@Autowired
 	private EmailQueue queue;
-
-
 
 	@Scheduled(cron = "0 0 3 * * ?")
 	public void demoServiceMethod() {
 
 		try {
-			List<Object[]> validSymposiumRegistrations = sympService.getValidSymposiumRegistrations();
-			List<String> list=new ArrayList<>();
-			for (Object[] objects : validSymposiumRegistrations) {
-				queue.sendSymposiumRegistrationEmail(objects[2].toString(), objects[1].toString(),
-						objects[0].toString());
-				list.add(objects[3].toString());
+			List<Registration> validSymposiumRegistrations = registerForEventComponet.getRegistrations();
+			for (Registration registration : validSymposiumRegistrations) {
+				queue.sendSymposiumRegistrationEmail(registration.getSendEmailTo(), registration.getName(),
+						String.valueOf(registration.getRegCount()));
+				registerForEventComponet.updateStatusToIsMailSent(registration.getId());
 			}
-			
-			sympService.updateStatusToIsMailSent(list);
-			
+
 		} catch (Exception e) {
 			// TODO: handle exception
-			System.out.println(e.getMessage() + new Date());
 			log.info(e.getMessage() + new Date());
-			return ;
+			return;
 		}
 
 	}
-
 
 }

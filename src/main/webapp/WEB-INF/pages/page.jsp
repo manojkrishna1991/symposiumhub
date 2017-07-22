@@ -104,12 +104,12 @@ body {
 
 
 
-	<div class="ui main  container" >
-	
+	<div class="ui main  container">
+
 		<div class="row">
 			<div class="row">
 				<div class="ui segment">
-				<%@ include file="include/message.jsp" %>
+					<%@ include file="include/message.jsp"%>
 					<div class="ui list">
 						<a class="item"><h4>${college.name}</h4></a>
 
@@ -149,11 +149,18 @@ body {
 
 
 					<div class="image1">
-						<c:forEach var="images" items="${images}">
+						<c:if test="${not empty images}">
+							<c:forEach var="images" items="${images}">
 
-							<img class="img" data-lazy="${images}" src="${images}">
+								<img class="img" data-lazy="${images}" src="${images}">
 
-						</c:forEach>
+							</c:forEach>
+						</c:if>
+						<c:if test="${empty images}">
+							<img class="cardimage" style="width: 100%;"
+								src="/resources/assets/images/wireframe/image.png">
+						</c:if>
+
 					</div>
 
 
@@ -183,19 +190,26 @@ body {
 					<!-- photo ends here  -->
 				</div>
 				<div class="ui segment">
-					<c:forEach var="reviews" items="${reviews}">
+				<c:if test="${not empty reviews }">
+				<c:forEach var="reviews" items="${reviews}">
 						<div class="ui divider"></div>
 						<p><div class="ui star rating" data-rating="${reviews.rating}"
 							data-max-rating="5"></div>
-
-
-						<p>${reviews.review}</p>
-
-		
-
-					</c:forEach>
-
-
+						<p>${reviews.review}
+				</c:forEach>		
+				</c:if>	
+				<c:if test="${ empty reviews }">		
+				<div class="ui message">
+				  <div class="header">
+				    No reviews have been posted for this college
+				    <br>
+				    <br>
+				     <a href="/writereview"><button class="positive ui button">Start Posting a Review !!!</button></a>
+				  </div>
+				  <p>Know about this college start posting your review. it may help others in choosing the 
+				  right college .</p>
+				</div>
+				</c:if>
 				</div>
 			</div>
 		</div>

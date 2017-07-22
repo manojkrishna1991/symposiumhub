@@ -1,4 +1,4 @@
-package com.spring.security.social.login.example.service;
+package com.symposiumhub.service;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -6,24 +6,26 @@ import java.util.List;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 
+import com.symposiumhub.model.User;
+
 
 @Service
 public class ActiveUserStore {
 	 
 
 
-	public List<UserDetails> users;
+	public List<User> users;
  
-    public List<UserDetails> getUsers() {
+    public List<User> getUsers() {
 		return users;
 	}
 
-	public void setUsers(List<UserDetails> users) {
+	public void setUsers(List<User> users) {
 		this.users = users;
 	}
 
 	public ActiveUserStore() {
-        users = new ArrayList<UserDetails>();
+        users = new ArrayList<User>();
     }
  
     // standard getter and setter

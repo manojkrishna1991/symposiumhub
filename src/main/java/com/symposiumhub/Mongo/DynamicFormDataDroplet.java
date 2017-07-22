@@ -1,4 +1,4 @@
-package com.spring.security.social.login.example.Mongo;
+package com.symposiumhub.Mongo;
 
 import java.util.HashMap;
 import java.util.List;

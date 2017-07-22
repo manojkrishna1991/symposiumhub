@@ -1,6 +1,4 @@
-package com.spring.security.social.login.example.controller;
-
-import static org.hamcrest.CoreMatchers.instanceOf;
+package com.symposiumhub.controller;
 
 import java.io.BufferedOutputStream;
 import java.io.File;
@@ -8,9 +6,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.security.Principal;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Date;
-import java.util.HashSet;
 import java.util.List;
 import java.util.UUID;
 
@@ -22,15 +18,11 @@ import org.apache.commons.lang.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.beans.propertyeditors.CustomDateEditor;
-import org.springframework.beans.propertyeditors.StringTrimmerEditor;
 import org.springframework.security.authentication.AnonymousAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.core.userdetails.UserDetailsService;
-import org.springframework.social.security.SocialAuthenticationException;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.WebDataBinder;
@@ -44,25 +36,24 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.spring.security.social.login.example.database.model.Coordinator;
-import com.spring.security.social.login.example.database.model.Papers;
-import com.spring.security.social.login.example.database.model.RegisterForASymposium;
-import com.spring.security.social.login.example.database.model.Subscribe;
-import com.spring.security.social.login.example.database.model.Symposium;
-import com.spring.security.social.login.example.database.model.SymposiumComment;
-import com.spring.security.social.login.example.database.model.SymposiumCommentsReply;
-import com.spring.security.social.login.example.database.model.User;
-import com.spring.security.social.login.example.dto.CommentsDto;
-import com.spring.security.social.login.example.dto.LocalUser;
-import com.spring.security.social.login.example.dto.SocialUser;
-import com.spring.security.social.login.example.dto.SymposiumCommentDto;
-import com.spring.security.social.login.example.dto.SymposiumCommentsReplyDto;
-import com.spring.security.social.login.example.dto.SymposiumDto;
-import com.spring.security.social.login.example.email.EmailQueue;
-import com.spring.security.social.login.example.service.LocalUserDetailService;
-import com.spring.security.social.login.example.service.SymposiumServiceInterface;
-import com.spring.security.social.login.example.service.UserService;
-import com.spring.security.social.login.example.util.FileUtils;
+import com.symposiumhub.dto.CommentsDto;
+import com.symposiumhub.dto.LocalUser;
+import com.symposiumhub.dto.SocialUser;
+import com.symposiumhub.dto.SymposiumCommentDto;
+import com.symposiumhub.dto.SymposiumCommentsReplyDto;
+import com.symposiumhub.dto.SymposiumDto;
+import com.symposiumhub.email.EmailQueue;
+import com.symposiumhub.model.Coordinator;
+import com.symposiumhub.model.Papers;
+import com.symposiumhub.model.RegisterForASymposium;
+import com.symposiumhub.model.Subscribe;
+import com.symposiumhub.model.Symposium;
+import com.symposiumhub.model.SymposiumComment;
+import com.symposiumhub.model.SymposiumCommentsReply;
+import com.symposiumhub.model.User;
+import com.symposiumhub.service.SymposiumServiceInterface;
+import com.symposiumhub.service.UserService;
+import com.symposiumhub.util.FileUtils;
 /**
  * 
  * @author manoj
@@ -182,39 +173,39 @@ public class HomeController {
         return model;
     }
     
-    @RequestMapping(value = "/dashboard", method = RequestMethod.GET)
-    public ModelAndView dashboard(HttpServletRequest request, HttpServletResponse response) throws ServletException,IOException {
-        ModelAndView model = new ModelAndView();
-        model.addObject("title", "Login Page");
-        model.addObject("user", getUser(request));
-        String userid=(String) request.getSession().getAttribute("userId");
-        model.addObject("symposium", sympService.getSymposiumByUserId(userid));
-        model.addObject("symposiumname", sympService.getSymposiumName(userid));
-        model.setViewName("dashboard");	
-        Boolean authenticated=(Boolean)request.getSession().getAttribute("authenticated");
-        if(authenticated!=null)
-        {
-        	model.addObject("authenticated", Boolean.TRUE);
-        }
-        return model;
-    }
-    
-    @RequestMapping(value = "/dashboard/{dashboard}", method = RequestMethod.GET)
-    public ModelAndView dashboardview(@PathVariable String dashboard,HttpServletRequest request, HttpServletResponse response) throws ServletException,IOException {
-        ModelAndView model = new ModelAndView();
-        model.addObject("title", "Login Page");
-        String userid=(String) request.getSession().getAttribute("userId");
-        model.addObject("symposiumname", sympService.getSymposiumName(userid));
-        model.addObject("symposium", sympService.getSymposiumsBySymposiumId(userid, dashboard));
-        model.setViewName("dashboard");	
-        SocialUser socialUser=(SocialUser)request.getSession().getAttribute("user");
-        if(socialUser!=null)
-        {
-        	model.addObject("authenticated", Boolean.TRUE);
-        }
-        return model;
-    }
-    
+//    @RequestMapping(value = "/dashboard", method = RequestMethod.GET)
+//    public ModelAndView dashboard(HttpServletRequest request, HttpServletResponse response) throws ServletException,IOException {
+//        ModelAndView model = new ModelAndView();
+//        model.addObject("title", "Login Page");
+//        model.addObject("user", getUser(request));
+//        String userid=(String) request.getSession().getAttribute("userId");
+//        model.addObject("symposium", sympService.getSymposiumByUserId(userid));
+//        model.addObject("symposiumname", sympService.getSymposiumName(userid));
+//        model.setViewName("dashboard");	
+//        Boolean authenticated=(Boolean)request.getSession().getAttribute("authenticated");
+//        if(authenticated!=null)
+//        {
+//        	model.addObject("authenticated", Boolean.TRUE);
+//        }
+//        return model;
+//    }
+//    
+//    @RequestMapping(value = "/dashboard/{dashboard}", method = RequestMethod.GET)
+//    public ModelAndView dashboardview(@PathVariable String dashboard,HttpServletRequest request, HttpServletResponse response) throws ServletException,IOException {
+//        ModelAndView model = new ModelAndView();
+//        model.addObject("title", "Login Page");
+//        String userid=(String) request.getSession().getAttribute("userId");
+//        model.addObject("symposiumname", sympService.getSymposiumName(userid));
+//        model.addObject("symposium", sympService.getSymposiumsBySymposiumId(userid, dashboard));
+//        model.setViewName("dashboard");	
+//        SocialUser socialUser=(SocialUser)request.getSession().getAttribute("user");
+//        if(socialUser!=null)
+//        {
+//        	model.addObject("authenticated", Boolean.TRUE);
+//        }
+//        return model;
+//    }
+//    
     @RequestMapping(value = "/symposiumview/{symposiumId}/{symposiumname}", method = RequestMethod.GET)
     public ModelAndView viewSymposium(@PathVariable String symposiumId,@PathVariable String symposiumname, HttpServletRequest request, HttpServletResponse response) throws ServletException,IOException {
         ModelAndView model = new ModelAndView();

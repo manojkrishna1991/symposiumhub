@@ -1,4 +1,4 @@
-package com.spring.security.social.login.example.service;
+package com.symposiumhub.service;
 
 import java.util.HashSet;
 
@@ -8,13 +8,13 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.spring.security.social.login.example.database.dao.UserDAO;
-import com.spring.security.social.login.example.database.model.Role;
-import com.spring.security.social.login.example.database.model.User;
-import com.spring.security.social.login.example.dto.LocalUser;
-import com.spring.security.social.login.example.dto.UserRegistrationForm;
-import com.spring.security.social.login.example.email.EmailQueue;
-import com.spring.security.social.login.example.exception.UserAlreadyExistAuthenticationException;
+import com.symposiumhub.database.dao.UserDAO;
+import com.symposiumhub.dto.LocalUser;
+import com.symposiumhub.dto.UserRegistrationForm;
+import com.symposiumhub.email.EmailQueue;
+import com.symposiumhub.exception.UserAlreadyExistAuthenticationException;
+import com.symposiumhub.model.Role;
+import com.symposiumhub.model.User;
 
 /**
  * @author <a href="mailto:sunil.pulugula@wavemaker.com">Sunil Kumar</a>
@@ -32,14 +32,16 @@ public class RegistrationUserDetailService implements UserService {
 
     @Autowired
     private EmailQueue queue;
+
+	private User user2;
     
     @Override
     @Transactional(value = "transactionManager")
     public LocalUser registerNewUser(final UserRegistrationForm userRegistrationForm) throws UserAlreadyExistAuthenticationException {
 
-        com.spring.security.social.login.example.database.model.User userExist = userDAO.get(userRegistrationForm.getUserId());
+        com.symposiumhub.model.User userExist = userDAO.get(userRegistrationForm.getUserId());
         if (userExist != null && !userExist.getProvider().equalsIgnoreCase("NONE")) {
-        	  com.spring.security.social.login.example.database.model.User user = buildUser(userRegistrationForm);
+        	  com.symposiumhub.model.User user = buildUser(userRegistrationForm);
         	  return (LocalUser) userDetailService.loadUserByUsername(userRegistrationForm.getUserId());
            
         }
@@ -48,9 +50,9 @@ public class RegistrationUserDetailService implements UserService {
         	throw new UserAlreadyExistAuthenticationException("username already exists");
          
       }
-        
+        	
           
-        com.spring.security.social.login.example.database.model.User user = buildUser(userRegistrationForm);
+        com.symposiumhub.model.User user = buildUser(userRegistrationForm);
         userDAO.save(user);
         userDAO.flush();
         //registration welcome emails check for email
@@ -82,5 +84,29 @@ public class RegistrationUserDetailService implements UserService {
 		// TODO Auto-generated method stub
 		return userDAO.get(userId);
 		
+	}
+
+	@Override
+	@Transactional	
+	public User SaveorUpdateUser(User user) {
+		// TODO Auto-generated method stub
+		
+		if(user.getUserId()==null){
+			return null;
+		}
+		
+		User userFromDataBase = userDAO.get(user.getUserId());
+		
+		userFromDataBase.setPassword(user.getPassword() != null && 
+				!user.getPassword().equals(userFromDataBase.getPassword()) ? 
+				user.getPassword():userFromDataBase.getPassword());
+		
+		userFromDataBase.setActivationKey(user.getActivationKey() != null && 
+				!user.getActivationKey().equals(userFromDataBase.getActivationKey()) ? 
+				user.getActivationKey():userFromDataBase.getActivationKey());
+		
+		userDAO.saveOrUpdate(userFromDataBase);
+		
+		return userFromDataBase;
 	}
 }

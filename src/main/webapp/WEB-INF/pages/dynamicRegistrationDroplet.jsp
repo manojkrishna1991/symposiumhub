@@ -11,7 +11,7 @@
 	content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
 
 <!-- Site Properties -->
-<title>SymposiumHub Registration Fields</title>
+<title>SymposiumHub Registrations ${event.name}</title>
 <link rel="stylesheet" type="text/css"
 	href="<c:url value='/resources/dist/common.css' />">
 <link rel="stylesheet" type="text/css"
@@ -48,35 +48,83 @@ body {
 	background-color: #e03997 !important;
 	color: rgba(255, 255, 255, 0.9) !important;
 }
-    .custContainer{padding-right:15px;padding-left:15px;margin-right:auto;margin-left:auto}@media (min-width:768px){.custContainer{width:750px}}@media (min-width:992px){.custContainer{width:900px}}@media (min-width:1200px){.custContainer{width:992px}}   
 
+.custContainer {
+	padding-right: 15px;
+	padding-left: 15px;
+	margin-right: auto;
+	margin-left: auto
+}
+
+@media ( min-width :768px) {
+	.custContainer {
+		width: 750px
+	}
+}
+
+@media ( min-width :992px) {
+	.custContainer {
+		width: 900px
+	}
+}
+
+@media ( min-width :1200px) {
+	.custContainer {
+		width: 992px
+	}
+}
 </style>
 </head>
 <body>
-<div class="custContainer">
+	<%@ include file="include/header.jsp"%>
 
-	<table class="ui celled table">
-		<thead>
-			<tr>
-				<c:forEach var="symposiumvar" items="${symposium}">
-					<th>${symposiumvar.name}</th>
-				</c:forEach>
-			</tr>
-		</thead>
-		<tbody>
+	<div class="ui main container">
 
-			<c:forEach var="symposiumregister" items="${DynamicFormForm}">
-			<tr>
-			<c:forEach var="symposiumregdata" items="${symposiumregister.values}">
-				
-					<td>${symposiumregdata.value}</td>
-				
-				</c:forEach>
+		<table class="ui celled table" id="example">
+			<thead>
+				<tr>
+					<c:forEach var="symposiumvar" items="${symposium}">
+						<c:forEach var="symposiumInfo"
+							items="${symposiumvar.symposiumFieldInfo}" varStatus="loop">
+							<th>${symposiumInfo.name}</th>
+						</c:forEach>
+					</c:forEach>
+					<th>EventId</th>
 				</tr>
-			</c:forEach>
-		</tbody>
+				
+			</thead>
+			<tbody>
 
-	</table>
+				<c:forEach var="symposiumregister" items="${DynamicFormForm}">
+					<tr>
+						<c:forEach var="symposiumregdata"
+							items="${symposiumregister.values}">
+							<td>${symposiumregdata.value}</td>
+						</c:forEach>
+					</tr>
+				</c:forEach>
+			</tbody>
+
+		</table>
 	</div>
+		
 </body>
+	<script src="/resources/assets/library/jquery.min.js"></script>
+
+	<script src="/resources/dist/components/transition.min.js">
+		
+	</script>
+	<script src="/resources/dist/components/dropdown.min.js">
+		
+	</script>
+	
+	<script src="https://cdn.datatables.net/1.10.15/js/jquery.dataTables.min.js"></script>
+
+<%@ include file="include/footer.jsp"%>
+	
+	<script>
+	$(document).ready(function() {
+	    $('#example').DataTable();
+	} );
+	</script>
 </html>

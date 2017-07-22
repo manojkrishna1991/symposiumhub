@@ -1,4 +1,4 @@
-package com.spring.ibatis;
+package com.symposiumhub.ibatis;
 
 public class UserMapper {
 

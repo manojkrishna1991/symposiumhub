@@ -14,7 +14,7 @@
 	content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
 
 <!-- Site Properties -->
-<title>Add Freinds</title>
+<title>Add Friends</title>
 
 <link rel="stylesheet" type="text/css"
 	href="/resources/dist/semantic.min.css">
@@ -151,7 +151,7 @@ body {
 							 No one has sent a friend request may be you can add friends
 							<div style="text-align: center;padding: 10px;">
 							<a class="ui green button"
-								href="/addfriends">Add Freinds</a>
+								href="/addfriends">Add Friends</a>
 								</div>
 						</p>
 					</div>

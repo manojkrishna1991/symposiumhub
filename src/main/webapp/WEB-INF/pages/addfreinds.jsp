@@ -13,7 +13,7 @@
 	content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
 
 <!-- Site Properties -->
-<title>Add Freinds</title>
+<title>Add Friends</title>
 
 <link rel="stylesheet" type="text/css"
 	href="/resources/dist/semantic.min.css">
@@ -146,7 +146,7 @@ body {
 					<div class="ui centered message " style="margin: 0;">
 						<div class="header">Activity</div>
 						<p>
-							No more Freinds To add
+							No more Friends To add
 							<div style="text-align: center;padding: 10px;">
 							<a class="ui yellow button"
 								href="/writereview">Write A Review</a>
@@ -175,7 +175,11 @@ body {
 					<div class="ui link cards">
 						<div class="card">
 							<div class="image">
+							   <c:if test="${ not empty profile.photo} }">
+							   
 								<img src="${profile.photo}">
+								</c:if>
+								<img class="cardimage" style="width: 100%;" src="/resources/assets/images/wireframe/image.png">
 							</div>
 							<div class="content">
 								<div class="header">${profile.name}</div>
@@ -202,7 +206,6 @@ body {
 
 
 		</div>
-	</div>
 
 
 	<script src="<c:url value='/resources/assets/library/jquery.min.js' />"></script>

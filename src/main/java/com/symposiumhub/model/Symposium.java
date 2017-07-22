@@ -1,4 +1,4 @@
-package com.spring.security.social.login.example.database.model;
+package com.symposiumhub.model;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -23,8 +23,8 @@ import org.hibernate.annotations.FetchMode;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.web.multipart.MultipartFile;
 
-import com.spring.security.social.login.example.dto.SymposiumCommentDto;
-import com.spring.security.social.login.example.dto.SymposiumDto;
+import com.symposiumhub.dto.SymposiumCommentDto;
+import com.symposiumhub.dto.SymposiumDto;
 
 /**
  * 

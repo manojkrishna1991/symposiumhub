@@ -83,61 +83,64 @@ body {
 
 				<div class="ui vertical accordion menu" style="width: 20rem;">
 					<a class="pinkbackground item"> Menu </a>
-					<div class="item" >
-						<a class="active title "> <i class="dropdown icon"></i> Symposiums Registrations
+					<div class="item">
+						<a class="active title "> <i class="dropdown icon"></i>
+							Symposiums Registrations
 						</a>
 						<div class=" content">
-						<div class="ui form">
-							<div class="grouped fields">
-								<c:forEach var="symposiumname" items="${symposiumname}"
-									varStatus="i">
-									<c:if test="${i.index==0}">
-										<a class="active item "
-											href="<c:url value='/dashboard/ ${symposiumname.symposiumid}' />">
-											${symposiumname.name} </a>
-									</c:if>
-									<c:if test="${i.index>0}">
-								    <a class=" item"
-											href="<c:url value='/dashboard/ ${symposiumname.symposiumid}' />">
-											${symposiumname.name} </a>
-									</c:if>
+							<div class="ui form">
+								<div class="grouped fields">
+									<c:forEach var="symposiumname" items="${symposiumname}"
+										varStatus="i">
+										<c:if test="${i.index==0}">
+											<a class="active item "
+												href="<c:url value='/dashboard/ ${symposiumname.symposiumid}' />">
+												${symposiumname.name} </a>
+										</c:if>
+										<c:if test="${i.index>0}">
+											<a class=" item"
+												href="<c:url value='/dashboard/ ${symposiumname.symposiumid}' />">
+												${symposiumname.name} </a>
+										</c:if>
 
 
 
-								</c:forEach>
-							</div>
+									</c:forEach>
+								</div>
 							</div>
 						</div>
 					</div>
-					
-					<div class="item" >
-						<a class="active title "> <i class="dropdown icon"></i> Paper Presentations
+
+					<div class="item">
+						<a class="active title "> <i class="dropdown icon"></i> Paper
+							Presentations
 						</a>
 						<div class=" content">
-						<div class="ui form">
-							<div class="grouped fields">
-								<c:forEach var="symposiumname" items="${symposiumname}"
-									varStatus="i">
-									<c:if test="${i.index==0}">
-										<a class="active item "
-											href="<c:url value='/symposiumpapers/ ${symposiumname.symposiumid}' />">
-											${symposiumname.name} </a>
-									</c:if>
-									<c:if test="${i.index>0}">
-								    <a class=" item"
-											href="<c:url value='/symposiumpapers/ ${symposiumname.symposiumid}' />">
-											${symposiumname.name} </a>
-									</c:if>
+							<div class="ui form">
+								<div class="grouped fields">
+									<c:forEach var="symposiumname" items="${symposiumname}"
+										varStatus="i">
+										<c:if test="${i.index==0}">
+											<a class="active item "
+												href="<c:url value='/symposiumpapers/ ${symposiumname.symposiumid}' />">
+												${symposiumname.name} </a>
+										</c:if>
+										<c:if test="${i.index>0}">
+											<a class=" item"
+												href="<c:url value='/symposiumpapers/ ${symposiumname.symposiumid}' />">
+												${symposiumname.name} </a>
+										</c:if>
 
 
 
-								</c:forEach>
-							</div>
+									</c:forEach>
+								</div>
 							</div>
 						</div>
 					</div>
 					<div class="item">
-						<a class="title"> <i class="dropdown icon"></i> Edit Symposiums
+						<a class="title"> <i class="dropdown icon"></i> Edit
+							Symposiums
 						</a>
 						<div class="content">
 							<div class="ui form">
@@ -159,9 +162,10 @@ body {
 							</div>
 						</div>
 					</div>
-					
+
 					<div class="item">
-						<a class="title"> <i class="dropdown icon"></i> View My Symposiums
+						<a class="title"> <i class="dropdown icon"></i> View My
+							Symposiums
 						</a>
 						<div class="content">
 							<div class="ui form">
@@ -235,9 +239,11 @@ body {
 
 
 				<c:forEach var="symposium" items="${symposium}">
-					<h2>${symposium.name}</h2>	<a  href="/downloadCSV/${symposium.symposiumid}" class="ui  primary button">
-								Download as CSV<i class="right chevron icon"></i>
-							</a>
+					<h2>${symposium.name}</h2>
+					<a href="/downloadCSV/${symposium.symposiumid}"
+						class="ui  primary button"> Download as CSV<i
+						class="right chevron icon"></i>
+					</a>
 
 					<table class="ui  single line table">
 						<thead>

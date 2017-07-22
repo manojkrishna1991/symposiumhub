@@ -1,4 +1,4 @@
-package com.spring.security.social.login.example.util;
+package com.symposiumhub.util;
 
 public interface EmailTemplates {
 	
@@ -8,6 +8,11 @@ public interface EmailTemplates {
 	
 	public static final String SYM_REGEMAIL="sym_regemail.html";
 	
+	public static final String FORGOT_PASSWORD="resetpassword.html";
+	
+	public static final String FORGOT_PASSWORD_SUBJECT="Reset SymposiumHub Password";
+	
 	public static final String SYM_REGEMAIL_SUBJECT="you have **** new registrations for ####";
 
+	
 }

@@ -109,8 +109,23 @@ body {
 		
 			<div class="ui segment">
 			
-								<button class="ui right floated orange  button ">${page} of 112</button>
-				
+<div class="blue ui buttons right floated" style="padding:5px;">
+<c:if test="${page ne 1}" >
+  <button class="ui button" onclick="window.history.back();">
+  <i class="left chevron icon"></i>
+  Prev
+  </button>
+  </c:if>
+    <a href="/review/${page+1}" >
+  <button class="ui button">
+  Next
+    <i class="right chevron icon"></i>
+  </button>
+  </a>
+</div>
+<div style="padding:5px;">
+<a href="/review/${page+1}"	 ><button class="ui right floated orange  button ">${page} of 112</button></a>
+</div>
 			
 
 				<h4 class="ui horizontal divider header">

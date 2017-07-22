@@ -1,4 +1,4 @@
-package com.spring.security.social.login.example.handler;
+package com.symposiumhub.handler;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -7,31 +7,29 @@ import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.web.DefaultRedirectStrategy;
 import org.springframework.security.web.RedirectStrategy;
-import org.springframework.security.web.authentication.SimpleUrlAuthenticationSuccessHandler;
+import org.springframework.security.web.authentication.SavedRequestAwareAuthenticationSuccessHandler;
+import org.springframework.security.web.savedrequest.DefaultSavedRequest;
+import org.springframework.security.web.savedrequest.HttpSessionRequestCache;
+import org.springframework.security.web.savedrequest.RequestCache;
+import org.springframework.security.web.savedrequest.SavedRequest;
 import org.springframework.stereotype.Component;
 
-import com.spring.security.social.login.example.database.model.Profile;
-import com.spring.security.social.login.example.datasource.NotificationComponent;
-import com.spring.security.social.login.example.datasource.ProfileComponent;
-import com.spring.security.social.login.example.service.ActiveUserStore;
-import com.spring.security.social.login.example.service.LoggedUser;
-import com.spring.security.social.login.example.util.SecurityUtil;
+import com.symposiumhub.datasource.NotificationComponent;
+import com.symposiumhub.datasource.ProfileComponent;
+import com.symposiumhub.service.ActiveUserStore;
 
 /**
  * @author <a href="mailto:psunil1278@gmail.com">Sunil Kumar</a>
  * @since 29/12/15
  */
 @Component
-public class AppSuccessHandler extends SimpleUrlAuthenticationSuccessHandler {
+public class AppSuccessHandler extends SavedRequestAwareAuthenticationSuccessHandler {
 
     private RedirectStrategy redirectStrategy = new DefaultRedirectStrategy();
 	
@@ -40,40 +38,19 @@ public class AppSuccessHandler extends SimpleUrlAuthenticationSuccessHandler {
     
     @Autowired
     NotificationComponent notificationComponent;
-    
-	@Autowired
-	private ProfileComponent profileComponent;
 
     @Override
     protected void handle(HttpServletRequest request, HttpServletResponse response, Authentication authentication)
             throws IOException {
     	
     	String cookieValue=null;
-    	cookieValue =(String) request.getSession().getAttribute("redirecturl");
-        String targetUrl = determineTargetUrl(authentication,cookieValue,request);
+    	DefaultSavedRequest defaultSavedRequest =(DefaultSavedRequest) request.getSession().getAttribute("SPRING_SECURITY_SAVED_REQUEST");
+        String targetUrl = defaultSavedRequest==null ? "/": defaultSavedRequest.getRedirectUrl();
         if (response.isCommitted()) {
             System.out.println("Can't redirect");
             return;
         }
-        HttpSession session = request.getSession(false);
-
         
-        if (session != null) {
-        	UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-            LoggedUser user = new LoggedUser(userDetails, activeUserStore);
-            session.setAttribute("loggedUser", user);
-        	// setting the notfication count
-    		List<Profile> profile = profileComponent.getProfile(userDetails.getUserId());
-
-    		if (!profile.isEmpty()) {
-    			request.getSession().setAttribute("notification",
-    					notificationComponent.getNotificationCount(profile.get(0).getId()));
-    		}
-        }
-        
-        
-        
-
         redirectStrategy.sendRedirect(request, response, targetUrl);
     }
 
@@ -98,7 +75,7 @@ public class AppSuccessHandler extends SimpleUrlAuthenticationSuccessHandler {
             request.getSession().setAttribute("authenticated",true);
             request.getSession().setAttribute("authenticationuser",authentication);
         } else {
-            url = "/accessDenied";
+            url = "/accessdenied";
         }
 
         return url;

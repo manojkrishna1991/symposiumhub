@@ -1,4 +1,4 @@
-package com.spring.security.social.login.example.handler;
+package com.symposiumhub.handler;
 
 import java.io.IOException;
 
@@ -14,8 +14,10 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.web.authentication.logout.SimpleUrlLogoutSuccessHandler;
 import org.springframework.stereotype.Component;
 
-import com.spring.security.social.login.example.service.ActiveUserStore;
-import com.spring.security.social.login.example.service.LoggedUser;
+import com.symposiumhub.model.User;
+import com.symposiumhub.service.ActiveUserStore;
+import com.symposiumhub.service.LoggedUser;
+import com.symposiumhub.service.UserService;
 
 @Component
 public class LogOutSucessHandler extends SimpleUrlLogoutSuccessHandler {
@@ -23,14 +25,19 @@ public class LogOutSucessHandler extends SimpleUrlLogoutSuccessHandler {
 	@Autowired
     ActiveUserStore activeUserStore;
 	
+	@Autowired
+	UserService userService;
+	
 	  public void onLogoutSuccess(HttpServletRequest request, HttpServletResponse response, Authentication authentication)
 	            throws IOException, ServletException {
 		  
 		  HttpSession session = request.getSession(false);
 	        if (session != null) {
 	        	UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+	        
 
-	            LoggedUser user = new LoggedUser(userDetails, activeUserStore);
+				User userById = userService.getUserById(userDetails.getUserId());
+	            LoggedUser user = new LoggedUser(userById, activeUserStore);
 	            session.setAttribute("loggedUser", user);
 	        }
 		  

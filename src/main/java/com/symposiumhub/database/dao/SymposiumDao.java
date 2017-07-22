@@ -1,4 +1,4 @@
-package com.spring.security.social.login.example.database.dao;
+package com.symposiumhub.database.dao;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -12,8 +12,8 @@ import org.springframework.orm.hibernate4.HibernateTemplate;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.spring.security.social.login.example.database.model.Symposium;
-import com.spring.security.social.login.example.database.model.User;
+import com.symposiumhub.model.Symposium;
+import com.symposiumhub.model.User;
 /**
  * 	
  * @author manoj

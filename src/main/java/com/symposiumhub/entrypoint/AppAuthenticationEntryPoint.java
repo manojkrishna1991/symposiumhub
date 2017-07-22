@@ -1,4 +1,4 @@
-package com.spring.security.social.login.example.entrypoint;
+package com.symposiumhub.entrypoint;
 
 import java.io.IOException;
 

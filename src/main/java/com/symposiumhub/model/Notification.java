@@ -1,4 +1,4 @@
-package com.spring.security.social.login.example.database.model;
+package com.symposiumhub.model;
 
 public class Notification {
 	
@@ -9,6 +9,36 @@ public class Notification {
 	
 	
 	private String type;
+	
+	
+	private Integer toprofileid;
+	
+	private Integer fromprofileid;
+	
+	
+	
+
+
+	
+
+	public Integer getToprofileid() {
+		return toprofileid;
+	}
+
+
+	public void setToprofileid(Integer toprofileid) {
+		this.toprofileid = toprofileid;
+	}
+
+
+	public Integer getFromprofileid() {
+		return fromprofileid;
+	}
+
+
+	public void setFromprofileid(Integer fromprofileid) {
+		this.fromprofileid = fromprofileid;
+	}
 
 
 	public Integer getId() {

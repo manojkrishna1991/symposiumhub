@@ -1,4 +1,4 @@
-package com.spring.security.social.login.example.controller;
+package com.symposiumhub.controller;
 
 public class Contact {
 

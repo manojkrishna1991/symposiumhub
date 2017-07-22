@@ -19,6 +19,8 @@
 
 <link rel="stylesheet" type="text/css"
 	href="/resources/dist/semantic.min.css">
+	<link rel="stylesheet" type="text/css"
+	href="/resources/dist/common.css">
 
 
 <link rel="stylesheet"
@@ -92,244 +94,411 @@ body {
 <body>
 
 	<%@ include file="include/header.jsp"%>
+	<c:if test="${not empty symposium }">
 
+		<div class="ui main  container">
+			<div class="ui segment">
+				<h1 class="ui horizontal  header heading_home">
+					Symposium
+				</h1>
 
+				<div class="ui grid">
+					<c:forEach var="symposium" items="${symposium}">
 
-	<div class="ui main  container">
-
-		<div class="ui segment">
-			<h4 class="ui horizontal divider header">
-				<i class="tag icon"></i>Cards
-			</h4>
-
-			<div class="ui grid">
-
-				<c:if test="${not empty activity}">
-
-					<c:forEach var="activity" items="${activity}">
-
-						<div
-							class="sixteen wide mobile eight wide tablet four wide computer column">
-							<div class="ui  card">
-								<div class="image">
-									<img src="${activity.photo}">
-								</div>
-
-
-								<div class="content">
-									<div class="header">${activity.name}</div>
-								</div>
-
-								<div class="content">
-									<h4 class="ui sub header">Shared A Message</h4>
-									<div class="ui small feed">
-										<div class="event">
-											<div class="content">
-												<div class="summary">${activity.update}</div>
+						<div style="cursor: pointer;" onclick="redirect(this)"
+							data-href="/event/${symposium.eventid}/${symposium.name}"
+							' class="sixteen wide mobile eight wide tablet four wide computer column">
+							<h4 class="ui dividing header">
+								Date of Event
+								<fmt:formatDate type="date" value="${symposium.dateOfEvent}" />
+							</h4>
+							<div class="ui card">
+								<div class="image dimmable"
+									style="min-height: 238px; background: #fff;">
+									<div class="ui blurring inverted dimmer transition hidden">
+										<div class="content">
+											<div class="center">
+												<div class="ui teal button"></div>
 											</div>
 										</div>
 									</div>
+									<c:set var="imageUrl" value="${symposium.imageUrl}" />
+
+									<c:choose>
+										<c:when test="${not empty imageUrl}">
+											<img class="lazy cardimage" data-original="${imageUrl}"
+												src="/resources/assets/images/2.gif" style="width: 100%;">
+										</c:when>
+										<c:otherwise>
+											<img class="cardimage" style="width: 100%;"
+												src="/resources/assets/images/wireframe/image.png">
+										</c:otherwise>
+									</c:choose>
+
+								</div>
+								<div class="content">
+									<div class="header">Name</div>
+									<div class="meta">
+										<a class="group">${symposium.name}</a>
+									</div>
+									<br>
+									<div class="header">Department</div>
+									<div class="meta">
+										<a class="group">${symposium.department}</a>
+									</div>
+									<br>
+									<div class="header">College Name</div>
+									<div class="meta">
+										<a class="group">${symposium.organizationName}</a>
+									</div>
+								</div>
+								<div class="extra content">
+									<a href="/event/${symposium.eventid}/${symposium.name}"
+										class="right floated created">view more</a>
+									<%--  <a href="/viewconference/${conference.id}/${conference.name}" class="friends">
+        register</a> --%>
+								</div>
+							</div>
+						</div>
+
+
+					</c:forEach>
+
+				</div>
+				<div style="text-align: center;">
+
+					<a href="/view-event/symposium"><button
+							style="margin: 10px; text-align: center;"
+							class="massive ui teal button">View All</button></a>
+				</div>
+
+			</div>
+		</div>
+	</c:if>
+	<c:if test="${not empty conference }">
+
+		<div class="ui main  container">
+			<div class="ui segment">
+				<h1 class="ui horizontal header heading_home">
+					Conference
+				</h1>
+				<div class="ui grid">
+					<c:forEach var="conference" items="${conference}">
+
+						<div style="cursor: pointer;" onclick="redirect(this)"
+							data-href="/event/${conference.eventid}/${conference.name}"
+							' class="sixteen wide mobile eight wide tablet four wide computer column">
+							<h4 class="ui dividing header">
+								Date of Event
+								<fmt:formatDate type="date" value="${conference.dateOfEvent}" />
+							</h4>
+							<div class="ui card">
+								<div class="image dimmable"
+									style="min-height: 238px; background: #fff;">
+									<div class="ui blurring inverted dimmer transition hidden">
+										<div class="content">
+											<div class="center">
+												<div class="ui teal button"></div>
+											</div>
+										</div>
+									</div>
+									<c:set var="imageUrl" value="${conference.imageUrl}" />
+
+									<c:choose>
+										<c:when test="${not empty imageUrl}">
+											<img class="lazy cardimage" data-original="${imageUrl}"
+												src="/resources/assets/images/2.gif" style="width: 100%;">
+										</c:when>
+										<c:otherwise>
+											<img class="cardimage" style="width: 100%;"
+												src="/resources/assets/images/wireframe/image.png">
+										</c:otherwise>
+									</c:choose>
+
+								</div>
+								<div class="content">
+									<div class="header">Name</div>
+									<div class="meta">
+										<a class="group">${conference.name}</a>
+									</div>
+									<br>
+									<div class="header">Department</div>
+									<div class="meta">
+										<a class="group">${conference.department}</a>
+									</div>
+									<br>
+									<div class="header">College Name</div>
+									<div class="meta">
+										<a class="group">${conference.organizationName}</a>
+									</div>
+								</div>
+								<div class="extra content">
+									<a href="/event/${conference.eventid}/${conference.name}"
+										class="right floated created">view more</a>
+									<%--  <a href="/viewconference/${conference.id}/${conference.name}" class="friends">
+        register</a> --%>
 								</div>
 							</div>
 						</div>
 					</c:forEach>
+				</div>
 
-				</c:if>
-
-				<c:if test="${ empty activity}">
-				<div class="ui two column centered grid">
-				<div class="six wide table column sixteen wide mobile column six wide computer column">
-				<div class="row">
-
-					<div class="ui centered message " style="margin: 0;">
-						<div class="header">Cards</div>
-						<p>
-							No One has Shared An Card with you try adding more freinds 
-							<div style="text-align: center;padding: 10px;">
-							<a class="ui green button"
-								href="/addfriends">Add Freinds</a>
-								</div>
-						</p>
-					</div>
-					</div>
-					</div>
-					</div>
-
-				</c:if>
-
-
+				<div style="text-align: center;">
+					<a href="/view-event/conference"><button
+							style="margin: 10px; text-align: center;"
+							class="massive ui teal button">View All</button></a>
+				</div>
 			</div>
-
-
-
 		</div>
 
+	</c:if>
+	<c:if test="${not empty workshop }">
 
+		<div class="ui main  container">
+			<div class="ui segment">
+				<h1 class="ui horizontal  header heading_home">
+					WorkShop
+				</h1>
 
-		<div class="ui segment">
-			<h4 class="ui horizontal divider header">
-				<i class="tag icon"></i>Symposium
-			</h4>
-			<div class="ui grid">
+				<div class="ui grid">
+					<c:forEach var="workshop" items="${workshop}">
 
-
-
-				<c:forEach var="symposium" items="${symposium}">
-
-					<div style="cursor: pointer;" onclick="redirect(this)"
-						data-href="/symposiumview/${symposium.symposiumid}/${symposium.name}"
-						' class="sixteen wide mobile eight wide tablet four wide computer column">
-						<h4 class="ui dividing header">
-							Date of Event
-							<fmt:formatDate type="date" value="${symposium.dateOfEvent}" />
-						</h4>
-						<div class="ui card">
-							<div class="image dimmable"
-								style="min-height: 238px; background: #fff;">
-								<div class="ui blurring inverted dimmer transition hidden">
-									<div class="content">
-										<div class="center">
-											<div class="ui teal button"></div>
+						<div style="cursor: pointer;" onclick="redirect(this)"
+							data-href="/event/${workshop.eventid}/${workshop.name}"
+							' class="sixteen wide mobile eight wide tablet four wide computer column">
+							<h4 class="ui dividing header">
+								Date of Event
+								<fmt:formatDate type="date" value="${workshop.dateOfEvent}" />
+							</h4>
+							<div class="ui card">
+								<div class="image dimmable"
+									style="min-height: 238px; background: #fff;">
+									<div class="ui blurring inverted dimmer transition hidden">
+										<div class="content">
+											<div class="center">
+												<div class="ui teal button"></div>
+											</div>
 										</div>
 									</div>
+									<c:set var="imageUrl" value="${workshop.imageUrl}" />
+
+									<c:choose>
+										<c:when test="${not empty imageUrl}">
+											<img class="lazy cardimage" data-original="${imageUrl}"
+												src="/resources/assets/images/2.gif" style="width: 100%;">
+										</c:when>
+										<c:otherwise>
+											<img class="cardimage" style="width: 100%;"
+												src="/resources/assets/images/wireframe/image.png">
+										</c:otherwise>
+									</c:choose>
+
 								</div>
-								<c:set var="imageUrl" value="${symposium.imageUrl}" />
-								<c:if test="${not empty symposium.compressedPath }">
-									<c:set var="imageUrl" value="${symposium.compressedPath}" />
-								</c:if>
-
-
-								<c:choose>
-									<c:when test="${not empty imageUrl}">
-										<img class="lazy cardimage" data-original="${imageUrl}"
-											src="/resources/assets/images/2.gif" style="width: 100%;">
-									</c:when>
-									<c:otherwise>
-										<img class="cardimage" style="width: 100%;"
-											src="/resources/assets/images/wireframe/image.png">
-									</c:otherwise>
-								</c:choose>
-
-							</div>
-							<div class="content">
-								<div class="header">Name</div>
-								<div class="meta">
-									<a class="group">${symposium.name}</a>
-								</div>
-								<br>
-								<div class="header">Department</div>
-								<div class="meta">
-									<a class="group">${symposium.department}</a>
-								</div>
-								<br>
-								<div class="header">College Name</div>
-								<div class="meta">
-									<a class="group">${symposium.collegeName}</a>
-								</div>
-							</div>
-							<div class="extra content">
-								<a
-									href="/symposiumview/${symposium.symposiumid}/${symposium.name}"
-									class="right floated created">view more</a> <a
-									href="/symposiumview/${symposium.symposiumid}/${symposium.name}"
-									class="friends"> register</a>
-							</div>
-						</div>
-					</div>
-
-
-				</c:forEach>
-			</div>
-			<div style="text-align: center;">
-
-				<a href="/viewsymposium"><button
-						style="margin: 10px; text-align: center;"
-						class="massive ui teal button">View All</button></a>
-			</div>
-
-		</div>
-	</div>
-
-	<div class="ui main  container">
-
-
-		<div class="ui segment">
-
-
-
-
-
-			<h4 class="ui horizontal divider header">
-				<i class="tag icon"></i>Conference
-			</h4>
-
-			<div class="ui grid">
-				<c:forEach var="conference" items="${conference}">
-
-					<div style="cursor: pointer;" onclick="redirect(this)"
-						data-href="/viewconference/${conference.id}/${conference.name}"
-						' class="sixteen wide mobile eight wide tablet four wide computer column">
-						<h4 class="ui dividing header">
-							Date of Event
-							<fmt:formatDate type="date" value="${conference.dateOfEvent}" />
-						</h4>
-						<div class="ui card">
-							<div class="image dimmable"
-								style="min-height: 238px; background: #fff;">
-								<div class="ui blurring inverted dimmer transition hidden">
-									<div class="content">
-										<div class="center">
-											<div class="ui teal button"></div>
-										</div>
+								<div class="content">
+									<div class="header">Name</div>
+									<div class="meta">
+										<a class="group">${workshop.name}</a>
+									</div>
+									<br>
+									<div class="header">Department</div>
+									<div class="meta">
+										<a class="group">${workshop.department}</a>
+									</div>
+									<br>
+									<div class="header">College Name</div>
+									<div class="meta">
+										<a class="group">${workshop.organizationName}</a>
 									</div>
 								</div>
-								<c:set var="imageUrl" value="${conference.imageUrl[0]}" />
-								<c:if test="${not empty conference.compressedPath }">
-									<c:set var="imageUrl" value="${conference.compressedPath[0]}" />
-								</c:if>
-
-
-								<c:choose>
-									<c:when test="${not empty imageUrl}">
-										<img class="lazy cardimage" data-original="${imageUrl}"
-											src="/resources/assets/images/2.gif" style="width: 100%;">
-									</c:when>
-									<c:otherwise>
-										<img class="cardimage" style="width: 100%;"
-											src="/resources/assets/images/wireframe/image.png">
-									</c:otherwise>
-								</c:choose>
-
-							</div>
-							<div class="content">
-								<div class="header">Name</div>
-								<div class="meta">
-									<a class="group">${conference.name}</a>
-								</div>
-							</div>
-							<div class="extra content">
-								<a href="/viewconference/${conference.id}/${conference.name}"
-									class="right floated created">view more</a>
-								<%--  <a href="/viewconference/${conference.id}/${conference.name}" class="friends">
+								<div class="extra content">
+									<a href="/event/${workshop.eventid}/${workshop.name}"
+										class="right floated created">view more</a>
+									<%--  <a href="/viewconference/${conference.id}/${conference.name}" class="friends">
         register</a> --%>
+								</div>
 							</div>
 						</div>
-					</div>
 
 
-				</c:forEach>
+					</c:forEach>
+
+				</div>
+				<div style="text-align: center;">
+
+					<a href="/view-event/workshop"><button
+							style="margin: 10px; text-align: center;"
+							class="massive ui teal button">View All</button></a>
+				</div>
 
 			</div>
-			<div style="text-align: center;">
-
-				<a href="/viewconference"><button
-						style="margin: 10px; text-align: center;"
-						class="massive ui teal button">View All</button></a>
-			</div>
-
 		</div>
-	</div>
+	</c:if>
 
+	<c:if test="${not empty guestlecture }">
+
+		<div class="ui main  container">
+			<div class="ui segment">
+				<h1 class="ui horizontal header heading_home">
+					Guest Lecture
+				</h1>
+				<div class="ui grid">
+					<c:forEach var="guestlecture" items="${guestlecture}">
+
+						<div style="cursor: pointer;" onclick="redirect(this)"
+							data-href="/event/${guestlecture.eventid}/${guestlecture.name}"
+							' class="sixteen wide mobile eight wide tablet four wide computer column">
+							<h4 class="ui dividing header">
+								Date of Event
+								<fmt:formatDate type="date" value="${guestlecture.dateOfEvent}" />
+							</h4>
+							<div class="ui card">
+								<div class="image dimmable"
+									style="min-height: 238px; background: #fff;">
+									<div class="ui blurring inverted dimmer transition hidden">
+										<div class="content">
+											<div class="center">
+												<div class="ui teal button"></div>
+											</div>
+										</div>
+									</div>
+									<c:set var="imageUrl" value="${guestlecture.imageUrl}" />
+									<c:choose>
+										<c:when test="${not empty imageUrl}">
+											<img class="lazy cardimage" data-original="${imageUrl}"
+												src="/resources/assets/images/2.gif" style="width: 100%;">
+										</c:when>
+										<c:otherwise>
+											<img class="cardimage" style="width: 100%;"
+												src="/resources/assets/images/wireframe/image.png">
+										</c:otherwise>
+									</c:choose>
+
+								</div>
+								<div class="content">
+									<div class="header">Name</div>
+									<div class="meta">
+										<a class="group">${guestlecture.name}</a>
+									</div>
+									<div class="header">Department</div>
+									<div class="meta">
+										<a class="group">${guestlecture.department}</a>
+									</div>
+									<br>
+									<div class="header">College Name</div>
+									<div class="meta">
+										<a class="group">${guestlecture.organizationName}</a>
+									</div>
+								</div>
+								<div class="extra content">
+									<a href="/event/${guestlecture.eventid}/${guestlecture.name}"
+										class="right floated created">view more</a>
+									<%--  <a href="/viewconference/${conference.id}/${conference.name}" class="friends">
+        register</a> --%>
+								</div>
+							</div>
+						</div>
+
+
+					</c:forEach>
+
+				</div>
+				<div style="text-align: center;">
+
+					<a href="view-event/guest-lecture"><button
+							style="margin: 10px; text-align: center;"
+							class="massive ui teal button">View All</button></a>
+				</div>
+
+			</div>
+		</div>
+	</c:if>
+	<c:if test="${not empty hackathon }">
+
+		<div class="ui main  container">
+
+
+			<div class="ui segment">
+
+
+
+
+
+				<h1 class="ui horizontal heading_home header">
+				   Hackathon
+				</h1>
+
+				<div class="ui grid">
+					<c:forEach var="hackathon" items="${hackathon}">
+
+						<div style="cursor: pointer;" onclick="redirect(this)"
+							data-href="/event/${hackathon.eventid}/${hackathon.name}"
+							' class="sixteen wide mobile eight wide tablet four wide computer column">
+							<h4 class="ui dividing header">
+								Date of Event
+								<fmt:formatDate type="date" value="${hackathon.dateOfEvent}" />
+							</h4>
+							<div class="ui card">
+								<div class="image dimmable"
+									style="min-height: 238px; background: #fff;">
+									<div class="ui blurring inverted dimmer transition hidden">
+										<div class="content">
+											<div class="center">
+												<div class="ui teal button"></div>
+											</div>
+										</div>
+									</div>
+									<c:set var="imageUrl" value="${hackathon.imageUrl}" />
+
+									<c:choose>
+										<c:when test="${not empty imageUrl}">
+											<img class="lazy cardimage" data-original="${imageUrl}"
+												src="/resources/assets/images/2.gif" style="width: 100%;">
+										</c:when>
+										<c:otherwise>
+											<img class="cardimage" style="width: 100%;"
+												src="/resources/assets/images/wireframe/image.png">
+										</c:otherwise>
+									</c:choose>
+
+								</div>
+								<div class="content">
+									<div class="header">Name</div>
+									<div class="meta">
+										<a class="group">${hackathon.name}</a>
+									</div>
+									<div class="header">Department</div>
+									<div class="meta">
+										<a class="group">${hackathon.department}</a>
+									</div>
+									<br>
+									<div class="header">College Name</div>
+									<div class="meta">
+										<a class="group">${hackathon.organizationName}</a>
+									</div>
+								</div>
+								<div class="extra content">
+									<a href="/event/${hackathon.eventid}/${hackathon.name}"
+										class="right floated created">view more</a>
+									<%--  <a href="/viewconference/${conference.id}/${conference.name}" class="friends">
+        register</a> --%>
+								</div>
+							</div>
+						</div>
+
+
+					</c:forEach>
+
+				</div>
+
+				<div style="text-align: center;">
+
+					<a href="/view-event/hackathon"><button
+							style="margin: 10px; text-align: center;"
+							class="massive ui teal button">View All</button></a>
+				</div>
+			</div>
+		</div>
+	</c:if>
 </body>
 
 <script src="/resources/assets/library/jquery.min.js"></script>

@@ -1,3 +1,4 @@
+
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
 	pageEncoding="ISO-8859-1"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
@@ -66,48 +67,51 @@ body {
 
 
 	<div class="ui main text container ">
+
 		<div class="ui segment">
-		
-		<div class="ui message">
-  <div class="header">
-  Welcome To SymposiumHub
-  </div>
-  <p>Its an Awesome Experience !!!!!</p>
-</div>
+			<c:if test="${message}">
+				<div style="text-align: center;" class="alert error">Username
+					or Password does not exists</div>
+			</c:if>
+			<div class="ui message">
+				<div class="header">Welcome To SymposiumHub</div>
+				<p>Its an Awesome Experience !!!!!</p>
+			</div>
 
 			<div class="column">
-					<form name='facebookSocialloginForm'
-						action="<c:url value='/auth/facebook?scope=email,user_about_me,user_birthday' />"
-						method='POST'>
-						<button type="submit" style="width: 100%; margin: 2px;"
-							class="ui facebook button">
-							<i class="facebook icon"></i>Facebook
-						</button>
-						<div class="clear"></div>
-					</form>
-					<form name='GoogleSocialloginForm'
-						action="<c:url value='/auth/google' />" method='POST'>
-						<button type="submit" style="margin: 2px; width: 100%;"
-							class="ui google plus button">
-							<i class="google plus icon"></i>Google
-						</button>
-						<input type="hidden" name="scope"
-							value="https://www.googleapis.com/auth/userinfo.profile https://www.googleapis.com/auth/userinfo#email https://www.googleapis.com/auth/plus.me https://www.googleapis.com/auth/tasks https://www-opensocial.googleusercontent.com/api/people https://www.googleapis.com/auth/plus.login" />
-						<div class="clear"></div>
-					</form>
+				<form name='facebookSocialloginForm'
+					action="<c:url value='/auth/facebook?scope=email,user_about_me,user_birthday' />"
+					method='POST'>
+					<button type="submit" style="width: 100%; margin: 2px;"
+						class="ui facebook button">
+						<i class="facebook icon"></i>Facebook
+					</button>
+					<div class="clear"></div>
+				</form>
+				<form name='GoogleSocialloginForm'
+					action="<c:url value='/auth/google' />" method='POST'>
+					<button type="submit" style="margin: 2px; width: 100%;"
+						class="ui google plus button">
+						<i class="google plus icon"></i>Google
+					</button>
+					<input type="hidden" name="scope"
+						value="https://www.googleapis.com/auth/userinfo.profile https://www.googleapis.com/auth/userinfo#email https://www.googleapis.com/auth/plus.me https://www.googleapis.com/auth/tasks https://www-opensocial.googleusercontent.com/api/people https://www.googleapis.com/auth/plus.login" />
+					<div class="clear"></div>
+				</form>
 
 
-				</div>
-				
-								<div class="ui horizontal divider">Or</div>
-				
-				
-				
-<form class="login_form" name='loginForm' action="<c:url value='../j_spring_security_check' />" method='POST'>
+			</div>
+
+			<div class="ui horizontal divider">Or</div>
+
+
+
+			<form class="login_form" name='loginForm'
+				action="<c:url value='../j_spring_security_check' />" method='POST'>
 
 				<div class="column">
 					<div class="ui form">
-					
+
 						<div class="field">
 							<label>Username</label>
 							<div class="ui left icon input">
@@ -125,32 +129,32 @@ body {
 							</div>
 						</div>
 
+
+
 						<div class="field">
 							<div class="ui checkbox">
-								<input type="checkbox" name="checkbox" checked="" tabindex="0"
+								<input type="checkbox" name="remember-me" tabindex="0"
 									class="hidden"> <label>Remember me</label>
 							</div>
 
 						</div>
 						<button type="submit" class="ui blue submit button">Login</button>
-						<a href="#">Forgot Password ?</a> 
+						<a href="/forgotpassword">Forgot Password ?</a>
 
 					</div>
 				</div>
-				</form>
-			
-			</div>
+			</form>
 
-			<div class="ui two column middle aligned very relaxed stackable grid">
-		
+		</div>
 
+		<div class="ui two column middle aligned very relaxed stackable grid">
 
-		
-
-			</div>
+		</div>
 
 
-			<%-- 	<form class="login_form" name='loginForm' action="<c:url value='../j_spring_security_check' />" method='POST'>
+
+
+		<%-- 	<form class="login_form" name='loginForm' action="<c:url value='../j_spring_security_check' />" method='POST'>
 					<h1>Login Into Your Account</h1>
 					<ul>
 						<li>
@@ -171,7 +175,7 @@ body {
 					<div class="clear"></div>	
 				</form> --%>
 
-		</div>
+	</div>
 
 
 
@@ -225,15 +229,23 @@ body {
 
 	</div>
  --%>
- 
-  <script src="/resources/assets/library/jquery.min.js"></script>
-    <script src="/resources/dist/components/dimmer.min.js"></script>
-   <script src="/resources/dist/components/modal.min.js"></script>
-    <script src="/resources/dist/components/transition.min.js"></script>
-     <script src="/resources/dist/components/form.min.js"></script>
-      <script src="/resources/dist/components/sidebar.min.js"></script>
 
- <%@ include file="include/footer.jsp" %>
+	<script src="/resources/assets/library/jquery.min.js"></script>
+	<script src="/resources/dist/components/dimmer.min.js"></script>
+	<script src="/resources/dist/components/modal.min.js"></script>
+	<script src="/resources/dist/components/transition.min.js"></script>
+	<script src="/resources/dist/components/form.min.js"></script>
+	<script src="/resources/dist/components/sidebar.min.js"></script>
+	<script src="/resources/dist/components/checkbox.min.js"></script>
 
+	<%@ include file="include/footer.jsp"%>
+	<script type="text/javascript">
+$(document).ready(
+        function () {
+            $('.ui.checkbox')
+                    .checkbox()
+                    ;
+        })
+</script>
 </body>
 </html>

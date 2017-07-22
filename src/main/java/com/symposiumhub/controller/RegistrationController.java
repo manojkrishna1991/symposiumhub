@@ -1,4 +1,4 @@
-package com.spring.security.social.login.example.controller;
+package com.symposiumhub.controller;
 
 import java.io.IOException;
 
@@ -14,12 +14,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.spring.security.social.login.example.util.SecurityUtil;
-import com.spring.security.social.login.example.dto.LocalUser;
-import com.spring.security.social.login.example.dto.UserRegistrationForm;
-import com.spring.security.social.login.example.exception.UserAlreadyExistAuthenticationException;
-import com.spring.security.social.login.example.service.SymposiumServiceInterface;
-import com.spring.security.social.login.example.service.UserService;
+import com.symposiumhub.dto.LocalUser;
+import com.symposiumhub.dto.UserRegistrationForm;
+import com.symposiumhub.exception.UserAlreadyExistAuthenticationException;
+import com.symposiumhub.service.SymposiumServiceInterface;
+import com.symposiumhub.service.UserService;
+import com.symposiumhub.util.SecurityUtil;
 
 /**
  * @author <a href="mailto:sunil.pulugula@wavemaker.com">Sunil Kumar</a>
@@ -37,7 +37,7 @@ public class RegistrationController {
     public ModelAndView signup(HttpServletRequest request, HttpServletResponse response) throws ServletException,IOException {
         ModelAndView model = new ModelAndView();
         model.addObject("title", "User Registration Form");
-        model.setViewName("registration");
+        model.setViewName("userRegistration");
         return model;
     }
 
@@ -60,7 +60,7 @@ public class RegistrationController {
         }
         SecurityUtil.authenticateUser(localUser);
 
-        model.addObject("title", "Spring security Hello World");
+        model.addObject("title", "SymposiumHub Welcome ");
         model.addObject("user", localUser.getUsername());
         String userid=(String) request.getSession().getAttribute("userId");
         model.addObject("symposium", sympService.getSymposiumByUserId(userid));

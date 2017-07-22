@@ -1,4 +1,4 @@
-package com.spring.security.social.login.example.database.model;
+package com.symposiumhub.model;
 
 import java.io.Serializable;
 import java.util.Date;
@@ -16,7 +16,7 @@ import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
-import com.spring.security.social.login.example.dto.SymposiumCommentDto;
+import com.symposiumhub.dto.SymposiumCommentDto;
 
 @Entity
 @Table(name="symposiumcomment")

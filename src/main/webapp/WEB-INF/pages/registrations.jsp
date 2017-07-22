@@ -97,8 +97,8 @@ body {
 
 			<div class="ui  yellow message">
 				<i class="star icon"></i>
-				<c:if test="${isregavailable==true}">Cheers People have started registering .</c:if>
-				<c:if test="${isregavailable==false}">No registrations available .</c:if>
+				<c:if test="${not empty registrations}">Cheers People have started registering .</c:if>
+				<c:if test="${empty registrations}">No registrations available .</c:if>
 
 			</div>
 
@@ -116,7 +116,7 @@ body {
 					</tr>
 				</thead>
 				<tbody>
-					<c:forEach var="event" items="${event}">
+					<c:forEach var="event" items="${registrations}">
 						<tr>
 							<td>${event.fullName}</td>
 							<td>${event.registerDate}</td>

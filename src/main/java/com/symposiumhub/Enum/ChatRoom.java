@@ -1,4 +1,4 @@
-package com.spring.security.social.login.example.Enum;
+package com.symposiumhub.Enum;
 
 public enum ChatRoom {
 	

@@ -1,4 +1,4 @@
-package com.spring.security.social.login.example.service;
+package com.symposiumhub.service;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -10,10 +10,10 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.spring.security.social.login.example.database.dao.UserDAO;
-import com.spring.security.social.login.example.database.model.Role;
-import com.spring.security.social.login.example.database.model.User;
-import com.spring.security.social.login.example.dto.LocalUser;
+import com.symposiumhub.database.dao.UserDAO;
+import com.symposiumhub.dto.LocalUser;
+import com.symposiumhub.model.Role;
+import com.symposiumhub.model.User;
 
 
 /**

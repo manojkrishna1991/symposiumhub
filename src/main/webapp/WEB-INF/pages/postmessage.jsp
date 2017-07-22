@@ -15,7 +15,7 @@
 	content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
 
 <!-- Site Properties -->
-<title>Post A Message</title>
+<title>Share A Note</title>
 
 <link rel="stylesheet" type="text/css"
 	href="/resources/dist/semantic.min.css">
@@ -34,12 +34,11 @@
 	  theme: 'modern',
 	  plugins: [
 	    'advlist autolink lists link image charmap print preview hr anchor pagebreak',
-	    'searchreplace wordcount visualblocks visualchars code fullscreen',
+	    'searchreplace wordcount visualblocks visualchars  fullscreen',
 	    'insertdatetime media nonbreaking save table contextmenu directionality',
-	    'emoticons template paste textcolor colorpicker textpattern imagetools codesample toc'
+	    'emoticons template paste textcolor colorpicker textpattern imagetools  toc'
 	  ],
 	  toolbar1: 'undo redo | insert | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image',
-	  toolbar2: 'print preview media | forecolor backcolor emoticons | codesample',
 	  image_advtab: true
 	 
 	 });
@@ -130,7 +129,7 @@ body {
 						
 							
 							<div class="field">
-								<label>Post A Message</label>
+								<h1>Share A Note</h1>
 								<textarea type="text" name="message" placeholder="Share A message With Your Folks"></textarea>
 							</div>
 							
@@ -139,7 +138,7 @@ body {
 							
 							<div style="padding: 20px;text-align: center">
 
-							<button class="massive ui teal  button" type="submit">Save</button>
+							<button class="massive ui teal  button" type="submit">Share</button>
 							
 							</div>
 						</form>

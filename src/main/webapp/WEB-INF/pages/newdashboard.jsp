@@ -13,7 +13,7 @@
 	content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
 
 <!-- Site Properties -->
-<title>UploadPhotos</title>
+<title>Dashboard</title>
 
 <link rel="stylesheet" type="text/css"
 	href="/resources/dist/semantic.min.css">
@@ -52,7 +52,13 @@ body {
 	margin: 5em 0em 0em;
 	padding: 5em 0em;
 }
+.fluid .visible a{
+color:rgba(255,255,255,.9);
+}
 
+i.right.arrow.icon{
+color:rgba(255,255,255,.9);
+}
 .ui-widget-content.ui-autocomplete-input {
 	color: #333333 ! important;
 	background: none ! important;
@@ -100,12 +106,58 @@ body {
 					Hi,
 					<sec:authentication property="principal.username" />
 				</div>
-				<p>You have not posted any conference so far.</p>
-				<div class="fluid ui animated button" tabindex="0">
+				<p>You have not posted any events so far.</p>
+				<div class="fluid ui animated button brown" tabindex="0">
 					<div class="visible content">
-						<a href="/post-a-conference">Get Started</a>
+						<a href="/post-event/symposium">Post Symposium</a>
 					</div>
-					<a href="/post-a-conference">
+					<a href="/post-event/symposium">
+						<div class="hidden content">
+							<i class="right arrow icon"></i>
+						</div>
+					</a>
+				</div>
+				<br>
+				<div class="fluid ui animated button yellow" >
+					<div class="visible content">
+						<a href="/post-event/conference">Post Conference</a>
+					</div>
+					<a href="/post-event/conference">
+						<div class="hidden content">
+							<i class="right arrow icon"></i>
+						</div>
+					</a>
+				</div>
+				<br>
+				<div class="fluid ui animated button red" >
+					<div class="visible content">
+						<a href="/post-event/workshop">Post WorkShop</a>
+					</div>
+					<a href="/post-event/workshop">
+						<div class="hidden content">
+							<i class="right arrow icon"></i>
+						</div>
+					</a>
+				</div>
+				
+				<br>
+				<div class="fluid ui animated button green" >
+					<div class="visible content">
+						<a href="/post-event/hackathon">Post Hackathon</a>
+					</div>
+					<a href="/post-event/hackathon">
+						<div class="hidden content">
+							<i class="right arrow icon"></i>
+						</div>
+					</a>
+				</div>
+				
+				<br>
+				<div class="fluid ui animated button orange" >
+					<div class="visible content">
+						<a href="/post-event/guest-lecture">Post Guest Lecture</a>
+					</div>
+					<a href="/post-event/guest-lecture">
 						<div class="hidden content">
 							<i class="right arrow icon"></i>
 						</div>
@@ -144,56 +196,19 @@ body {
 							</p> -->
 						</div>
 						<div class="extra">
-							<a href="/registrations/${event.id}"  class="ui  primary button">
+							<a href="/registrations/${event.eventid}"  class="ui  primary button">
 								Registrations <i class="right chevron icon"></i>
 							</a>
-							<a  href="/viewconference/${event.id}/${event.name}" class="ui  primary button">
+							<a  href="/event/${event.eventid}/${event.name}" class="ui  primary button">
 								View<i class="right chevron icon"></i>
 							</a>
-							<a href="/edit-a-conference/${event.id}" class="ui  primary button">
+							<a href="/edit-event/${event.eventid}" class="ui  primary button">
 								Edit <i class="right chevron icon"></i>
 							</a>
-<%-- 
-							<div class="ui divider"></div>
-							<h2 class="ui header" style="font-size: 1.28571429em">Form</h2>
-
-							<a href="/registrationfields/${event.id}" class="ui  primary button">
-								Custom Form<i class="right chevron icon"></i>
+							
+								<a href="/registrationfields/${event.eventid}" class="ui  primary button">
+								Event Form<i class="right chevron icon"></i>
 							</a>
-							 --%>
-							
-							
-							<div id="chooseform" class="ui modal tiny modalwidth">
-		<i class="close icon"></i>
-		<div class="header">Select A form and submit.</div>
-		<div class="content">
-			<div class="ui form">
-			<form action="/select-form-type" method="get">
-				<div class="inline fields">
-					<label for="fruit">Select your Form</label>
-					<div class="field">
-						<div class="ui radio checkbox">
-							<input type="radio" name="formType" ${event.formType == defaultform ? ' checked="checked" ':''} tabindex="0"
-								class="hidden"> <label>Custom Form</label>
-						</div>
-					</div>
-					<div class="field">
-						<div class="ui radio checkbox">
-							<input type="radio"  name="formType" tabindex="0" ${event.formType == customform ? ' checked="checked" ':''} class="hidden">
-							<label>Default Form</label>
-						</div>
-					</div>
-				</div>
-		<button  style="font-size: 18px;" class="ui blue button " type="submit">Submit</button>
-				
-				</form>
-			</div>
-
-		</div>
-		<div class="actions"></div>
-	</div>
-							
-							
 						</div>
 					</div>
 				</div>

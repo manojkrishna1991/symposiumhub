@@ -17,6 +17,9 @@
 .mtop60{
 	margin-top:60px !important;
 }
+.mtop70{
+	margin-top: 7em;
+}
 
 .mtopsite{
 	margin: 80px 13px !important;
@@ -57,4 +60,46 @@
     width: 400px;
     margin: 0em 0em 0em -200px;
   }
+}
+.heading_home{
+    color: #267bd0 ! important;
+    text-align: center;
+}
+
+h4.ui.header.single_page_header{
+	font-size: 32px;
+    text-align: center;
+    color: #2185d0;
+    padding: 10px;
+}
+.head_style{
+	color: #fff;
+    font-size: 15px;
+    line-height: 20px;
+    position: relative;
+    padding: 10px 20px 10px 50px;
+}
+.symposium{
+	background-color:#a5673f;
+}
+.conference{
+	background-color:#fbbd08;
+}
+.workshop{
+	background-color:#db2828;
+}
+.guest-lecture{
+	background-color:#21ba45;
+}
+.Hackathon{
+	background-color:#f2711c;
+}
+.text-left{
+	text-align: left;
+}
+.text-right{
+	text-align: right;
+}
+.text-center{
+	text-align:center;
 }

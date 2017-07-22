@@ -1,4 +1,4 @@
-package com.spring.security.social.login.example.datasource;
+package com.symposiumhub.datasource;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -14,8 +14,8 @@ import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.core.simple.SimpleJdbcInsert;
 import org.springframework.stereotype.Service;
 
-import com.spring.security.social.login.example.database.model.College;
-import com.spring.security.social.login.example.database.model.Profile;
+import com.symposiumhub.model.College;
+import com.symposiumhub.model.Profile;
 
 @Service(value = "college")
 public class CollegeComponent {

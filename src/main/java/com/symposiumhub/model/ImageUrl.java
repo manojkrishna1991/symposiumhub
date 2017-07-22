@@ -1,3 +1,4 @@
+package com.symposiumhub.model;
 /*package com.spring.security.social.login.example.database.model;
 
 import java.util.Date;

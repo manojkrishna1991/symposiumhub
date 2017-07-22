@@ -1,4 +1,4 @@
-package com.spring.security.social.login.example.controller;
+package com.symposiumhub.controller;
 
 import java.io.BufferedOutputStream;
 import java.io.File;
@@ -22,6 +22,7 @@ import org.springframework.data.domain.Sort;
 import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -31,19 +32,21 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.spring.security.social.login.example.Enum.FormType;
-import com.spring.security.social.login.example.Enum.Sympoconstants;
-import com.spring.security.social.login.example.database.model.Event;
-import com.spring.security.social.login.example.database.model.SymposiumRegistrationFieldsMongo;
-import com.spring.security.social.login.example.database.model.User;
-import com.spring.security.social.login.example.dto.SocialUser;
-/*import com.spring.security.social.login.example.database.model.ImageUrl;
-*/import com.spring.security.social.login.example.service.SymposiumServiceInterface;
-import com.spring.security.social.login.example.util.FileUtils;
+import com.symposiumhub.Enum.FormType;
+import com.symposiumhub.Enum.Sympoconstants;
+import com.symposiumhub.dto.SocialUser;
+import com.symposiumhub.model.Event;
+import com.symposiumhub.model.SymposiumRegistrationFieldsMongo;
+import com.symposiumhub.util.FileUtils;
 
+/**
+ * 
+ * @author manojramana
+ *commenting event controller migration from mongodb
+ */
 @Controller
 public class EventController {
-
+/*
 	@Autowired
 	private MongoTemplate mongoTemplate;
 	@Value("${imagepath}")
@@ -64,46 +67,16 @@ public class EventController {
 		if(!StringUtils.isEmpty(Url) && Url.equalsIgnoreCase("/post-a-symposium")){
 			model.addObject("type", Sympoconstants.symposium.name());
 		}
+		model.addObject("step1",true);
 		model.addObject("event",event);
 		 
 		return model;
 	}
-
-	@RequestMapping(value = { "/edit-a-conference/{eventId}" }, method = RequestMethod.GET)
-	public ModelAndView editAConference(@PathVariable String eventId,HttpServletRequest request) {
-		ModelAndView model = new ModelAndView();
-		
-		Event findById = mongoTemplate.findById(eventId, Event.class);
-		
-		SocialUser socialUser=(SocialUser)request.getSession().getAttribute("user");
-		if(socialUser!=null && findById!=null){
-		String eventUserId=findById.getUserId();
-	    String socialUserId=socialUser.getUserId();
-        if((!StringUtils.isEmpty(eventUserId)) && (!StringUtils.isEmpty(socialUserId)))
-        {
-        	if(eventUserId.equalsIgnoreCase(socialUserId)){
-        		model.setViewName("edit-conference");
-        	}
-        	else{
-        		model.setViewName("home");
-        	}
-        }
-		}
-		else{
-			model.setViewName("home");
-		}
-		model.addObject("eventDate",DateFormatUtils.format(findById.getDateOfEvent(), "dd/MM/yyyy") );
-		
-		model.addObject("event", findById);
-		 
-		return model;
-	
-	}
-	
-	@RequestMapping(value = { "/post-a-conference" }, method = RequestMethod.POST)
+    
+	@RequestMapping(value = { "/post-a-conference" ,"/conferenceStep2"}, method = RequestMethod.POST)
 	public ModelAndView saveAConference(Event event,HttpServletRequest request) {
 		
-		SocialUser user = (SocialUser)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		UserDetails user = (UserDetails)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 		
 		
 
@@ -125,10 +98,43 @@ public class EventController {
 		event.setFormType(FormType.defaultform.name());
 	
 		mongoTemplate.save(event);
-		
+		model.addObject("step2",true);
 		model.setViewName("redirect:/viewconference/" + id);
 		return model;
 	}
+	
+	@RequestMapping(value = { "/edit-a-conference/{eventId}" }, method = RequestMethod.GET)
+	public ModelAndView editAConference(@PathVariable String eventId,HttpServletRequest request) {
+		ModelAndView model = new ModelAndView();
+		
+		Event findById = mongoTemplate.findById(eventId, Event.class);
+		
+		UserDetails user = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		if(user!=null && findById!=null){
+		String eventUserId=findById.getUserId();
+	    String socialUserId=user.getUserId();
+        if((!StringUtils.isEmpty(eventUserId)) && (!StringUtils.isEmpty(socialUserId)))
+        {
+        	if(eventUserId.equalsIgnoreCase(socialUserId)){
+        		model.setViewName("edit-conference");
+        	}
+        	else{
+        		model.setViewName("home");
+        	}
+        }
+		}
+		else{
+			model.setViewName("home");
+		}
+		model.addObject("eventDate",DateFormatUtils.format(findById.getDateOfEvent(), "dd/MM/yyyy") );
+		
+		model.addObject("event", findById);
+		 
+		return model;
+	
+	}
+	
+	
 
 	@RequestMapping(value = { "/viewconference/{conferenceId}" }, method = RequestMethod.GET)
 	public ModelAndView viewAConference(@PathVariable String conferenceId,HttpServletRequest request ) {
@@ -281,11 +287,11 @@ public class EventController {
 			throws ServletException, IOException {
 		ModelAndView model = new ModelAndView();
 		model.addObject("title", "Login Page");
-		/**
+		*//**
 		 * model.addObject("symposiumname",
 		 * sympService.getSymposiumName(userid)); is used to get all the
 		 * symposium
-		 */
+		 *//*
 		Query query = new Query().with(new Sort(Sort.Direction.DESC, "dateOfEvent"));
 
 		model.addObject("conference", mongoTemplate.find(query, Event.class));
@@ -299,9 +305,9 @@ public class EventController {
     public ModelAndView multiLogin(@PathVariable String eventId,HttpServletRequest request, HttpServletResponse response) throws ServletException,IOException {
         ModelAndView model = new ModelAndView();
         model.addObject("title", "Login Page");
-        /**
+        *//**
          *   model.addObject("symposiumname", sympService.getSymposiumName(userid)); is used to get all the symposium
-         */
+         *//*
 
         model.addObject("eventregistration", new SymposiumRegistrationFieldsMongo() );
         Event findById = mongoTemplate.findById(eventId, Event.class);
@@ -315,9 +321,9 @@ public class EventController {
     public ModelAndView eventRegistrationField(SymposiumRegistrationFieldsMongo eventregistration,HttpServletRequest request, HttpServletResponse response) throws ServletException,IOException {
         ModelAndView model = new ModelAndView();
         model.addObject("title", "Login Page");
-        /**
+        *//**
          *   model.addObject("symposiumname", sympService.getSymposiumName(userid)); is used to get all the symposium
-         */
+         *//*
 
         mongoTemplate.save(eventregistration);
         
@@ -329,5 +335,5 @@ public class EventController {
        return model;
     }
     
-
+*/
 }

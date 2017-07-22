@@ -1,4 +1,4 @@
-package com.spring.security.social.login.example.util;
+package com.symposiumhub.util;
 
 import java.io.BufferedInputStream;
 import java.io.IOException;
@@ -192,6 +192,22 @@ public class EmailUtils {
 		}
 		
 	}
+	
+	public void sendForgetPasswordLink(String link){
+		this.from=getSender();
+		String subject=EmailTemplates.FORGOT_PASSWORD_SUBJECT;
+	    this.subject=subject;
+		setContent(EmailTemplates.FORGOT_PASSWORD);
+		String content=this.content;
+		content=subsituteVariable(content);
+		this.content=subsituteForgetPasswordLink(content, link);
+		boolean result=sendMail();
+		
+		if (result) {
+			logger.debug("email successfully sent ");
+		}
+		
+	}
 	public String subsituteVariable(String content) {
 
 		if (getSenderName().isEmpty()) {
@@ -210,6 +226,16 @@ public class EmailUtils {
 		
 		Map valuesMap = new HashMap<String, String>();
 		valuesMap.put("****", no);
+		StrSubstitutor sub = new StrSubstitutor(valuesMap);
+		String subString = sub.replace(content);
+		return subString;
+	}
+	
+public String subsituteForgetPasswordLink(String content,String link) {
+
+		
+		Map valuesMap = new HashMap<String, String>();
+		valuesMap.put("****", link);
 		StrSubstitutor sub = new StrSubstitutor(valuesMap);
 		String subString = sub.replace(content);
 		return subString;

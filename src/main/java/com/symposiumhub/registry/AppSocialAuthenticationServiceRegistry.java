@@ -1,4 +1,4 @@
-package com.spring.security.social.login.example.registry;
+package com.symposiumhub.registry;
 
 import java.util.List;
 

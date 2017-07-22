@@ -39,6 +39,12 @@
 <script src="/resources/dist/components/dropdown.min.js"></script>
 <script>
 
+function redirect(obj) {
+	var link = $(obj).attr("data-href");
+	var newlink = link.replace("''", "");
+	window.location.href = newlink;
+}
+
 $(document).on('click', '.order-button', function() { 
 	
 var obj=$(this);
@@ -133,7 +139,7 @@ $('.ui.dropdown')
 
   ga('create', 'UA-82396405-1', 'auto');
   ga('send', 'pageview');
-
+ 
 </script>
 
 

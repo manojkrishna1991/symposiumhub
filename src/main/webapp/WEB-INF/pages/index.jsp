@@ -10,7 +10,7 @@
 	content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
 
 <!-- Site Properties -->
-<title>SymposiumHub Dashboard</title>
+<title>Symposium Chat</title>
 <link rel="stylesheet" type="text/css"
 	href="<c:url value='/resources/dist/semantic.min.css' />">
 
@@ -61,7 +61,7 @@ body {
 	}
 
 	function connect() {
-		var socket = new SockJS("http://localhost:8080/hello");
+		var socket = new SockJS("<c:url value='/hello' />");
 		stompClient = Stomp.over(socket);
 		stompClient.connect({}, function(frame) {
 			setConnected(true);
@@ -80,16 +80,28 @@ body {
 		setConnected(false);
 		console.log("Disconnected");
 	}
+	
+	$("#name").on('keyup', function (e) {
+	    if (e.keyCode == 13) {
+	    	sendName();
+	    }
+	});
 
 	function sendName() {
 		var name = document.getElementById('name').value;
+		if(name==null || name==""){
+			alert("message cannot be empty");
+			return;
+		}
 		var roomName = "<c:out value='${roomName}' />";
 		var userName = "<c:out value='${userName}' />";
+		
 		stompClient.send('/app/hello', {}, JSON.stringify({
 			'roomName' : roomName,
 			'name' : name,
 			'userName' : userName
 		}));
+	   $("#name").val("");
 	}
 
 	function showGreeting(message,name) {
@@ -100,7 +112,7 @@ body {
 		
 		
 		
-		$( "#response" ).append("<p style=\"word-wrap: break-word;\"><b>"+name+"</b>:"+message+"</p>");
+		$( "#response" ).prepend("<p style=\"word-wrap: break-word;\"><b>"+name+"</b>:"+message+"</p>");
 	}
 
 	function addclass(obj) {
@@ -165,10 +177,10 @@ body {
 					<c:forEach var="users" items="${users}">
 
 					<div class="item">
-						<img class="ui avatar image" src="/images/avatar/small/helen.jpg" />
+						<img class="ui avatar image" src="${users.imageUrl}" />
 						<div class="content">
 							<div  onclick="addclass(this);"
-								class="username header" username="${users.getUsername()}">${users.getUsername()}</div>
+								class="username header" username="${users.name}">${users.name}</div>
 						</div>
 					</div>
 				</c:forEach>

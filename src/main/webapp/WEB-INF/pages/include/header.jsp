@@ -119,7 +119,7 @@ img[src="/resources/assets/images/2.gif"] {
 
 
 
-	<div class="ui container computer only grid ">
+	<div class="ui container computer tablet only grid ">
 		<div class="ui inverted vertical masthead center aligned segment">
 
 			<div class="ui fixed inverted  purple menu ">
@@ -131,25 +131,38 @@ img[src="/resources/assets/images/2.gif"] {
 							<i class="student icon"></i>SymposiumHub
 						</h1>
 
-					</a> <a href="/" data-url="/" class="item">Home</a>
-					<div class="ui dropdown item">
+					</a> <a href="/messages" data-url="/messages" class="item">Notes</a>
+					<div class="ui pointing dropdown item">
 
 						<div class="texts">View</div>
 
 						<div class="menu ">
-							<a href="/viewsymposium" data-url="/viewsymposium" class="item">Symposium</a>
-							<a href="/viewconference" data-url="/viewconference" class="item">Conference</a>
-							<a href="/review" data-url="/review" class="item">review</a>
+							<a href="/view-event/symposium" data-url="/view-event/symposium"
+								class="item">Symposium</a> <a href="/view-event/conference"
+								data-url="/view-event/conference" class="item">Conference</a> <a
+								href="/view-event/workshop" data-url="/view-event/workshop"
+								class="item">Workshop</a> <a href="/view-event/guest-lecture"
+								data-url="/view-event/guest-lecture" class="item">Guest
+								Lecture</a> <a href="/view-event/hackathon"
+								data-url="/view-event/hackathon" class="item">Hackathon</a> <a
+								href="/review" data-url="/review" class="item">review</a>
 						</div>
 
 					</div>
-					<div class="ui dropdown item">
+					<div class="ui pointing dropdown item">
 						<div class="texts">Post</div>
 
 						<div class="menu ">
 							<a href="/postmessage" data-url="/postmessage" class="item">Share
-								an update</a> <a href="/login" data-url="/symposium" class="item">Symposium</a>
-							<a href="/login" data-url="/post-a-conference" class="item">Conference</a>
+								an Note</a> <a href="/post-event/symposium"
+								data-url="/post-event/symposium" class="item">Symposium</a> <a
+								href="/post-event/conference" data-url="/post-event/conference"
+								class="item">Conference</a> <a href="/post-event/workshop"
+								data-url="/post-event/workshop" class="item">Workshop</a> <a
+								href="/post-event/guest-lecture"
+								data-url="/post-event/guest-lecture" class="item">Guest
+								Lecture</a> <a href="/post-event/Hackathon"
+								data-url="/post-event/Hackathon" class="item">Hackathon</a>
 
 						</div>
 
@@ -159,9 +172,9 @@ img[src="/resources/assets/images/2.gif"] {
 						<div class="texts">Friends</div>
 
 						<div class="menu ">
-							<a href="/login" data-url="/addfriends" class="item">AddFriends</a>
-							<a href="/login" data-url="/myfriends" class="item">MyFriends</a>
-							<a href="/login" data-url="/friendrequest" class="item">FriendRequest</a>
+							<a href="/addfriends" data-url="/addfriends" class="item">AddFriends</a>
+							<a href="/myfriends" data-url="/myfriends" class="item">MyFriends</a>
+							<a href="/friendrequest" data-url="/friendrequest" class="item">FriendRequest</a>
 						</div>
 
 					</div>
@@ -169,13 +182,14 @@ img[src="/resources/assets/images/2.gif"] {
 
 					<a href="/login" data-url="/dashboard" class="item">Login</a> <a
 						href="/signup" data-url="/dashboard" class="item">Register</a> <a
-						href="/login" data-url="/chat" class="item">Chat</a> <a
-						href="/login" data-url="/writereview" class="item">writeareview</a>
+						href="/chat" data-url="/chat" class="item">Chat</a> <a
+						href="/writereview" data-url="/writereview" class="item">writeareview</a>
 
 
-					<a href="/notification" data-url="/notification" class="item"> <i
-						class="alarm icon icon"></i>
-						<div style="top: 1em" class="floating ui teal circular label"> ${notification == null ? '0':notification} </div>
+					<a href="/notification" data-url="/notification" class="item">
+						<i class="alarm icon icon"></i>
+						<div style="top: 1em" class="floating ui teal circular label">
+							${notification == null ? '0':notification}</div>
 					</a>
 
 
@@ -183,99 +197,54 @@ img[src="/resources/assets/images/2.gif"] {
 			</div>
 		</div>
 	</div>
-	<div class="ui container tablet only grid">
-		<div class="ui fixed inverted menu ">
-			<div class="ui container">
-				<a href="/" class="header item" style="color: #00b5ad;">
-					<h1>
-						<i class="student icon"></i>SymposiumHub
-					</h1>
-				</a> 
-				<div class="ui dropdown item">
-					<div class="text">View</div>
-
-					<div class="menu ">
-						<a href="/viewsymposium" data-url="/viewsymposium" class="item">Symposium</a>
-						<a href="/viewconference" data-url="/viewconference" class="item">Conference</a>
-						<a href="/review" data-url="/review" class="item">review</a>
-
-					</div>
-
-				</div>
-				<div class="ui dropdown item">
-					<div class="text">Post</div>
-
-					<div class="menu ">
-						<a href="/postmessage" data-url="/postmessage" class="item">Share
-							an update</a> <a href="/login" data-url="/symposium" class="item">Symposium</a>
-						<a href="/login" data-url="/post-a-conference" class="item">Conference</a>
-
-					</div>
-
-				</div>
-
-				<div class="ui dropdown item">
-					<div class="texts">Friends</div>
-
-					<div class="menu ">
-						<a href="/login" data-url="/addfriends" class="item">AddFriends</a>
-						<a href="/login" data-url="/myfriends" class="item">MyFriends</a>
-						<a href="/login" data-url="/friendrequest" class="item">FriendRequest</a>
-					</div>
-
-				</div>
 
 
-				<a href="/login" data-url="/dashboard" class="item">Login</a> <a
-					href="/signup" data-url="/dashboard" class="item">Register</a>
-				<div class="ui dropdown item">
-					<div class="text">
-						<i class="setting icon"></i>
-					</div>
 
-					<div class="menu ">
-						<a href="/login" data-url="/chat" class="item">Chat</a> <a
-							href="/login" data-url="/writereview" class="item">writeareview</a>
-						<a href="/notification" data-url="/notification" class="item"><i
-							class="alarm icon icon"></i>
-							<span style="top: 1em" class=" ui teal circular label">${notification == null ? '0':notification} </span>
-						</a>
-					</div>
-				</div>
-
-
-			</div>
-		</div>
-	</div>
 	<div class="ui container mobile only grid">
-
-
 		<ul id="menu2" style="display: none;">
-			<li><a href="/" data-url="/" class="item">Home</a></li>
+			<li><a href="/messages" data-url="/messages" class="item">Notes</a></li>
 			<li>View
 				<ul>
-					<li><a href="/viewsymposium" data-url="/viewsymposium">Symposium</a></li>
-					<li><a href="/viewconference" data-url="/viewconference">Conference</a></li>
+					<li><a href="/view-event/symposium"
+						data-url="/view-event/symposium" class="item">Symposium</a></li>
+					<li><a href="/view-event/conference"
+						data-url="/view-event/conference" class="item">Conference</a></li>
 					<li><a href="/review" data-url="/review" class="item">review</a></li>
+					<li><a href="/view-event/workshop"
+						data-url="/view-event/workshop" class="item">Workshop</a></li>
+					<li><a href="/view-event/guest-lecture"
+						data-url="/view-event/guest-lecture" class="item">Guest
+							Lecture</a></li>
+					<li><a href="/view-event/hackathon"
+						data-url="/view-event/hackathon" class="item">Hackathon</a></li>
 				</ul>
 			</li>
 
 			<li>Post
 				<ul>
 					<li><a href="/postmessage" data-url="/postmessage"
-						class="item">Share an update</a></li>
-					<li><a href="/login" data-url="/symposium" class="item">Symposium</a></li>
-					<li><a href="/login" data-url="/post-a-conference"
-						class="item">Conference</a></li>
+						class="item">Share an Note</a></li>
+					<li><a href="/post-event/symposium"
+						data-url="/post-event/symposium" class="item">Symposium</a></li>
+					<li><a href="/post-event/conference"
+						data-url="/post-event/conference" class="item">Conference</a></li>
+					<li><a href="/post-event/workshop"
+						data-url="/post-event/workshop" class="item">Workshop</a></li>
+					<li><a href="/post-event/guest-lecture"
+						data-url="/post-event/guest-lecture" class="item">Guest
+							Lecture</a></li>
+					<li><a href="/post-event/Hackathon"
+						data-url="/post-event/Hackathon" class="item">Hackathon</a></li>
+
 				</ul>
 			</li>
 
 			<li>Friends
 
 				<ul>
-					<li><a href="/login" data-url="/addfriends" class="item">AddFriends</a></li>
-					<li><a href="/login" data-url="/myfriends" class="item">MyFriends</a></li>
-					<li><a href="/login" data-url="/friendrequest" class="item">FriendRequest</a></li>
+					<li><a href="/addfriends" data-url="/addfriends" class="item">AddFriends</a></li>
+					<li><a href="/myfriends" data-url="/myfriends" class="item">MyFriends</a></li>
+					<li><a href="/friendrequest" data-url="/friendrequest" class="item">FriendRequest</a></li>
 				</ul>
 
 			</li>
@@ -283,27 +252,41 @@ img[src="/resources/assets/images/2.gif"] {
 
 			<li><a href="/login" data-url="/dashboard" class="item">Login</a></li>
 			<li><a href="/signup" data-url="/dashboard" class="item">Register</a></li>
-			<li><a href="/login" data-url="/chat" class="item">Chat</a></li>
-			<li><a href="/login" data-url="/writereview" class="item">writeareview</a></li>
-			<li><a href="/notification" data-url="/notification" class="item"><i
-					class="alarm icon icon"></i><span class=" ui teal circular label">${notification == null ? '0':notification} </span></a></li>
+			<li><a href="/chat" data-url="/chat" class="item">Chat</a></li>
+			<li><a href="/writereview" data-url="/writereview" class="item">writeareview</a></li>
+			<li><a href="/notification" data-url="/notification"
+				class="item"><i class="alarm icon icon"></i><span
+					class=" ui teal circular label">${notification == null ? '0':notification}
+				</span></a></li>
 		</ul>
 
 
 	</div>
 </sec:authorize>
 
+
+
+
+
 <sec:authorize access="isAuthenticated()">
 
 
 	<div class="ui container mobile only grid">
 		<ul id="menu2" style="display: none;">
-			<li><a href="/" data-url="/" class="item">Home</a></li>
-			<li><a href="/profile" data-url="/profile" class="item">Profile</a></li>
+			<li><a href="/messages" data-url="/messages" class="item">Notes</a></li>
 			<li>View
 				<ul>
-					<li><a href="/viewsymposium" data-url="/viewsymposium">Symposium</a></li>
-					<li><a href="/viewconference" data-url="/viewconference">Conference</a></li>
+					<li><a href="/view-event/symposium"
+						data-url="/view-event/symposium" class="item">Symposium</a></li>
+					<li><a href="/view-event/conference"
+						data-url="/view-event/conference" class="item">Conference</a></li>
+					<li><a href="/view-event/workshop"
+						data-url="/view-event/workshop" class="item">Workshop</a></li>
+					<li><a href="/view-event/guest-lecture"
+						data-url="/view-event/guest-lecture" class="item">Guest
+							Lecture</a></li>
+					<li><a href="/view-event/hackathon"
+						data-url="/view-event/hackathon" class="item">Hackathon</a></li>
 					<li><a href="/review" data-url="/review" class="item">review</a></li>
 				</ul>
 			</li>
@@ -311,10 +294,18 @@ img[src="/resources/assets/images/2.gif"] {
 			<li>Post
 				<ul>
 					<li><a href="/postmessage" data-url="/postmessage"
-						class="item">Share an update</a></li>
-					<li><a href="/symposium" data-url="/symposium" class="item">Symposium</a></li>
-					<li><a href="/post-a-conference" data-url="/post-a-conference"
-						class="item">Conference</a></li>
+						class="item">Share an Note</a></li>
+					<li><a href="/post-event/symposium"
+						data-url="/post-event/symposium" class="item">Symposium</a></li>
+					<li><a href="/post-event/conference"
+						data-url="/post-event/conference" class="item">Conference</a></li>
+					<li><a href="/post-event/workshop"
+						data-url="/post-event/workshop" class="item">Workshop</a></li>
+					<li><a href="/post-event/guest-lecture"
+						data-url="/post-event/guest-lecture" class="item">Guest
+							Lecture</a></li>
+					<li><a href="/post-event/Hackathon"
+						data-url="/post-event/Hackathon" class="item">Hackathon</a></li>
 				</ul>
 			</li>
 
@@ -328,55 +319,65 @@ img[src="/resources/assets/images/2.gif"] {
 				</ul>
 
 			</li>
-
-			<li>Dashboard
-				<ul>
-					<li><a class="item" href="<c:url value="/dashboard" />">Symposium</a></li>
-					<li><a class="item" href="<c:url value="/dash" />">Conference</a></li>
-				</ul>
-			</li>
+			<li><a class="item" href="<c:url value="/dashboard" />">Dashboard</a></li>
+			<li><a href="/profile" data-url="/profile" class="item">Profile</a></li>
 			<li><a href="/chat" data-url="/chat" class="item">Chat</a></li>
 			<li><a href="/writereview" data-url="/writereview" class="item">writeareview</a>
 			<li>
-			<li><a href="/notification" data-url="/notification" class="item"><i
-					class="alarm icon icon"></i><span class=" ui teal circular label">${notification == null ? '0':notification} </span></a></li>
+			<li><a href="/notification" data-url="/notification"
+				class="item"><i class="alarm icon icon"></i><span
+					class=" ui teal circular label">${notification == null ? '0':notification}
+				</span></a></li>
 			<li><a class="item"
 				href="<c:url value="/j_spring_security_logout" />">Logout</a></li>
 		</ul>
 	</div>
 
 
-	<div class="ui container computer only grid">
+	<div class="ui container computer tablet only grid">
 		<div class="ui fixed inverted menu ">
 			<div class="ui container">
 				<a href="/" class="header item" style="color: #00b5ad;">
 					<h1>
 						<i class="student icon"></i>SymposiumHub
 					</h1>
-				</a> <a href="/" data-url="/" class="item">Home</a> <a href="/profile"
-					data-url="/profile" class="item">Profile</a>
-				<div class="ui dropdown item">
+				</a> <a href="/messages" data-url="/messages" class="item">Notes</a>
+				<div class="ui pointing dropdown item">
 					<div class="text">View</div>
 
 					<div class="menu ">
-						<a href="/viewsymposium" data-url="/viewsymposium" class="item">Symposium</a>
-						<a href="/viewconference" data-url="/viewconference" class="item">Conference</a>
-						<a href="/review" data-url="/review" class="item">review</a>
+						<a href="/view-event/symposium" data-url="/view-event/symposium"
+							class="item">Symposium</a> <a href="/view-event/conference"
+							data-url="/view-event/conference" class="item">Conference</a> <a
+							href="/view-event/workshop" data-url="/view-event/workshop"
+							class="item">Workshop</a> <a href="/view-event/guest-lecture"
+							data-url="/view-event/guest-lecture" class="item">Guest
+							Lecture</a> <a href="/view-event/hackathon"
+							data-url="/view-event/hackathon" class="item">Hackathon</a> <a
+							href="/review" data-url="/review" class="item">review</a>
 					</div>
 
 				</div>
-				<div class="ui dropdown item">
+				<div class="ui pointing dropdown item">
 					<div class="text">Post</div>
 
 					<div class="menu ">
 						<a href="/postmessage" data-url="/postmessage" class="item">Share
-							an update</a> <a href="/symposium" data-url="/symposium" class="item">Symposium</a>
-						<a href="/post-a-conference" data-url="/post-a-conference"
-							class="item">Conference</a>
+							an Note</a> 
+						<a href="/post-event/symposium" data-url="/post-event/symposium"
+							class="item">Symposium</a> <a href="/post-event/conference"
+							data-url="/post-event/conference" class="item">Conference</a><a
+							href="/post-event/workshop" data-url="/post-event/workshop"
+							class="item">Workshop</a> <a href="/post-event/guest-lecture"
+							data-url="/post-event/guest-lecture" class="item">Guest
+							Lecture</a> <a href="/post-event/Hackathon"
+							data-url="/post-event/Hackathon" class="item">Hackathon</a>
 
 					</div>
 
 				</div>
+
+				<a class="item" href="<c:url value="/dashboard" />">Dashboard</a>
 
 				<div class="ui dropdown item">
 					<div class="texts">Friends</div>
@@ -392,24 +393,12 @@ img[src="/resources/assets/images/2.gif"] {
 
 				<!-- <a href="/registrationfields"
 					data-url="/registrationfields" class=" item">Registration Form</a> -->
-				<div class="ui simple dropdown item">
+				<div class="ui  dropdown item">
 					<sec:authentication property="principal.username" />
 					<i class="dropdown icon"></i>
 					<div class="menu">
-
-
-
-						<div class="item">
-
-							<i class="dropdown icon"></i> Dashboard
-							<div class="menu">
-								<a class="item" href="<c:url value="/dashboard" />">Symposium</a>
-								<a class="item" href="<c:url value="/dash" />">Conference</a> <a
-									href="/review" data-url="/review" class="item">review</a>
-							</div>
-
-						</div>
-						<a class="item" href="<c:url value="/j_spring_security_logout" />">Logout</a>
+						<a href="/profile" data-url="/profile" class="item">Profile</a> <a
+							class="item" href="<c:url value="/j_spring_security_logout" />">Logout</a>
 					</div>
 
 				</div>
@@ -417,85 +406,14 @@ img[src="/resources/assets/images/2.gif"] {
 					href="/writereview" data-url="/writereview" class="item">writeareview</a>
 				<a href="/notification" data-url="/notification" class="item"><i
 					class="alarm icon icon"></i>
-				<div style="top: 1em" class="floating ui teal circular label">${notification == null ? '0':notification} </div></a>
+					<div style="top: 1em" class="floating ui teal circular label">${notification == null ? '0':notification}
+					</div></a>
 
 			</div>
 		</div>
 	</div>
 
-	<div class="ui container tablet only grid">
-		<div class="ui fixed inverted menu ">
-			<div class="ui container">
-				<a href="/" class="header item" style="color: #00b5ad;">
-					<h1>
-						<i class="student icon"></i>SymposiumHub
-					</h1>
-				</a> <a href="/" data-url="/" class="item">Home</a> <a href="/profile"
-					data-url="/profile" class="item">Profile</a>
-				<div class="ui dropdown item">
-					<div class="text">View</div>
 
-					<div class="menu ">
-						<a href="/viewsymposium" data-url="/viewsymposium" class="item">Symposium</a>
-						<a href="/viewconference" data-url="/viewconference" class="item">Conference</a>
-						<a href="/review" data-url="/review" class="item">review</a>
-					</div>
-
-				</div>
-
-				<div class="ui dropdown item">
-					<div class="text">Post</div>
-
-					<div class="menu ">
-						<a href="/postmessage" data-url="/postmessage" class="item">Share
-							an update</a> <a href="/symposium" data-url="/symposium" class="item">Symposium</a>
-						<a href="/post-a-conference" data-url="/post-a-conference"
-							class="item">Conference</a>
-					</div>
-
-				</div>
-
-				<div class="ui dropdown item">
-					<div class="texts">Friends</div>
-
-					<div class="menu ">
-						<a href="/addfriends" data-url="/addfriends" class="item">AddFriends</a>
-						<a href="/myfriends" data-url="/myfriends" class="item">MyFriends</a>
-						<a href="/friendrequest" data-url="/friendrequest" class="item">FriendRequest</a>
-					</div>
-
-				</div>
-
-				<!-- <a href="/registrationfields"
-					data-url="/registrationfields" class=" item">Registration Form</a> -->
-				<div class="ui simple dropdown item">
-					<sec:authentication property="principal.username" />
-					<i class="dropdown icon"></i>
-					<div class="menu">
-
-
-						<div class="item">
-							<i class="dropdown icon"></i> Dashboard
-							<div class="menu">
-								<a class="item" href="<c:url value="/dashboard" />">Symposium</a>
-								<a class="item" href="<c:url value="/dash" />">Conference</a>
-
-							</div>
-							<a class="item"
-								href="<c:url value="/j_spring_security_logout" />">Logout</a>
-
-						</div>
-						<a href="/chat" data-url="/chat" class="item">Chat</a> <a
-							href="/writereview" data-url="/writereview" class="item">writeareview</a>
-						<a href="/notification" data-url="/notification" class="item"><i
-							class="alarm icon icon"></i>
-						<div style="top: 1em" class="floating ui teal circular label">${notification == null ? '0':notification} </div></a>
-
-					</div>
-				</div>
-			</div>
-		</div>
-	</div>
 
 
 

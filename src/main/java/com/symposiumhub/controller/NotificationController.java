@@ -1,4 +1,4 @@
-package com.spring.security.social.login.example.controller;
+package com.symposiumhub.controller;
 
 import java.util.List;
 
@@ -14,10 +14,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.spring.security.social.login.example.database.model.Notification;
-import com.spring.security.social.login.example.database.model.Profile;
-import com.spring.security.social.login.example.datasource.NotificationComponent;
-import com.spring.security.social.login.example.datasource.ProfileComponent;
+import com.symposiumhub.datasource.NotificationComponent;
+import com.symposiumhub.datasource.ProfileComponent;
+import com.symposiumhub.model.Notification;
+import com.symposiumhub.model.Profile;
 
 @Controller
 public class NotificationController {

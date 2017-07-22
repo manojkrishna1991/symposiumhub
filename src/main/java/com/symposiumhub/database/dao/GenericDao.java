@@ -1,4 +1,4 @@
-package com.spring.security.social.login.example.database.dao;
+package com.symposiumhub.database.dao;
 
 import java.io.Serializable;
 import java.util.List;

@@ -8,8 +8,8 @@ import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;
 
-import com.spring.security.social.login.example.database.model.Role;
-import com.spring.security.social.login.example.database.model.User;
+import com.symposiumhub.model.Role;
+import com.symposiumhub.model.User;
 
 
 /**

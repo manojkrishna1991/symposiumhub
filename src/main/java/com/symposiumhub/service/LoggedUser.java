@@ -1,4 +1,4 @@
-package com.spring.security.social.login.example.service;
+package com.symposiumhub.service;
 
 import java.util.List;
 
@@ -8,19 +8,21 @@ import javax.servlet.http.HttpSessionBindingListener;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Component;
 
+import com.symposiumhub.model.User;
+
 @Component
 public class LoggedUser implements HttpSessionBindingListener {
  
-    private UserDetails user;
+    private User user;
     
     
     
  
-	public UserDetails getUser() {
+	public User getUser() {
 		return user;
 	}
 
-	public void setUser(UserDetails user) {
+	public void setUser(User user) {
 		this.user = user;
 	}
 
@@ -34,7 +36,7 @@ public class LoggedUser implements HttpSessionBindingListener {
 
 	private ActiveUserStore activeUserStore;
      
-    public LoggedUser(UserDetails user, ActiveUserStore activeUserStore) {
+    public LoggedUser(User user, ActiveUserStore activeUserStore) {
         this.user = user;
         this.activeUserStore = activeUserStore;
     }
@@ -43,7 +45,7 @@ public class LoggedUser implements HttpSessionBindingListener {
  
     @Override
     public void valueBound(HttpSessionBindingEvent event) {
-        List<UserDetails> users = activeUserStore.getUsers();
+        List<User> users = activeUserStore.getUsers();
         LoggedUser user = (LoggedUser) event.getValue();
         if (!users.contains(user.getUser())) {
             users.add(user.getUser());
@@ -52,10 +54,10 @@ public class LoggedUser implements HttpSessionBindingListener {
  
     @Override
     public void valueUnbound(HttpSessionBindingEvent event) {
-        List<UserDetails> users = activeUserStore.getUsers();
+        List<User> users = activeUserStore.getUsers();
         LoggedUser user = (LoggedUser) event.getValue();
-        if (users.contains(user.getUser())) {
-            users.remove(user.getUser());
+        if (user!=null && users.contains(user.getUser())) {
+        	users.remove(user.getUser());
         }
     }
  

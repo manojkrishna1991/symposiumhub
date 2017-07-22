@@ -1,4 +1,4 @@
-package com.spring.security.social.login.example.service;
+package com.symposiumhub.service;
 
 import javax.servlet.ServletContextEvent;
 import javax.servlet.ServletContextListener;
@@ -14,9 +14,9 @@ import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Component;
 import org.apache.log4j.Logger;
 
-import com.spring.security.social.login.example.Enum.CacheIdentifier;
-import com.spring.security.social.login.example.Enum.CacheNameEnum;
-import com.spring.security.social.login.example.database.dao.SymposiumDao;
+import com.symposiumhub.Enum.CacheIdentifier;
+import com.symposiumhub.Enum.CacheNameEnum;
+import com.symposiumhub.database.dao.SymposiumDao;
 
 @Component
 public class SympoCacheManager implements InitializingBean, ServletContextListener {

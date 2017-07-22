@@ -1,4 +1,4 @@
-package com.spring.security.social.login.example.dto;
+package com.symposiumhub.dto;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -7,12 +7,12 @@ import java.util.List;
 
 import org.springframework.web.multipart.MultipartFile;
 
-import com.spring.security.social.login.example.database.model.Coordinator;
-import com.spring.security.social.login.example.database.model.Papers;
-import com.spring.security.social.login.example.database.model.RegisterForASymposium;
-import com.spring.security.social.login.example.database.model.Symposium;
-import com.spring.security.social.login.example.database.model.SymposiumComment;
-import com.spring.security.social.login.example.database.model.SymposiumRegistrationFields;
+import com.symposiumhub.model.Coordinator;
+import com.symposiumhub.model.Papers;
+import com.symposiumhub.model.RegisterForASymposium;
+import com.symposiumhub.model.Symposium;
+import com.symposiumhub.model.SymposiumComment;
+import com.symposiumhub.model.SymposiumRegistrationFields;
 
 /**
  * 

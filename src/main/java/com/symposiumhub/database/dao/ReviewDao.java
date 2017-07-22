@@ -1,4 +1,4 @@
-package com.spring.security.social.login.example.database.dao;
+package com.symposiumhub.database.dao;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -15,8 +15,8 @@ import org.springframework.jdbc.core.simple.SimpleJdbcInsert;
 import org.springframework.orm.hibernate4.HibernateTemplate;
 import org.springframework.stereotype.Service;
 
-import com.spring.security.social.login.example.database.model.Profile;
-import com.spring.security.social.login.example.database.model.Review;
+import com.symposiumhub.model.Profile;
+import com.symposiumhub.model.Review;
 
 @Service
 public class ReviewDao {

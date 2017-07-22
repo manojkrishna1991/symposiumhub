@@ -1,4 +1,4 @@
-package com.spring.security.social.login.example.email;
+package com.symposiumhub.email;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -9,7 +9,7 @@ import java.util.concurrent.LinkedBlockingDeque;
 
 import org.springframework.stereotype.Component;
 
-import com.spring.security.social.login.example.util.EmailUtils;
+import com.symposiumhub.util.EmailUtils;
 
 @Component("emailQueue")
 public class EmailQueue {
@@ -44,6 +44,20 @@ public class EmailQueue {
 		 queueData.add(email);
 		 executorService.execute(new EmailConsumer());
 	 }
+	 
+	 public void sendResetPassword(String to,String userName,String forgetPasswordLink){
+		 EmailUtils email=new EmailUtils(null,to,null);
+		 email.setSenderName(userName);
+		 email.setType("reset");
+		 Map<String,String> paramters=new HashMap<>();
+		 paramters.put("link", forgetPasswordLink);
+		 email.setParameters(paramters);
+		 queueData.add(email);
+		 executorService.execute(new EmailConsumer());
+	 }
+	 
+	 
+	 
 	 public class EmailConsumer implements Runnable{
 
 		 
@@ -62,6 +76,12 @@ public class EmailQueue {
 		        		 String no=map.get("no");
 		        		 msg.sendSymposiumRegistrationEmail(no);
 		        	 }
+		        	 if(msg.getType().equals("reset")){
+		        		 Map<String,String> map=msg.getParameters();
+		        		 String link=map.get("link");
+		        		 msg.sendForgetPasswordLink(link);
+		        	 }
+		        	 
 		             
 		         }catch(InterruptedException e) {
 		             e.printStackTrace();

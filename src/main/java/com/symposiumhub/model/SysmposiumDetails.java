@@ -1,4 +1,4 @@
-package com.spring.security.social.login.example.database.model;
+package com.symposiumhub.model;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;

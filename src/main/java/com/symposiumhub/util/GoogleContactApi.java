@@ -1,4 +1,4 @@
-package com.spring.security.social.login.example.util;
+package com.symposiumhub.util;
 
 import java.io.IOException;
 import java.net.URL;
