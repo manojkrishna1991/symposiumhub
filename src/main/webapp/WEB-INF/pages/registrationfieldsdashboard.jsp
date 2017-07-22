@@ -83,7 +83,7 @@ body {
 					<i class="plus icon"></i>Add Field
 				</button>
 				<h1 style="text-align: center">Register For ${event.name}</h1>
-				<form class="ui form" id="" action="/dynamicRegistrationFormHandler"
+				<form class="ui form" id="dynamicForm" action="/dynamicRegistrationFormHandler"
 					method="get">
 
 					<c:forEach var="symposiumvar" items="${symposium}">
@@ -99,7 +99,7 @@ body {
 										data-value="${symposiumInfo.name}" class="edit icon"
 										style="display: none;"></i> <i style="display: none;"
 										class="trash outline icon" data-id="${symposiumInfo.id}"></i>
-									</label><input type="text" id="fname" name="${symposiumInfo.name}">
+									</label><input type="text" required="required" id="fname" name="${symposiumInfo.name}">
 								</div>
 							</c:if>
 							<c:if test="${symposiumInfo.type eq 'checkbox'}">
@@ -109,7 +109,7 @@ body {
 									</c:if>
 									<div class="field">
 										<div class="ui  checkbox">
-											<input type="checkbox" id="${symposiumInfo.id}id"
+											<input  type="checkbox" id="${symposiumInfo.id}id"
 												value="${symposiumInfo.name}" name="${symposiumvar.name}">
 
 											<label for="${symposiumInfo.id}id">${symposiumInfo.name}
@@ -167,7 +167,7 @@ body {
 										style="display: none;"></i> <i style="display: none;"
 										class="trash outline icon" data-id="${symposiumInfo.id}"></i>
 									</label>
-									<textarea id="fname" name="${symposiumInfo.name}"></textarea>
+									<textarea required="required" id="fname" name="${symposiumInfo.name}"></textarea>
 								</div>
 							</c:if>
 							<c:if test="${symposiumInfo.type eq 'dropdown'}">
@@ -179,7 +179,7 @@ body {
 										data-value="${symposiumInfo.name}" class="edit icon"
 										style="display: none;"></i> <i style="display: none;"
 										class="trash outline icon" data-id="${symposiumInfo.id}"></i>
-									</label><input type="text" id="fname" name="${symposiumInfo.name}">
+									</label><input required="required" type="text" id="fname" name="${symposiumInfo.name}">
 								</div>
 							</c:if>
 
@@ -212,14 +212,14 @@ body {
 									<option value="checkbox">Checkbox</option>
 									<option value="textbox">textbox</option>
 									<option value="radio">radio</option>
-									<option value="dropdown">dropdown</option>
-								</select>
+<!-- 									<option value="dropdown">dropdown</option>
+ -->								</select>
 
 							</div>
 							<input type="hidden" value="${eventId}" id="eventId"
 								name="eventId">
 
-							<button class="ui button" type="submit">Submit</button>
+							<button class="ui button"  type="submit">Submit</button>
 						</form>
 					</div>
 
@@ -277,7 +277,7 @@ body {
 							</div>
 							<input type="hidden" id="editid" name="id"> <input
 								type="hidden" id="eventId" name="eventId" value="${eventId}">
-							<button class="ui button" type="submit">Submit</button>
+							<button class="ui button"  type="submit">Submit</button>
 						</form>
 					</div>
 
