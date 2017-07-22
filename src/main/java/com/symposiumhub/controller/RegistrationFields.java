@@ -48,7 +48,7 @@ public class RegistrationFields {
 	private EventRepositoryComponent eventRepository;
 
 	/**
-	 * registration fields comment
+	 * registration fields comment 
 	 * @param request
 	 * @param response
 	 * @return
