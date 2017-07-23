@@ -169,6 +169,10 @@
 				
 			<security:intercept-url pattern="/review/**"
 			access="permitAll" />
+			<security:intercept-url pattern="/postemail"
+			access="permitAll" />
+			
+			
 
 		<security:intercept-url pattern="/**"
 			access="isAuthenticated()" />

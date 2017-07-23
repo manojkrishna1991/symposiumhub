@@ -14,7 +14,7 @@
 	content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
 
 <!-- Site Properties -->
-<title>Add Friends</title>
+<title>Freind Request</title>
 
 <link rel="stylesheet" type="text/css"
 	href="/resources/dist/semantic.min.css">
@@ -177,18 +177,17 @@ body {
 							<div class="content">
 								<div class="header">${profile.name}</div>
 								<div class="meta">
-									<a>Friends</a>
+									<a>${profile.gender}</a>
 								</div>
 								<div class="description">${profile.aboutMe}</div>
 								<a href="/friendrequestaccept/${profile.id}">
 								<div  style="margin:10px;" class="ui green bottom attached button">
-									<i class="add icon"></i> AcceptFriendRequest
+									<i class="add icon"></i> Accept
 								</div>
 								</a>
 							</div>
 							<div class="extra content">
-								<span class="right floated"> Joined in 2013 </span> <span>
-									<i class="user icon"></i> 75 Friends
+								<span class="right floated"> Joined in 2017 </span> <span>
 								</span>
 							</div>
 						</div>

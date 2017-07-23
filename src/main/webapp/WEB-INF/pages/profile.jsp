@@ -308,6 +308,21 @@ body {
 
 	<script>
 		$('.menu .item').tab();
+		
+		$(function() {
+
+			$('.ui.form').form({
+				fields : {
+					aboutMe : 'empty',
+					gender : 'empty',
+					place : 'empty',
+					photoFile : 'empty'
+				},
+				inline:true,
+				on:'blur'
+				
+			});
+		});
 	</script>
 
 </body>

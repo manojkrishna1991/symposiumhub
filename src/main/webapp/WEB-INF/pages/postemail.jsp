@@ -13,7 +13,7 @@
 	content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
 
 <!-- Site Properties -->
-<title>Dashboard</title>
+<title>post email</title>
 
 <link rel="stylesheet" type="text/css"
 	href="/resources/dist/semantic.min.css">
@@ -98,15 +98,11 @@ color:rgba(255,255,255,.9);
 	<%@ include file="include/header.jsp"%>
 
 	<div class="ui main text container">
-		
-		<c:if test="${ empty event}">
-
-			<div class="ui message" style="margin: auto;">
+		<div class="ui message" style="margin: auto;">
 				<div class="header">
 					Hi,
-					<sec:authentication property="principal.username" />
 				</div>
-				<p>You have not posted any events so far.</p>
+				<p>Start posting your events on Symposium Hub.It's just a few clicks away !!!</p>
 				<div class="fluid ui animated button brown" tabindex="0">
 					<div class="visible content">
 						<a href="/post-event/symposium">Post Symposium</a>
@@ -165,67 +161,10 @@ color:rgba(255,255,255,.9);
 				</div>
 
 			</div>
-		</c:if>
-		<c:if test="${not empty event}">
-		<div class="ui segment">
-          
-			<div class="ui  yellow message">
-				<i class="star icon"></i> Our new dashboard makes it easy To acess
-				all the events at one place
 			</div>
-		
 			
 			
-			
-			<div class="ui divided items">
-			
-			<c:forEach var="event" items="${event}">
-			
-			
-				<div class="item">
-					<a class="ui tiny image"> <img
-						src="/resources/assets/images/wireframe/image.png">
-					</a>
-					<div class="content">
-						<a class="header">${event.name}</a>
-						<div class="description">
-							<!-- <p>
-								Stevie Feliciano is a <a>library scientist</a> living in New
-								York City. She likes to spend her time reading, running, and
-								writing.
-							</p> -->
-						</div>
-						<div class="extra">
-							<a href="/registrations/${event.eventid}"  class="ui  primary button">
-								Registrations <i class="right chevron icon"></i>
-							</a>
-							<a  href="/event/${event.eventid}/${event.name}" class="ui  primary button">
-								View<i class="right chevron icon"></i>
-							</a>
-							<a href="/edit-event/${event.eventid}" class="ui  primary button">
-								Edit <i class="right chevron icon"></i>
-							</a>
-							
-								<a href="/registrationfields/${event.eventid}" class="ui  primary button">
-								Event Form<i class="right chevron icon"></i>
-							</a>
-						</div>
-					</div>
-				</div>
-			
-		</c:forEach>
-			</div>
-
-		</div>
-			</c:if>
-
-	</div>
-
-
-
-	
-
-	<script src="/resources/assets/library/jquery.min.js"></script>
+			<script src="/resources/assets/library/jquery.min.js"></script>
 	<script src="/resources/dist/components/tab.min.js">
 		
 	</script>
@@ -246,8 +185,6 @@ color:rgba(255,255,255,.9);
 		
 	</script>
 
-	<script src="/resources/dist/tag-it.js" type="text/javascript"
-		charset="utf-8"></script>
 
 	<script src="/resources/dist/components/form.min.js"></script>
 	<script src="/resources/dist/components/accordion.min.js">
@@ -278,3 +215,4 @@ color:rgba(255,255,255,.9);
 
 
 </html>
+			

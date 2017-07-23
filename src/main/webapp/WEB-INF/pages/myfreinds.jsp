@@ -181,7 +181,8 @@ body {
 								<div class="content">
 									<div class="header">${profile.name}</div>
 									<div class="meta">
-										<a>Friends</a>
+										<a>${profile.gender}</a>
+
 									</div>
 									<div class="description">${profile.aboutMe}</div>
 									<a href="/viewprofile/${profile.id}">
@@ -192,8 +193,7 @@ body {
 									</a>
 								</div>
 								<div class="extra content">
-									<span class="right floated"> Joined in 2013 </span> <span>
-										<i class="user icon"></i> 75 Friends
+									<span class="right floated"> Joined in 2017</span> <span>
 									</span>
 								</div>
 							</div>

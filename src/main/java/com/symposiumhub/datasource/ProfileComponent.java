@@ -37,7 +37,7 @@ public class ProfileComponent {
 	}
 
 	public void add(Profile profile) {
-		Map<String, Object> parameters = new HashMap<String, Object>(3);
+		Map<String, Object> parameters = new HashMap<>(3);
 		parameters.put("id", profile.getId());
 		parameters.put("aboutMe", profile.getAboutMe());
 		parameters.put("gender", profile.getGender());
@@ -59,7 +59,7 @@ public class ProfileComponent {
 	public List<Profile> getProfile(String userId) {
 
 		List<Profile> actors = this.jdbcTemplate.query(
-				"select id, aboutMe,gender,photo,place,userId from profile where userId=?  ", new Object[] { userId },
+				"select id, aboutMe,gender,photo,place,userId,name from profile p inner join user u on u.USER_ID=p.userId  where p.userId=?  ", new Object[] { userId },
 				new RowMapper<Profile>() {
 					public Profile mapRow(ResultSet rs, int rowNum) throws SQLException {
 						Profile profile = new Profile();
@@ -69,6 +69,7 @@ public class ProfileComponent {
 						profile.setPhoto(rs.getString("photo"));
 						profile.setPlace(rs.getString("place"));
 						profile.setUserId(rs.getString("userId"));
+						profile.setName(rs.getString("name"));
 						return profile;
 					}
 
@@ -79,7 +80,7 @@ public class ProfileComponent {
 	public List<Profile> getProfileByProfileId(Integer profileId) {
 
 		List<Profile> actors = this.jdbcTemplate.query(
-				"select p.id, aboutMe,gender,photo,place,p.userId,u.NAME from profile p,user u where id=? and p.userId=u.USER_ID  ",
+				"select p.id, aboutMe,gender,photo,place,p.userId,u.NAME from profile p inner join user u on u.USER_ID=p.userId  where id=?   ",
 				new Object[] { profileId }, new RowMapper<Profile>() {
 					public Profile mapRow(ResultSet rs, int rowNum) throws SQLException {
 						Profile profile = new Profile();
@@ -102,7 +103,7 @@ public class ProfileComponent {
 		StringBuilder stringBuilder = new StringBuilder();
 
 		stringBuilder.append(
-				"select id, aboutMe,gender,photo,place,userId from profile ps where ps.userId  !='" + userId + "' ");
+				"select id, aboutMe,gender,photo,place,userId,name from profile ps  inner join user u on u.USER_ID=ps.userId where ps.userId  !='" + userId + "' ");
 		stringBuilder.append("and  ps.id not in ( ");
 		stringBuilder.append("SELECT  P.id ");
 		stringBuilder.append("FROM profile P, friends F ");
@@ -123,6 +124,7 @@ public class ProfileComponent {
 				profile.setPhoto(rs.getString("photo"));
 				profile.setPlace(rs.getString("place"));
 				profile.setUserId(rs.getString("userId"));
+				profile.setName(rs.getString("name"));
 				return profile;
 			}
 
@@ -134,7 +136,7 @@ public class ProfileComponent {
 
 		StringBuilder stringBuilder = new StringBuilder();
 
-		stringBuilder.append("select P.id, aboutMe,gender,photo,place,userId from profile P, friends F ");
+		stringBuilder.append("select P.id, aboutMe,gender,photo,place,userId,name from profile P inner join user u on u.USER_ID=P.userId , friends F   ");
 		stringBuilder.append("WHERE ");
 		stringBuilder.append("CASE ");
 		stringBuilder.append("WHEN F.toprofileid =" + profileId + " ");
@@ -153,6 +155,8 @@ public class ProfileComponent {
 				profile.setPhoto(rs.getString("photo"));
 				profile.setPlace(rs.getString("place"));
 				profile.setUserId(rs.getString("userId"));
+				profile.setName(rs.getString("name"));
+
 				return profile;
 			}
 
@@ -178,7 +182,7 @@ public class ProfileComponent {
 
 		StringBuilder stringBuilder = new StringBuilder();
 
-		stringBuilder.append("select P.id, aboutMe,gender,photo,place,userId from profile P, friends F ");
+		stringBuilder.append("select P.id, aboutMe,gender,photo,place,userId,name from profile P inner join user u on u.USER_ID=P.userId, friends F  ");
 		stringBuilder.append("WHERE ");
 		stringBuilder.append("CASE ");
 		stringBuilder.append("WHEN F.fromprofileid=" + profileId + " ");
@@ -195,6 +199,8 @@ public class ProfileComponent {
 				profile.setPhoto(rs.getString("photo"));
 				profile.setPlace(rs.getString("place"));
 				profile.setUserId(rs.getString("userId"));
+				profile.setName(rs.getString("name"));
+
 				return profile;
 			}
 

@@ -137,35 +137,32 @@ body {
 	<div class="ui main  container">
 
 		<div class="ui segment">
-		
+
 			<c:if test="${ empty profiles}">
 				<div class="ui two column centered grid">
-				<div class="column">
-				<div class="row">
+					<div class="column">
+						<div class="row">
 
-					<div class="ui centered message " style="margin: 0;">
-						<div class="header">Activity</div>
-						<p>
-							No more Friends To add
-							<div style="text-align: center;padding: 10px;">
-							<a class="ui yellow button"
-								href="/writereview">Write A Review</a>
-								<a class="ui yellow button"
-								href="/chat">Chat</a>
+							<div class="ui centered message " style="margin: 0;">
+								<div class="header">Activity</div>
+								<p>No more Friends To add
+								<div style="text-align: center; padding: 10px;">
+									<a class="ui yellow button" href="/writereview">Write A
+										Review</a> <a class="ui yellow button" href="/chat">Chat</a>
 								</div>
-								
-								
-								</div>
-						</p>
-					</div>
-					</div>
-					</div>
-					</div>
 
-				</c:if>
-		
-				<div class="ui grid">
-		
+
+							</div>
+							</p>
+						</div>
+					</div>
+				</div>
+		</div>
+
+		</c:if>
+
+		<div class="ui grid">
+
 
 			<c:forEach var="profile" items="${profiles}">
 
@@ -175,37 +172,39 @@ body {
 					<div class="ui link cards">
 						<div class="card">
 							<div class="image">
-							   <c:if test="${ not empty profile.photo} }">
-							   
-								<img src="${profile.photo}">
+								<c:if test="${ not empty profile.photo} }">
+
+									<img src="${profile.photo}">
 								</c:if>
-								<img class="cardimage" style="width: 100%;" src="/resources/assets/images/wireframe/image.png">
+								<img class="cardimage" style="width: 100%;"
+									src="/resources/assets/images/wireframe/image.png">
 							</div>
 							<div class="content">
 								<div class="header">${profile.name}</div>
 								<div class="meta">
-									<a>Friends</a>
+									<a>${profile.gender}</a>
+
 								</div>
 								<div class="description">${profile.aboutMe}</div>
 								<a href="/addfriends/${profile.id}">
-								<div  style="margin:10px;" class="ui teal bottom attached button">
-									<i class="add icon"></i> Add Friend
-								</div>
+									<div style="margin: 10px;"
+										class="ui teal bottom attached button">
+										<i class="add icon"></i> Add Friend
+									</div>
 								</a>
 							</div>
 							<div class="extra content">
-								<span class="right floated"> Joined in 2013 </span> <span>
-									<i class="user icon"></i> 75 Friends
+								<span class="right floated"> Joined in 2017 </span> <span>
 								</span>
 							</div>
 						</div>
 					</div>
 				</div>
 			</c:forEach>
-			</div>
-
-
 		</div>
+
+
+	</div>
 
 
 	<script src="<c:url value='/resources/assets/library/jquery.min.js' />"></script>

@@ -324,12 +324,22 @@ public class GenericEventController extends BaseController {
 	public ModelAndView demoServiceMethod() {
 		ModelAndView model = new ModelAndView();
 		registrationScheduler.demoServiceMethod();
-		model.addObject("ttitle", "Event");
+		model.addObject("title", "Post Event");
 		List<GenericEvent> eventList = eventRepository.getAllEvent("symposium");
 		model.addObject("eventType", eventResolver("symposium"));
 		model.addObject("event", eventList);
 		model.setViewName("/post/view-all-event");
 		return model;
+	}
+	
+	@RequestMapping(value = "/postemail", method = RequestMethod.GET)
+	public ModelAndView renderPostForEmail() {
+		
+		ModelAndView model = new ModelAndView();
+		model.addObject("title", "Post Event");
+		model.setViewName("postemail");
+		return model;
+		
 	}
 
 	private String eventResolver(String event) {
@@ -414,5 +424,7 @@ public class GenericEventController extends BaseController {
 		}
 		return event;
 	}
+	
+	
 
 }

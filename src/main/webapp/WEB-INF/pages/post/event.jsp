@@ -227,10 +227,12 @@ body {
 					<p>&nbsp;</p>				
 					</textarea>
 							</div>
-
+						
 							<br> <input type="hidden" name="eventType"
 								value="${eventType}">
 							<button class="ui button green" type="submit">Submit</button>
+							<div class="ui error message"></div>
+							
 						</form>
 					</c:if>
 					<c:if test="${step2}">
@@ -353,7 +355,9 @@ body {
 	<script src="/resources/dist/components/accordion.min.js">
 		
 	</script>
-		<script src="/resources/dist/components/dropdown.min.js">
+	<script src="/resources/dist/components/transition.min.js"></script>
+	
+	<script src="/resources/dist/components/dropdown.min.js">
 		
 	</script>
 	<%@ include file="../include/footer.jsp"%>
@@ -372,8 +376,7 @@ body {
 				cphoneno : [ 'empty', 'number' ],
 				regEmail : 'empty'
 			},
-			inline : true,
-			on : 'blur'
+			
 		});
 		$("#datepicker").datepicker();
 	});
