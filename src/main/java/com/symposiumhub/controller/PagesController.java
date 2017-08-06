@@ -339,36 +339,36 @@ public class PagesController {
 
 		ModelAndView modelAndView = new ModelAndView();
 
-		Query query = new Query().with(new Sort(Sort.Direction.DESC, "dateOfEvent"));
-
-		query.limit(5);
-
-		modelAndView.addObject("conference", getEvents(EventTypes.conference.name()));
-
-		modelAndView.addObject("symposium", getEvents(EventTypes.symposium.name()));
-
-		modelAndView.addObject("workshop", getEvents(EventTypes.workshop.name()));
-
-		modelAndView.addObject("guestlecture", getEvents(BaseController.GUESTLECTUREURL));
-		modelAndView.addObject("hackathon", getEvents(EventTypes.hackathon.name()));
-		UserDetails user = null;
-
-		try {
-
-			user = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-		} catch (Exception e) {
-			logger.info(e.getMessage());
-		}
-
-		if (user != null) {
-			List<Profile> currentProfile = profile.getProfile(user.getUserId());
-
-			if (!currentProfile.isEmpty()) {
-				modelAndView.addObject("activity",
-						profile.getFreindsActivity(user.getUserId(), currentProfile.get(0).getId()));
-			}
-		}
-		modelAndView.setViewName("feed");
+//		Query query = new Query().with(new Sort(Sort.Direction.DESC, "dateOfEvent"));
+//
+//		query.limit(5);
+//
+//		modelAndView.addObject("conference", getEvents(EventTypes.conference.name()));
+//
+//		modelAndView.addObject("symposium", getEvents(EventTypes.symposium.name()));
+//
+//		modelAndView.addObject("workshop", getEvents(EventTypes.workshop.name()));
+//
+//		modelAndView.addObject("guestlecture", getEvents(BaseController.GUESTLECTUREURL));
+//		modelAndView.addObject("hackathon", getEvents(EventTypes.hackathon.name()));
+//		UserDetails user = null;
+//
+//		try {
+//
+//			user = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+//		} catch (Exception e) {
+//			logger.info(e.getMessage());
+//		}
+//
+//		if (user != null) {
+//			List<Profile> currentProfile = profile.getProfile(user.getUserId());
+//
+//			if (!currentProfile.isEmpty()) {
+//				modelAndView.addObject("activity",
+//						profile.getFreindsActivity(user.getUserId(), currentProfile.get(0).getId()));
+//			}
+//		}
+		modelAndView.setViewName("home");
 
 		return modelAndView;
 
@@ -397,7 +397,7 @@ public class PagesController {
 	public List<GenericEvent> getEvents(String eventType) {
 		List<GenericEvent> event = eventRepository.getAllEvent(eventType);
 		if (event.size() > 5) {
-			event = event.subList(1, 5);
+			event = event.subList(0, 4);
 		}
 		return event;
 	}

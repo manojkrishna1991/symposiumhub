@@ -41,8 +41,8 @@ import com.symposiumhub.datasource.EventRepositoryComponent;
 import com.symposiumhub.datasource.RegisterForEventComponent;
 import com.symposiumhub.model.GenericEvent;
 import com.symposiumhub.model.GenericEventRegistrationFields;
-import com.symposiumhub.model.Registration;
 import com.symposiumhub.service.RegistrationScheduler;
+import com.symposiumhub.service.UserService;
 import com.symposiumhub.util.FileUtils;
 
 /**
@@ -66,6 +66,8 @@ public class GenericEventController extends BaseController {
 	private RegistrationScheduler registrationScheduler;
 	@Autowired
 	private MongoTemplate mongoTemplate;
+	@Autowired
+	private UserService userService;
 
 	@Value("${imagepath}")
 	private String imagePath;
@@ -151,6 +153,12 @@ public class GenericEventController extends BaseController {
 			event.setCoordinatorsAsList(eventRepository.findCoordinatorById(Integer.parseInt(event.getEventid())));
 		}
 		model.addObject("event", event);
+		try{
+			model.addObject("user", userService.getUserById(event.getUserId()));
+
+		}catch(Exception e){
+			logger.warn(e.toString());
+		}
 		model.setViewName("/post/view-event");
 
 		return model;
@@ -332,7 +340,7 @@ public class GenericEventController extends BaseController {
 		return model;
 	}
 	
-	@RequestMapping(value = "/postemail", method = RequestMethod.GET)
+	@RequestMapping(value = {"/postemail","/selectEvent"}, method = RequestMethod.GET)
 	public ModelAndView renderPostForEmail() {
 		
 		ModelAndView model = new ModelAndView();

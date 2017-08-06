@@ -33,7 +33,7 @@ body {
 
 .main.container {
 	margin-top: 7em;
-	background: #ffffff;
+	
 }
 
 .wireframe {
@@ -63,10 +63,17 @@ body {
 </head>
 <body>
 	<%@ include file="include/header.jsp"%>
+	
 
+	<div class="ui  main container  one column ">
+		<div class="row">
+			<div class="column">
+				<h2 style="text-align: center; color: #1a653b">Login to Complete the action </h2>
+			</div>
+		</div>
+	</div>
 
-
-	<div class="ui main text container ">
+	<div class="ui  text container mtop30 " style="background: #ffffff;">
 
 		<div class="ui segment">
 			<c:if test="${message}">
