@@ -17,6 +17,8 @@
 <title>SymposiumHub List Of Symposium</title>
 <link rel="stylesheet" type="text/css"
 	href="<c:url value='/resources/dist/semantic.min.css' />">
+<link rel="stylesheet" type="text/css"
+	href="<c:url value='/resources/dist/common.css' />">
 
 <style type="text/css">
 body {
@@ -40,11 +42,7 @@ body {
 	padding: 5em 0em;
 }
 
-@media only screen and (max-width: 768px) {
-	.customheight {
-		height: 603px ! important;
-	}
-}
+
 </style>
 
 </head>
@@ -52,134 +50,112 @@ body {
 <body>
 
 	<%@ include file="include/header.jsp"%>
-	<div class="pusher customheight">
+	<div class="ui fluid main container ">
+		<div class="ui  container grid one column ">
+			<div class="row">
+				<div class="column">
+					<h2 style="text-align: center; color: #1a653b">Symposium Hub
+						is a great place to Organize your events</h2>
 
-
-
-		<div class="ui stackable two column grid" style="margin-top: 100px">
-
-			<div class="column centered">
-
-				<div class="ui message">
-
-					<div class="header">
-						<h1 style="text-align: center;">
-							<a href="/viewsymposium" style="color: #000000;"> Welcome to
-								SymposiumHub </a>
-						</h1>
-					</div>
-					<p style="text-align: center;">
-						<a href="/viewsymposium" style="text-decoration: none;"> Its
-							an Awesome Experience !!!!!</a>
-					</p>
-
-					<sec:authorize access="isAnonymous()">
-
-
-						<div style="text-align: center;">
-							<button type="button" data-url="/symposium"
-								class="ui primary button order-button home_button">
-								Post A Symposium</button>
-							<button type="button" data-url="/post-a-conference"
-								class="ui primary button order-button">Post A
-								Conference</button>
-						</div>
-					</sec:authorize>
-
-
-					<sec:authorize access="isAuthenticated()">
-
-
-						<div style="text-align: center;">
-							<a href="/symposium"><button type="button"
-									data-url="/symposium" class="ui primary button home_button">
-									Post A Symposium</button> </a> <a href="/post-a-conference"><button
-									type="button" data-url="/post-a-conference"
-									class="ui primary button order-button">Post A
-									Conference</button> </a>
-						</div>
-					</sec:authorize>
 				</div>
 			</div>
-
 		</div>
-		<c:if test="${empty authenticated}">
 
-			<div class="ui stackable grid">
-				<div class="fifteen wide column centered">
-					<div class="ui three steps" style="height: 300px;">
-						<div class="active step">
-							<i style="color: #00b5ad; font-size: 6.5em;"
-								class="write square icon"></i>
-							<div class="content">
-								<div style="" class="">Post Your Events</div>
-							</div>
-						</div>
-						<div class="active step">
-							<i style="color: #00b5ad; font-size: 6.5em;" class="users icon"></i>
-							<div class="content">
-								<div style="" class=" black">People Register For Events</div>
-							</div>
-						</div>
-						<div class="active step">
-							<i style="color: #00b5ad; font-size: 6.5em;"
-								class="dashboard icon"></i>
-							<div class="content">
-								<div style="" class="">Get Registrations On the Fly</div>
-							</div>
+
+
+
+
+
+		<div class="ui fluid mtop20 container custom-margin " style="margin-left: 0px !important;margin-right: 0px !important;">
+			<div class="ui segment two column grid stackable"
+				style="background: #eaf3ee ! important;">
+
+				<div class="row">
+					<div class=" column">
+
+						<h2 style="text-align: center; color: #1a653b">How it works
+							!!!!</h2>
+						<div style="position: relative; height: 0; padding-bottom: 56.25%">
+							<iframe src="https://www.youtube.com/embed/VHtPId-mzGI?ecver=2"
+								width="640" height="360" frameborder="0"
+								style="position: absolute; width: 100%; height: 100%; left: 0"
+								allowfullscreen></iframe>
 						</div>
 					</div>
-				</div>
-
-
-			</div>
-
-		</c:if>
-
-		<c:if test="${not empty authenticated}">
-
-
-
-			<div class="ui stackable sixteen column grid">
-				<div class="twelve wide column centered">
-					<div class="ui three steps" style="height: 300px;">
-						<div class="active step">
-							<i style="color: #00b5ad; font-size: 6.5em;"
-								class="write square icon"></i>
-							<div class="content">
-								<div style="color: #21ba45;" class="title">Post Your
-									Symposium</div>
-							</div>
+					<div class="column">
+						<h2 style="text-align: center; color: #1a653b">Why Use
+							SymposiumHub ?</h2>
+						<ul
+							style="line-height: 2; font-weight: normal; font-family: 'Lato', sans-serif; font-size: 18px;">
+							<li>Symposium Hub is a place where you can post your Events
+								on the fly</li>
+							<li>We have Dynamic Forms Integrated to our site where
+								everything is customizable and suites your Needs</li>
+							<li>Our Dynamic forms are even better than Google forms</li>
+							<li>Receive notifications for each participants
+								registrations.</li>
+							<li>Using Our unique Dash Board access all your Events in
+								one Place.</li>
+						</ul>
+						<div style="text-align: center;">
+							<a href="/selectEvent"><button class="ui green button"
+									style="font-size: 18px;">I Want To Post My Event >></button></a>
 						</div>
-						<div class="active step">
-							<i style="color: #00b5ad; font-size: 6.5em;" class="users icon"></i>
-							<div class="content">
-								<div style="color: #21ba45;" class="title">People Register
-									For Symposium</div>
-							</div>
-						</div>
-						<div class="active step">
-							<i style="color: #00b5ad; font-size: 6.5em;"
-								class="dashboard icon"></i>
-							<div class="content">
-								<div style="color: #21ba45;" class="title">Get
-									Registrations On the Fly in your Dashboard</div>
-							</div>
-						</div>
+
 					</div>
 				</div>
 			</div>
-
-
-		</c:if>
-
-
-
-
-
-
-
+		</div>
 	</div>
+
+
+	<div class="ui  container grid one column mtop30">
+		<div class="row">
+			<div class="column">
+				<h2 style="text-align: center; color: #1a653b">How Event
+					Registration Process Works</h2>
+
+			</div>
+		</div>
+	</div>
+
+	<div class="ui fluid container mtop30 " >
+		<div class="ui three steps stackable customheight">
+			<div class="active step">
+				<i style="color: #00b5ad; font-size: 6.5em;"
+					class="write square icon"></i>
+				<div class="content">
+					<div style="font-size: 18px;" class="">Post Your Events</div>
+				</div>
+			</div>
+			<div class="active step">
+				<i style="color: #00b5ad; font-size: 6.5em;" class="users icon"></i>
+				<div class="content">
+					<div style="font-size: 18px;" class=" black">People Register
+						For Events</div>
+				</div>
+			</div>
+			<div class="active step">
+				<i style="color: #00b5ad; font-size: 6.5em;" class="dashboard icon"></i>
+				<div class="content">
+					<div style="font-size: 18px;" class="">Get Registrations On
+						the Fly</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<div class="ui  container grid one column mtop30 text-center">
+		<div class="row">
+			<div class="column">
+				<a href="/selectEvent" class="positive massive ui button">I Want
+					To Post My Event</a>
+			</div>
+		</div>
+	</div>
+
+
+
 
 	<script src="/resources/assets/library/jquery.min.js"></script>
 	<script src="/resources/dist/components/dimmer.min.js"></script>
