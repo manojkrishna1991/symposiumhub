@@ -154,7 +154,7 @@ body {
 						<div class="ui bottom right attached label">
 							<a class="ui label"> <img
 								class="ui right spaced avatar image"
-								src="/images/avatar/small/elliot.jpg"> Posted by
+								src="/resources/assets/images/wireframe/image.png"> Posted by ${user.name}
 							</a>
 
 						</div>
