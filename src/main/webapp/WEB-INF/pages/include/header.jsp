@@ -14,6 +14,17 @@
 	.modalwidth {
 		width: 22% ! important;
 	}
+	.customheight {
+		height: 300px ! important;
+	}
+}
+
+@media only screen and (max-width: 768px) {
+	
+	.custom-margin {
+		margin-left: 0 !important;
+		margin-right: 0 !important
+	}
 }
 
 iv.alert, .ui.fixed.menu, .slicknav_menu {
