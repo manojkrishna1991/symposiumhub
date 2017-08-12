@@ -7,7 +7,6 @@
 
 	<!-- Ask Ehcache to store cache in this path -->
  	<!-- <diskStore path="/home/ubuntu/source/cache" /> -->
- 
  	<diskStore path="/Users/manojramana/cache" />
 
 	<!-- Sample cache named cache1

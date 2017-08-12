@@ -175,31 +175,32 @@ public class EventRepositoryComponent extends BaseRepositoryComponent {
 
 	public List<GenericEvent> getAllEvent(String eventType) {
 		final DateFormat inputFormat = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss.S");
-		String SqlQuery = "select eventid,name,dateOfEvent,department,organizationName from genericevent where eventType='"
+		String SqlQuery = "select eventid,name,dateOfEvent,department,organizationName,imageUrl from genericevent where eventType='"
 				+ eventType + "' order by dateofEvent DESC";
 		if ("all".equalsIgnoreCase(eventType)) {
-			SqlQuery = "select eventid,name,dateOfEvent,department,organizationName from genericevent  order by dateofEvent DESC";
+			SqlQuery = "select eventid,name,dateOfEvent,department,organizationName,imageUrl from genericevent  order by dateofEvent DESC";
 
 		}
-		List<GenericEvent> actors = this.jdbcTemplate.query(SqlQuery, new RowMapper<GenericEvent>() {
+		return this.jdbcTemplate.query(SqlQuery, new RowMapper<GenericEvent>() {
 			public GenericEvent mapRow(ResultSet rs, int rowNum) throws SQLException {
-				GenericEvent actor = new GenericEvent();
-				actor.setEventid(rs.getString(1));
-				actor.setName(rs.getString(2));
-				actor.setDepartment(rs.getString(4));
-				actor.setOrganizationName(rs.getString(5));
+				GenericEvent event = new GenericEvent();
+				event.setEventid(rs.getString(1));
+				event.setName(rs.getString(2));
+				event.setDepartment(rs.getString(4));
+				event.setOrganizationName(rs.getString(5));
+				event.setImageUrl(rs.getString(6));
+				
 				try {
 					Date date = inputFormat.parse(rs.getString(3));
-					actor.setDateOfEvent(date);
+					event.setDateOfEvent(date);
 				} catch (ParseException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
-				return actor;
+				return event;
 			}
 		});
 
-		return actors;
 	}
 
 	public List<GenericEvent> getEventByUserId(String Id) {

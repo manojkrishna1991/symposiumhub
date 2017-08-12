@@ -133,6 +133,8 @@
 		use-expressions="true" entry-point-ref="appAuthenticationEntryPoint">
 		<security:intercept-url pattern="/accessdenied"
 			access="permitAll" />
+		<security:intercept-url pattern="/favicon.ico**" access="permitAll" />
+			
 		<security:intercept-url pattern="/login**"
 			access="permitAll" />
 		<security:intercept-url pattern="/signup**"

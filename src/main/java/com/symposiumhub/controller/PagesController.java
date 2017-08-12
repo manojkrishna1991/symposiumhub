@@ -401,5 +401,10 @@ public class PagesController {
 		}
 		return event;
 	}
+	
+	 @RequestMapping("favicon.ico")
+     String favicon() {
+         return "forward:/resources/images/favicon.ico";
+     }
 
 }
