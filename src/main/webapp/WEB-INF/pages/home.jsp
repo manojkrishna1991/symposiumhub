@@ -12,9 +12,12 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
 <meta name="viewport"
 	content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+<meta name="description" content="symposiumhub,internatioanl conference,hackathon,workshop,guest lecture,hackathon,college reviews,college symposiums,symposiums in chennai">
+<meta name="keywords" content="symposiumhub ,symposiumhub  symposium 2010,college symposiums,college festivals,symposiums,technical events,college  symposiums,symposiums in chennai,symposiums 2016,symposiums 2017,hackathon,workshop,guest lecture,hackathon,college reviews">
+
 
 <!-- Site Properties -->
-<title>SymposiumHub List Of Symposium</title>
+<title>SymposiumHub</title>
 <link rel="stylesheet" type="text/css"
 	href="<c:url value='/resources/dist/semantic.min.css' />">
 <link rel="stylesheet" type="text/css"
