@@ -3,6 +3,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@ page import="org.apache.commons.lang.StringUtils"%>
+<%@ taglib uri = "http://java.sun.com/jsp/jstl/functions" prefix = "fn" %>
 
 
 <!DOCTYPE html>
@@ -82,7 +83,7 @@ body {
 			<c:forEach var="event" items="${event}">
 
 				<div style="cursor: pointer;" onclick="redirect(this)"
-					data-href="/event/${event.eventid}/${event.name}"
+					data-href="/event/${event.eventid}/${fn:replace(event.name, ' ', '-')}"
 					' class="sixteen wide mobile eight wide tablet four wide computer column">
 					<h4 class="ui dividing header">
 						Date of Event
