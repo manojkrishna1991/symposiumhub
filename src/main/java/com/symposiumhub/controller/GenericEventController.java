@@ -141,7 +141,8 @@ public class GenericEventController extends BaseController {
 	public ModelAndView viewSymposium(@PathVariable String eventId, @PathVariable String eventName,
 			HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		ModelAndView model = new ModelAndView();
-		model.addObject("title", "Event");
+		model.addObject("title",eventName);
+		
 		GenericEvent event = null;
 		if (!StringUtils.isEmpty(eventId)) {
 			event = eventRepository.findEventById(Integer.parseInt(eventId));
@@ -152,6 +153,8 @@ public class GenericEventController extends BaseController {
 		if (event.getEventid() != null) {
 			event.setCoordinatorsAsList(eventRepository.findCoordinatorById(Integer.parseInt(event.getEventid())));
 		}
+		String keyword=FileUtils.html2text(event.getContent());
+		model.addObject("keyword", keyword);
 		model.addObject("event", event);
 		try{
 			model.addObject("user", userService.getUserById(event.getUserId()));
@@ -320,7 +323,7 @@ public class GenericEventController extends BaseController {
 	@RequestMapping(value = "/view-event/{eventType}", method = RequestMethod.GET)
 	public ModelAndView viewWorkShop(@PathVariable String eventType) {
 		ModelAndView model = new ModelAndView();
-		model.addObject("ttitle", "Event");
+		model.addObject("title", eventType);
 		List<GenericEvent> eventList = eventRepository.getAllEvent(eventType);
 		model.addObject("eventType", eventResolver(eventType));
 		model.addObject("event", eventList);

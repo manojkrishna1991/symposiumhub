@@ -8,6 +8,7 @@ import net.coobird.thumbnailator.Thumbnails;
 import org.apache.commons.io.FilenameUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.jsoup.Jsoup;
 import org.springframework.util.StringUtils;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -117,5 +118,9 @@ public class FileUtils {
     	if(!largeFile.exists()){
     		largeFile.mkdir();
     	}
+    }
+    
+    public static String html2text(String html) {
+        return Jsoup.parse(html).text();
     }
 }
