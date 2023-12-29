@@ -1,5 +1,6 @@
 package com.symposiumhub.controller;
 
+import io.github.pixee.security.Filenames;
 import java.io.BufferedOutputStream;
 import java.io.File;
 import java.io.FileOutputStream;
@@ -383,7 +384,7 @@ public class GenericEventController extends BaseController {
 	private GenericEvent setEventPhoto(GenericEvent event) {
 		if (event.getFile() != null && !event.getFile().isEmpty()) {
 			MultipartFile file = event.getFile();
-			String filename = file.getOriginalFilename();
+			String filename = Filenames.toSimpleFileName(file.getOriginalFilename());
 			String id = UUID.randomUUID().toString();
 			String Imagedirectorypath = imagePath;
 			File Imagedirectory = new File(imagePath);

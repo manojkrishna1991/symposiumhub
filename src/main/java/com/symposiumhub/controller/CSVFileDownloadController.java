@@ -1,5 +1,6 @@
 package com.symposiumhub.controller;
 
+import io.github.pixee.security.Filenames;
 import java.awt.print.Book;
 import java.io.BufferedOutputStream;
 import java.io.File;
@@ -154,7 +155,7 @@ public class CSVFileDownloadController {
 
 			if (profile.getPhotoFile() != null) {
 				MultipartFile file = profile.getPhotoFile();
-				String filename = file.getOriginalFilename();
+				String filename = Filenames.toSimpleFileName(file.getOriginalFilename());
 				String id = UUID.randomUUID().toString();
 				String Imagedirectorypath = imagePath;
 				File Imagedirectory = new File(imagePath);

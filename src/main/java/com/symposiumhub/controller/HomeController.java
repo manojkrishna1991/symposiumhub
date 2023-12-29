@@ -1,5 +1,6 @@
 package com.symposiumhub.controller;
 
+import io.github.pixee.security.Filenames;
 import java.io.BufferedOutputStream;
 import java.io.File;
 import java.io.FileOutputStream;
@@ -291,7 +292,7 @@ public class HomeController {
     @RequestMapping(value="/upload1", method=RequestMethod.POST)
     public @ResponseBody String  imageUpload(@RequestParam("file")  MultipartFile file,@RequestParam("symposiumId")  String symposiumId,Model model,HttpServletRequest request) throws IOException {
 		
-			String filename = file.getOriginalFilename();
+			String filename = Filenames.toSimpleFileName(file.getOriginalFilename());
 			String id=UUID.randomUUID().toString();
 			String Imagedirectorypath=imagePath;
 			File Imagedirectory = new File(imagePath);
@@ -412,7 +413,7 @@ public class HomeController {
          Symposium symposium = new Symposium(symposiumDto);
          
          
-         String filename = file.getOriginalFilename();
+         String filename = Filenames.toSimpleFileName(file.getOriginalFilename());
 			String id=UUID.randomUUID().toString();
 			String Imagedirectorypath=filePath;
 			File Imagedirectory = new File(filePath);

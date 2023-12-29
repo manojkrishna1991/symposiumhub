@@ -1,5 +1,6 @@
 package com.symposiumhub.controller;
 
+import io.github.pixee.security.Filenames;
 import java.io.BufferedOutputStream;
 import java.io.File;
 import java.io.FileOutputStream;
@@ -206,7 +207,7 @@ public class ReviewController {
 
 		for (MultipartFile file : files) {
 
-			String filename = file.getOriginalFilename();
+			String filename = Filenames.toSimpleFileName(file.getOriginalFilename());
 			if (StringUtils.isEmpty(filename)) {
 				continue;
 			}
