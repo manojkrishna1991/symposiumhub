@@ -1,5 +1,6 @@
 package com.symposiumhub.controller;
 
+import io.github.pixee.security.Newlines;
 import java.awt.print.Book;
 import java.io.BufferedOutputStream;
 import java.io.File;
@@ -89,7 +90,7 @@ public class CSVFileDownloadController {
 		// creates mock data
 		String headerKey = "Content-Disposition";
 		String headerValue = String.format("attachment; filename=\"%s\"", csvFileName);
-		response.setHeader(headerKey, headerValue);
+		response.setHeader(headerKey, Newlines.stripAll(headerValue));
 
 		List<RegisterForASymposium> listsymposiumregistration = sympService.getSymposiumRegistrations(symposiumId);
 
