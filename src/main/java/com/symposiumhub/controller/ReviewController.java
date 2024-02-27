@@ -27,7 +27,9 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -64,7 +66,7 @@ public class ReviewController {
 
 	private static final Log logger = LogFactory.getLog(ReviewController.class);
 
-	@RequestMapping(value = "/page/{collegename}", method = RequestMethod.GET)
+	@GetMapping(value = "/page/{collegename}")
 	public ModelAndView profile(@PathVariable Integer collegename, Model model, HttpServletRequest request) {
 
 		UserDetails user = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
@@ -105,7 +107,7 @@ public class ReviewController {
 		return modelAndView;
 	}
 
-	@RequestMapping(value = { "/review/{start}" }, method = RequestMethod.GET)
+	@GetMapping(value = { "/review/{start}" })
 	public ModelAndView review(@PathVariable Integer start, Integer end, Model model, HttpServletRequest request) {
 
 		ModelAndView modelAndView = new ModelAndView();
@@ -123,13 +125,13 @@ public class ReviewController {
 		return modelAndView;
 	}
 
-	@RequestMapping(value = { "/review" }, method = RequestMethod.GET)
+	@GetMapping(value = { "/review" })
 	public ModelAndView review(Model model, HttpServletRequest request) {
 
 		return review(1, 0, model, request);
 	}
 
-	@RequestMapping(value = "/writereview", method = RequestMethod.GET)
+	@GetMapping(value = "/writereview")
 	public ModelAndView writeReview(Model model, HttpServletRequest request) {
 
 		UserDetails user = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
@@ -146,7 +148,7 @@ public class ReviewController {
 		return modelAndView;
 	}
 
-	@RequestMapping(value = "/writereview", method = RequestMethod.POST)
+	@PostMapping(value = "/writereview")
 	public ModelAndView writeReviewSave(Review review, Model model, HttpServletRequest request) {
 
 		UserDetails user = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
@@ -179,7 +181,7 @@ public class ReviewController {
 		return modelAndView;
 	}
 
-	@RequestMapping(value = { "/addPhoto/{id}" }, method = RequestMethod.GET)
+	@GetMapping(value = { "/addPhoto/{id}" })
 	public ModelAndView uploadphotos(@PathVariable Integer id) {
 		ModelAndView model = new ModelAndView();
 		model.setViewName("review-add-photo");
@@ -193,7 +195,7 @@ public class ReviewController {
 		return model;
 	}
 
-	@RequestMapping(value = "/addPhoto", method = RequestMethod.POST)
+	@PostMapping(value = "/addPhoto")
 	public ModelAndView imageUpload(@RequestParam("file") List<MultipartFile> files,
 			@RequestParam("collegeid") Integer collegeId, Model model, HttpServletRequest request) throws IOException {
 
@@ -277,7 +279,7 @@ public class ReviewController {
 		return models;
 	}
 
-	@RequestMapping(value = "/contact", method = RequestMethod.GET)
+	@GetMapping(value = "/contact")
 	public void review(String code, Model model, HttpServletRequest request, HttpServletResponse response)
 			throws IOException {
 

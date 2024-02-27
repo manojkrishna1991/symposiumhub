@@ -20,7 +20,9 @@ import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.data.mongodb.core.query.Update;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -55,7 +57,7 @@ public class RegistrationFields {
 	 * @throws ServletException
 	 * @throws IOException
 	 */
-	@RequestMapping(value = "/registrationfields/{eventId}", method = RequestMethod.GET)
+	@GetMapping(value = "/registrationfields/{eventId}")
 	public ModelAndView registrationFieldsDashboard(@PathVariable String eventId, HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
 		ModelAndView model = new ModelAndView();
@@ -83,7 +85,7 @@ public class RegistrationFields {
 	 * @throws ServletException
 	 * @throws IOException
 	 */
-	@RequestMapping(value = "/registrationfields", method = RequestMethod.POST)
+	@PostMapping(value = "/registrationfields")
 	public ModelAndView SaveregistrationFields(String fieldName,
 			String fieldType, String eventId,HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
@@ -123,7 +125,7 @@ public class RegistrationFields {
 	 * @throws ServletException
 	 * @throws IOException
 	 */
-	@RequestMapping(value = "/dynamicRegistrationFormHandler", method = RequestMethod.GET)
+	@GetMapping(value = "/dynamicRegistrationFormHandler")
 	public ModelAndView SaveRegistrationData(
 			Map<String, String> allRequestParams, HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
@@ -174,7 +176,7 @@ public class RegistrationFields {
 	 * @throws ServletException
 	 * @throws IOException
 	 */
-	@RequestMapping(value = "/addField", method = RequestMethod.POST)
+	@PostMapping(value = "/addField")
 	public @ResponseBody String AddField(@RequestBody AddField addField, HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
 
@@ -207,7 +209,7 @@ public class RegistrationFields {
 	 * @throws ServletException
 	 * @throws IOException
 	 */
-	@RequestMapping(value = "/editoption", method = RequestMethod.POST)
+	@PostMapping(value = "/editoption")
 	public ModelAndView editField(SymposiumFieldInfo symposiumFieldInfo,String eventId, HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
 		

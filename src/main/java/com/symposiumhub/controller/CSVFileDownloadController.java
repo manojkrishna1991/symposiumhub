@@ -28,7 +28,9 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.util.StringUtils;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.multipart.MultipartFile;
@@ -114,7 +116,7 @@ public class CSVFileDownloadController {
 		csvWriter.close();
 	}
 
-	@RequestMapping(value = "/profile", method = RequestMethod.GET)
+	@GetMapping(value = "/profile")
 	public ModelAndView profile(Model model, HttpServletRequest request) {
 
 		UserDetails user = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
@@ -135,7 +137,7 @@ public class CSVFileDownloadController {
 		return modelAndView;
 	}
 
-	@RequestMapping(value = "/profile", method = RequestMethod.POST)
+	@PostMapping(value = "/profile")
 	public ModelAndView profileSave(Profile profile, Model model, HttpServletRequest request) {
 
 		UserDetails user = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
@@ -224,7 +226,7 @@ public class CSVFileDownloadController {
 		return modelAndView;
 	}
 	
-	@RequestMapping(value = "/viewprofile/{profileId}", method = RequestMethod.GET)
+	@GetMapping(value = "/viewprofile/{profileId}")
 	public ModelAndView viewprofile(@PathVariable Integer profileId,Model model, HttpServletRequest request) {
 
 		UserDetails user = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();

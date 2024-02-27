@@ -12,6 +12,8 @@ import org.hibernate.Transaction;
 import org.hibernate.cfg.Configuration;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.symposiumhub.dto.LocalUser;
@@ -33,7 +35,7 @@ public class RegistrationController {
     @Autowired
 	private SymposiumServiceInterface  sympService;
 
-    @RequestMapping(value = "/signup", method = RequestMethod.GET)
+    @GetMapping(value = "/signup")
     public ModelAndView signup(HttpServletRequest request, HttpServletResponse response) throws ServletException,IOException {
         ModelAndView model = new ModelAndView();
         model.addObject("title", "User Registration Form");
@@ -41,7 +43,7 @@ public class RegistrationController {
         return model;
     }
 
-    @RequestMapping(value = {"/user/register"}, method = RequestMethod.POST)
+    @PostMapping(value = {"/user/register"})
     public @ResponseBody ModelAndView registerUser(UserRegistrationForm registrationForm,HttpServletRequest request,HttpServletResponse response) throws UserAlreadyExistAuthenticationException, IOException {
 
         if (registrationForm.getUserId() == null) {

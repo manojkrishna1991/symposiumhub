@@ -10,6 +10,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
@@ -28,7 +29,7 @@ public class NotificationController {
 	@Autowired
 	private ProfileComponent profileComponent;
 
-	@RequestMapping(value = "/notification", method = RequestMethod.GET)
+	@GetMapping(value = "/notification")
 	public ModelAndView review(Model model, HttpServletRequest request) {
 
 		UserDetails user = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();

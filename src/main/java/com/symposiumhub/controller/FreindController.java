@@ -10,7 +10,9 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
@@ -24,7 +26,7 @@ public class FreindController {
 	@Autowired
 	private ProfileComponent profile;
 
-	@RequestMapping(value = "/addfriends", method = RequestMethod.GET)
+	@GetMapping(value = "/addfriends")
 	public ModelAndView review(Model model, HttpServletRequest request) {
 
 		UserDetails user = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
@@ -45,7 +47,7 @@ public class FreindController {
 		return modelAndView;
 	}
 
-	@RequestMapping(value = "/addfriends/{profileid}", method = RequestMethod.GET)
+	@GetMapping(value = "/addfriends/{profileid}")
 	public ModelAndView addfreinds(@PathVariable Integer profileid, Model model, HttpServletRequest request) {
 		UserDetails user = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 		ModelAndView modelAndView = new ModelAndView();
@@ -57,7 +59,7 @@ public class FreindController {
 		return modelAndView;
 	}
 	
-	@RequestMapping(value = "/myfriends", method = RequestMethod.GET)
+	@GetMapping(value = "/myfriends")
 	public ModelAndView myfreinds(Model model, HttpServletRequest request) {
 		UserDetails user = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 		ModelAndView modelAndView = new ModelAndView();
@@ -72,7 +74,7 @@ public class FreindController {
 	}
 	
 	
-	@RequestMapping(value = "/friendrequest", method = RequestMethod.GET)
+	@GetMapping(value = "/friendrequest")
 	public ModelAndView freindrequest(Model model, HttpServletRequest request) {
 		UserDetails user = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 		ModelAndView modelAndView = new ModelAndView();
@@ -87,7 +89,7 @@ public class FreindController {
 	}
 	
 	
-	@RequestMapping(value = "/friendrequestaccept/{profileId}", method = RequestMethod.GET)
+	@GetMapping(value = "/friendrequestaccept/{profileId}")
 	public ModelAndView freindrequestaccept(@PathVariable Integer profileId, Model model, HttpServletRequest request) {
 		UserDetails user = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 		ModelAndView modelAndView = new ModelAndView();
@@ -100,7 +102,7 @@ public class FreindController {
 	}
 	
 	
-	@RequestMapping(value = "/postmessage", method = RequestMethod.GET)
+	@GetMapping(value = "/postmessage")
 	public ModelAndView postmessage(Model model, HttpServletRequest request) {
 		UserDetails user = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 		ModelAndView modelAndView = new ModelAndView();
@@ -111,7 +113,7 @@ public class FreindController {
 	
 	
 
-	@RequestMapping(value = "/postmessage", method = RequestMethod.POST)
+	@PostMapping(value = "/postmessage")
 	public ModelAndView postmessage(String message,Model model, HttpServletRequest request) {
 		UserDetails user = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 		ModelAndView modelAndView = new ModelAndView();

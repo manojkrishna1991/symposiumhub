@@ -27,7 +27,9 @@ import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.multipart.MultipartFile;
@@ -72,7 +74,7 @@ public class GenericEventController extends BaseController {
 	@Value("${imagepath}")
 	private String imagePath;
 
-	@RequestMapping(value = "/post-event/{eventType}", method = RequestMethod.GET)
+	@GetMapping(value = "/post-event/{eventType}")
 	public ModelAndView postWorkShop(@PathVariable String eventType, HttpServletRequest request, Principal pricipal)
 			throws ServletException, IOException {
 		ModelAndView model = new ModelAndView();
@@ -85,7 +87,7 @@ public class GenericEventController extends BaseController {
 		return model;
 	}
 
-	@RequestMapping(value = { "/post-event", "/step2" }, method = RequestMethod.POST)
+	@PostMapping(value = { "/post-event", "/step2" })
 	public ModelAndView step2(GenericEvent event, HttpServletRequest request, HttpServletResponse response,
 			Principal pricipal) throws ServletException, IOException {
 
@@ -120,7 +122,7 @@ public class GenericEventController extends BaseController {
 
 	}
 
-	@RequestMapping(value = "/success", method = RequestMethod.POST)
+	@PostMapping(value = "/success")
 	public ModelAndView stepSuccess(GenericEvent event, HttpServletRequest request, HttpServletResponse response,
 			Principal pricipal) throws ServletException, IOException {
 
@@ -137,7 +139,7 @@ public class GenericEventController extends BaseController {
 
 	}
 
-	@RequestMapping(value = "/event/{eventId}/{eventName}", method = RequestMethod.GET)
+	@GetMapping(value = "/event/{eventId}/{eventName}")
 	public ModelAndView viewSymposium(@PathVariable String eventId, @PathVariable String eventName,
 			HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		ModelAndView model = new ModelAndView();
@@ -167,7 +169,7 @@ public class GenericEventController extends BaseController {
 		return model;
 	}
 
-	@RequestMapping(value = "/edit-event/{eventId}", method = RequestMethod.GET)
+	@GetMapping(value = "/edit-event/{eventId}")
 	public ModelAndView editWorkShop(GenericEvent event, @PathVariable String eventId, HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
 		ModelAndView model = new ModelAndView();
@@ -193,7 +195,7 @@ public class GenericEventController extends BaseController {
 		return model;
 	}
 
-	@RequestMapping(value = "/saveEvent", method = RequestMethod.POST)
+	@PostMapping(value = "/saveEvent")
 	public ModelAndView saveWorkShop(String id, GenericEvent event, HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
 		ModelAndView model = new ModelAndView();
@@ -209,7 +211,7 @@ public class GenericEventController extends BaseController {
 		return model;
 	}
 
-	@RequestMapping(value = "/registerForEvent/{eventId}", method = RequestMethod.GET)
+	@GetMapping(value = "/registerForEvent/{eventId}")
 	public ModelAndView registerForEvent(@PathVariable String eventId, HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
 		ModelAndView model = new ModelAndView();
@@ -227,7 +229,7 @@ public class GenericEventController extends BaseController {
 	}
 	
 	
-	@RequestMapping(value = "/eventregistration", method = RequestMethod.POST)
+	@PostMapping(value = "/eventregistration")
 	public ModelAndView SaveRegistrationData(
 			Map<String, String> allRequestParams,String eventId, HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
@@ -264,7 +266,7 @@ public class GenericEventController extends BaseController {
 	}
 	
 	
-	@RequestMapping(value = "/registrations/{eventId}", method = RequestMethod.GET)
+	@GetMapping(value = "/registrations/{eventId}")
 	public ModelAndView eventRegistrations(@PathVariable Integer eventId,HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
 		UserDetails user = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
@@ -320,7 +322,7 @@ public class GenericEventController extends BaseController {
 //		return model;
 //	}
 
-	@RequestMapping(value = "/view-event/{eventType}", method = RequestMethod.GET)
+	@GetMapping(value = "/view-event/{eventType}")
 	public ModelAndView viewWorkShop(@PathVariable String eventType) {
 		ModelAndView model = new ModelAndView();
 		model.addObject("title", eventType);
@@ -331,7 +333,7 @@ public class GenericEventController extends BaseController {
 		return model;
 	}
 
-	@RequestMapping(value = "/demoServiceMethod", method = RequestMethod.GET)
+	@GetMapping(value = "/demoServiceMethod")
 	public ModelAndView demoServiceMethod() {
 		ModelAndView model = new ModelAndView();
 		registrationScheduler.demoServiceMethod();
@@ -343,7 +345,7 @@ public class GenericEventController extends BaseController {
 		return model;
 	}
 	
-	@RequestMapping(value = {"/postemail","/selectEvent"}, method = RequestMethod.GET)
+	@GetMapping(value = {"/postemail","/selectEvent"})
 	public ModelAndView renderPostForEmail() {
 		
 		ModelAndView model = new ModelAndView();

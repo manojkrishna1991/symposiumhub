@@ -26,9 +26,11 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.WebDataBinder;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -87,7 +89,7 @@ public class HomeController {
 	     binder.registerCustomEditor(Date.class, new CustomDateEditor(sdf, true));
 	 }
 	  
-    @RequestMapping(value = {"/symposiumstep1", "/symposium"}, method = RequestMethod.GET)
+    @GetMapping(value = {"/symposiumstep1", "/symposium"})
     public ModelAndView postSymposium(HttpServletRequest request,Principal pricipal) throws ServletException,IOException {
         ModelAndView model = new ModelAndView();
         model.addObject("title", "Login Page");
@@ -105,7 +107,7 @@ public class HomeController {
         }
         return model;
     }
-    @RequestMapping(value = "/symposiumstep2", method = RequestMethod.POST)
+    @PostMapping(value = "/symposiumstep2")
     public ModelAndView symposiumstep1(@ModelAttribute Symposium symposium,Principal pricipal,HttpServletRequest request) throws ServletException,IOException {
         ModelAndView model = new ModelAndView();
         model.addObject("symposium",symposium);
@@ -128,7 +130,7 @@ public class HomeController {
         }
         return model;
     }
-    @RequestMapping(value =  "/symposiumstep3", method = RequestMethod.POST)
+    @PostMapping(value =  "/symposiumstep3")
     public ModelAndView symposiumstep2(Symposium symposium,Principal pricipal,HttpServletRequest request) throws ServletException,IOException {
         ModelAndView model = new ModelAndView();
         model.addObject("symposium",symposium);
@@ -153,7 +155,7 @@ public class HomeController {
         return model;
     }
     
-    @RequestMapping(value = "/symposium", method = RequestMethod.POST)
+    @PostMapping(value = "/symposium")
     public ModelAndView symposiumstep3(Symposium symposium,HttpServletRequest request, HttpServletResponse response) throws ServletException,IOException {
         String userid=(String) request.getSession().getAttribute("userId");
         symposium.setUserId(userid);
@@ -206,7 +208,7 @@ public class HomeController {
 //        return model;
 //    }
 //    
-    @RequestMapping(value = "/symposiumview/{symposiumId}/{symposiumname}", method = RequestMethod.GET)
+    @GetMapping(value = "/symposiumview/{symposiumId}/{symposiumname}")
     public ModelAndView viewSymposium(@PathVariable String symposiumId,@PathVariable String symposiumname, HttpServletRequest request, HttpServletResponse response) throws ServletException,IOException {
         ModelAndView model = new ModelAndView();
         model.addObject("title", "Login Page");
@@ -225,7 +227,7 @@ public class HomeController {
         return model;
     }
     
-    @RequestMapping(value = "/registerforsymposium", method = RequestMethod.POST)
+    @PostMapping(value = "/registerforsymposium")
     public ModelAndView registerForSymposium(RegisterForASymposium  regsymposium, HttpServletRequest request, HttpServletResponse response) throws ServletException,IOException {
         ModelAndView model = new ModelAndView();
         model.addObject("title", "Login Page");
@@ -281,14 +283,14 @@ public class HomeController {
         return userName;
     }
 	
-    @RequestMapping(value = "/addcokieforredirection", method = RequestMethod.GET)
+    @GetMapping(value = "/addcokieforredirection")
     public void addcokkie(@RequestParam("redirecturl") String redirecturl,HttpServletRequest request, HttpServletResponse response) throws ServletException,IOException {
        
     	request.getSession().setAttribute("redirecturl",redirecturl);
     	
     }
     
-    @RequestMapping(value="/upload1", method=RequestMethod.POST)
+    @PostMapping(value="/upload1")
     public @ResponseBody String  imageUpload(@RequestParam("file")  MultipartFile file,@RequestParam("symposiumId")  String symposiumId,Model model,HttpServletRequest request) throws IOException {
 		
 			String filename = file.getOriginalFilename();
@@ -350,7 +352,7 @@ public class HomeController {
 	        return Linkpath;
     }
 	
-    @RequestMapping(value = "/subscribeemail", method = RequestMethod.POST)
+    @PostMapping(value = "/subscribeemail")
     @ResponseBody
     public String subscribeemail( Subscribe subscribe,HttpServletRequest request, HttpServletResponse response) throws ServletException,IOException {
        
@@ -361,7 +363,7 @@ public class HomeController {
     
     
 	//code to edit symposiums 
-    @RequestMapping(value = "/editsymposium/{symposiumId}", method = RequestMethod.GET)
+    @GetMapping(value = "/editsymposium/{symposiumId}")
     public ModelAndView editSymposium(@PathVariable String symposiumId,HttpServletRequest request, HttpServletResponse response) throws ServletException,IOException {
        
     	 ModelAndView model = new ModelAndView();
@@ -371,7 +373,7 @@ public class HomeController {
          return model;
     }
     
-    @RequestMapping(value = "/editsymposium", method = RequestMethod.POST)
+    @PostMapping(value = "/editsymposium")
     public ModelAndView editSymposium(Symposium symposium,HttpServletRequest request, HttpServletResponse response) throws ServletException,IOException {
         String userid=(String) request.getSession().getAttribute("userId");
         symposium.setUserId(userid);
@@ -398,7 +400,7 @@ public class HomeController {
         return model;
     }
 
-    @RequestMapping(value = "/uploadpapers", method = RequestMethod.POST)
+    @PostMapping(value = "/uploadpapers")
     public ModelAndView uploadpaper(@RequestParam("file")  MultipartFile file,HttpServletRequest request, HttpServletResponse response) throws ServletException,IOException {
     	String symposiumId=request.getParameter("paperid"); 
     	String userName=request.getParameter("username");
@@ -455,7 +457,7 @@ public class HomeController {
          return model;
     }
     
-    @RequestMapping(value = "/symposiumpapers/{symposiumId}", method = RequestMethod.GET)
+    @GetMapping(value = "/symposiumpapers/{symposiumId}")
     public ModelAndView viewPapers(@PathVariable String symposiumId,HttpServletRequest request, HttpServletResponse response) throws ServletException,IOException {
        
     	ModelAndView model = new ModelAndView();
@@ -472,7 +474,7 @@ public class HomeController {
         return model;
         
     }
-    @RequestMapping(value = "/postcomment", method = RequestMethod.POST)
+    @PostMapping(value = "/postcomment")
     public ModelAndView postComments(CommentsDto commentsDto,HttpServletRequest request, HttpServletResponse response) throws ServletException,IOException {
        
     	UserDetails socialUser=null;
@@ -500,7 +502,7 @@ public class HomeController {
     }
     
     
-    @RequestMapping(value = "/postreply", method = RequestMethod.POST)
+    @PostMapping(value = "/postreply")
     public ModelAndView postReply(SymposiumCommentsReplyDto symposiumCommentsReplyDto,HttpServletRequest request, HttpServletResponse response) throws ServletException,IOException {
        
     	UserDetails socialUser=null;

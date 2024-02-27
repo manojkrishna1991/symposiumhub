@@ -17,6 +17,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.util.StringUtils;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -44,7 +45,7 @@ public class DashboardController {
 	@Autowired
 	private RegisterForEventComponent registerForEventComponet;
 
-	@RequestMapping(value = "/dashboard", method = RequestMethod.GET)
+	@GetMapping(value = "/dashboard")
 	public ModelAndView registrationFieldsDashboard(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
 		UserDetails user = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();

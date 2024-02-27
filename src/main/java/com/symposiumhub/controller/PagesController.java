@@ -26,7 +26,9 @@ import org.springframework.security.core.session.SessionRegistry;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
@@ -86,7 +88,7 @@ public class PagesController {
 
 	private String forgetPasswordLink = "http://symposiumhub.com/resetpassword?activationKey=****&username=####";
 
-	@RequestMapping(value = "/aboutus", method = RequestMethod.GET)
+	@GetMapping(value = "/aboutus")
 	public ModelAndView home(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		ModelAndView model = new ModelAndView();
@@ -110,7 +112,7 @@ public class PagesController {
 		return model;
 	}
 
-	@RequestMapping(value = "/login", method = RequestMethod.GET)
+	@GetMapping(value = "/login")
 	public ModelAndView login(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		ModelAndView model = new ModelAndView();
@@ -119,7 +121,7 @@ public class PagesController {
 		return model;
 	}
 
-	@RequestMapping(value = "/forgotpassword", method = RequestMethod.GET)
+	@GetMapping(value = "/forgotpassword")
 	public ModelAndView forgotpassword(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		ModelAndView model = new ModelAndView();
@@ -128,7 +130,7 @@ public class PagesController {
 		return model;
 	}
 
-	@RequestMapping(value = "/forgotpassword", method = RequestMethod.POST)
+	@PostMapping(value = "/forgotpassword")
 	public ModelAndView sendForgotPassword(String userid, HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		ModelAndView model = new ModelAndView();
@@ -156,7 +158,7 @@ public class PagesController {
 		return model;
 	}
 
-	@RequestMapping(value = "/resetpassword", method = RequestMethod.GET)
+	@GetMapping(value = "/resetpassword")
 	public ModelAndView resetpassword(String activationKey, String username, HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
 		ModelAndView model = new ModelAndView();
@@ -189,7 +191,7 @@ public class PagesController {
 		return model;
 	}
 
-	@RequestMapping(value = "/resetpassword", method = RequestMethod.POST)
+	@PostMapping(value = "/resetpassword")
 	public ModelAndView saveresetpassword(String password, String userId, HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
 		ModelAndView model = new ModelAndView();
@@ -210,7 +212,7 @@ public class PagesController {
 		return model;
 	}
 
-	@RequestMapping(value = "/viewsymposium", method = RequestMethod.GET)
+	@GetMapping(value = "/viewsymposium")
 	public ModelAndView viewsymposium(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		ModelAndView model = new ModelAndView();
@@ -242,7 +244,7 @@ public class PagesController {
 		return model;
 	}
 
-	@RequestMapping(value = { "/userpage" }, method = RequestMethod.GET)
+	@GetMapping(value = { "/userpage" })
 	public ModelAndView userPage(HttpServletRequest request) {
 
 		ModelAndView model = new ModelAndView();
@@ -256,7 +258,7 @@ public class PagesController {
 		return model;
 	}
 
-	@RequestMapping(value = { "/accessdenied" }, method = RequestMethod.GET)
+	@GetMapping(value = { "/accessdenied" })
 	public ModelAndView accessDeniedPage() {
 		ModelAndView model = new ModelAndView();
 		model.addObject("message", "Either username or password is incorrect.");
@@ -279,7 +281,7 @@ public class PagesController {
 		return userName;
 	}
 
-	@RequestMapping(value = "/message/{roomName}", method = RequestMethod.GET)
+	@GetMapping(value = "/message/{roomName}")
 	public ModelAndView Message(@PathVariable String roomName, Model model, HttpServletRequest request) {
 
 		UserDetails user = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
@@ -325,7 +327,7 @@ public class PagesController {
 		greeting.afterTradeExecuted(message);
 	}
 
-	@RequestMapping(value = "/chat", method = RequestMethod.GET)
+	@GetMapping(value = "/chat")
 	public ModelAndView chatPage(Model model, HttpServletRequest request) {
 
 		ModelAndView modelAndView = new ModelAndView();
@@ -334,7 +336,7 @@ public class PagesController {
 
 	}
 
-	@RequestMapping(value = "/", method = RequestMethod.GET)
+	@GetMapping(value = "/")
 	public ModelAndView feed(Model model, HttpServletRequest request) {
 
 		ModelAndView modelAndView = new ModelAndView();
@@ -374,7 +376,7 @@ public class PagesController {
 
 	}
 
-	@RequestMapping(value = "/messages", method = RequestMethod.GET)
+	@GetMapping(value = "/messages")
 	public ModelAndView messages(Model model, HttpServletRequest request) {
 		ModelAndView modelAndView = new ModelAndView();
 		UserDetails user = null;
