@@ -68,15 +68,15 @@ public class EmailQueue {
 		             //consuming messages until exit message is received
 		        
 		        	 msg = queueData.take();
-		        	 if(msg.getType().equals("welcome")){
+		        	 if("welcome".equals(msg.getType())){
 		        	 msg.sendWelcomeEmail();
 		        	 }
-		        	 if(msg.getType().equals("symreg")){
+		        	 if("symreg".equals(msg.getType())){
 		        		 Map<String,String> map=msg.getParameters();
 		        		 String no=map.get("no");
 		        		 msg.sendSymposiumRegistrationEmail(no);
 		        	 }
-		        	 if(msg.getType().equals("reset")){
+		        	 if("reset".equals(msg.getType())){
 		        		 Map<String,String> map=msg.getParameters();
 		        		 String link=map.get("link");
 		        		 msg.sendForgetPasswordLink(link);

@@ -80,7 +80,7 @@ public class SympoCacheManager implements InitializingBean, ServletContextListen
 
 	public void refreshCache(String cacheType) {
 		try {
-			if (cacheType.equals("symposiumList")) {
+			if ("symposiumList".equals(cacheType)) {
 
 				Cache cacheObject = getCacheObject(CacheNameEnum.SymposiumCache.name());
 				cacheObject.remove(CacheIdentifier.SymposiumListVIewCache.name());

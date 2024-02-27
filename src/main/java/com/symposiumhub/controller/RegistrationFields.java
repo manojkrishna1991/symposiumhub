@@ -99,7 +99,7 @@ public class RegistrationFields {
 		info.setValidation("required");
 		SymposiumDynamicFormHandler dynaoForm = new SymposiumDynamicFormHandler();
 		dynaoForm.setSymposimuId(eventId);
-		if(fieldType.equalsIgnoreCase("checkbox") || fieldType.equalsIgnoreCase("radio")){
+		if("checkbox".equalsIgnoreCase(fieldType) || "radio".equalsIgnoreCase(fieldType)){
 			dynaoForm.setName(fieldName);
 		}
 		ArrayList<SymposiumFieldInfo> array = new ArrayList<>();
